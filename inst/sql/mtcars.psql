@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS mtcars;
+
+CREATE TABLE mtcars (
+  makeModel text NOT NULL,
+  mpg decimal(3,1),
+  cyl smallint,
+  disp decimal(4,1),
+  hp smallint,
+  drat decimal(3,2),
+  wt decimal(4,3),
+  qsec decimal(4,2),
+  vs smallint,
+  am smallint,
+  gear smallint,
+  carb smallint,
+CONSTRAINT mtcars_pk PRIMARY KEY (makeModel)
+);
