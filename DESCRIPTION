@@ -1,23 +1,27 @@
 Package: etl
 Type: Package
 Title: Extract-Transfer-Load framework for medium data
-Version: 0.1.0.9000
+Version: 0.1.0.9001
 Authors@R: as.person(c(
     "Ben Baumer <ben.baumer@gmail.com> [aut, cre]"
   ))
 Maintainer: Ben Baumer <ben.baumer@gmail.com>
-Description: More about what it does (maybe more than one line)
+Description: etl provides an S3 framework for loading medium-sized data from the
+  Internet to a local or remote relational database management system (RDBMS).
+  This package itself doesn't do much more that provide a toy example and set up
+  the method structure. Packages that depend on this package will facilitate
+  the construction and maintenance of their respective data bases.
 License: GPL
 LazyData: TRUE
 Imports:
   dplyr,
   DBI,
-  methods,
   stringr
 Depends:
   R (>= 2.10)
 Suggests:
   knitr,
+  methods,
   RPostgreSQL,
   RMySQL
 URL: http://github.com/beanumber/etl

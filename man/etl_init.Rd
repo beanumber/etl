@@ -5,26 +5,27 @@
 \alias{etl_init.default}
 \title{Initialize the DB with schema}
 \usage{
-etl_init(con, ...)
+etl_init(obj, ...)
 
-\method{etl_init}{default}(con, ...)
+\method{etl_init}{default}(obj, ...)
 }
 \arguments{
-\item{con}{a \code{\link[DBI]{DBIConnection-class}} object}
+\item{obj}{an \code{\link{etl}} object}
 
 \item{...}{arguments passed to methods}
 }
 \value{
-the result from \code{\link{dbRunScript}}
+the \code{\link{etl}} object
 }
 \description{
 Initialize the DB with schema
 }
 \examples{
 require(RPostgreSQL)
-# connect directly
-db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-etl_init(db)
+require(dplyr)
+db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+etl_cars <- etl_connect("mtcars", db)
+str(etl_cars)
 }
 \seealso{
 Other etl.functions: \code{\link{etl_cleanup}},

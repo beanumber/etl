@@ -3,24 +3,30 @@
 #' @inheritParams etl_init
 #' @export
 #' @importFrom DBI dbWriteTable
-#' @return result from \code{\link[DBI]{dbWriteTable}}
+#' @return the \code{\link{etl}} object
 #' @family etl functions
 #' @examples
 #'
 #' require(RPostgreSQL)
-#' # connect directly
-#' db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-#' etl_init(db)
-#' etl_push(db)
+#' require(dplyr)
+#' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+#' etl_cars <- etl_connect("mtcars", db)
+#' etl_cars %>%
+#'  etl_init() %>%
+#'  etl_scrape() %>%
+#'  etl_process() %>%
+#'  etl_push() %>%
+#'  str()
 #'
 
-etl_push <- function (con, dir, ...) UseMethod("etl_push")
+etl_push <- function(obj, ...) UseMethod("etl_push")
 
 #' @rdname etl_push
 #' @method etl_push default
 #' @export
 
-etl_push.default <- function (con, dir, ...) {
-  data <- read.csv(paste0(dir, "/mtcars.csv"))
-  dbWriteTable(con, "mtcars", value = data, row.names = TRUE, append = TRUE)
+etl_push.default <- function(obj, ...) {
+  data <- read.csv(paste0(obj$dir, "/mtcars.csv"))
+  obj$push <- dbWriteTable(obj$con, "mtcars", value = data, row.names = FALSE, append = TRUE)
+  return(obj)
 }

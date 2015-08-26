@@ -8,19 +8,21 @@
 #'
 #' require(RPostgreSQL)
 #' # connect directly
-#' db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-#' etl_init(db)
-#' etl_push(db)
-#' etl_cleanup(db)
+#' require(dplyr)
+#' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+#' etl_cars <- etl_connect("mtcars", db)
+#' etl_cars %>%
+#'  etl_create() %>%
+#'  etl_cleanup()
 #'
 
-etl_cleanup <- function (con, dir, ...) UseMethod("etl_cleanup")
+etl_cleanup <- function(obj, ...) UseMethod("etl_cleanup")
 
 #' @rdname etl_cleanup
 #' @method etl_cleanup default
 #' @export
 
-etl_cleanup.default <- function (con, dir, ...) {
+etl_cleanup.default <- function(obj, ...) {
   # delete files
   # run VACCUUM ANALYZE, etc.
 }

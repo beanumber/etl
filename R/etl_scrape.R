@@ -2,26 +2,33 @@
 #'
 #' @inheritParams etl_init
 #' @export
-#' @return a path to the directory
+#' @return the (possibly modified) \code{\link{etl}} object
 #' @family etl functions
 #' @examples
 #'
-#' etl_scrape(dir = "~/Desktop")
+#' require(RPostgreSQL)
+#' require(dplyr)
+#' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+#' etl_cars <- etl_connect("mtcars", db)
+#' etl_cars %>%
+#'  etl_init() %>%
+#'  etl_scrape() %>%
+#'  str()
 #'
 
-etl_scrape <- function (dir = tempdir(), ...) UseMethod("etl_scrape")
+etl_scrape <- function(obj, ...) UseMethod("etl_scrape")
 
 #' @rdname etl_scrape
 #' @method etl_scrape default
 #' @export
 
-etl_scrape.default <- function (dir = tempdir(), ...) {
-  if (!dir.exists(dir)) {
-    dir <- tempdir()
+etl_scrape.default <- function(obj, ...) {
+  if (!dir.exists(obj$dir)) {
+    obj$dir <- tempdir()
   }
-  filename <- paste0(dir, "/mtcars.csv")
+  filename <- paste0(obj$dir, "/mtcars.csv")
   write.csv(mtcars, file = filename)
-  return(dir(dir))
+  return(obj)
 }
 
 

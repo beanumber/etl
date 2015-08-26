@@ -7,19 +7,21 @@
 #' @examples
 #'
 #' require(RPostgreSQL)
-#' # connect directly
-#' db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-#' etl_create(db)
+#' require(dplyr)
+#' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+#' etl_cars <- etl_connect("mtcars", db)
+#' str(etl_create(etl_cars))
 #'
 
-etl_create <- function (con, ...) UseMethod("etl_create")
+etl_create <- function(obj, ...) UseMethod("etl_create")
 
 #' @rdname etl_create
 #' @method etl_create default
 #' @export
 
-etl_create.default <- function (con, ...) {
-  if (etl_init(con, ...)) {
-    etl_update(con, ...)
+etl_create.default <- function(obj, ...) {
+  if (is.null(obj$init)) {
+    obj <- etl_init(obj, ...)
   }
+  etl_update(obj, ...)
 }

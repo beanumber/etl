@@ -1,26 +1,28 @@
 #' @title Initialize the DB with schema
 #'
-#' @param con a \code{\link[DBI]{DBIConnection-class}} object
+#' @param obj an \code{\link{etl}} object
 #' @param ... arguments passed to methods
-#' @return the result from \code{\link{dbRunScript}}
+#' @return the \code{\link{etl}} object
 #' @family etl functions
 #' @export
 #' @examples
 #'
 #' require(RPostgreSQL)
-#' # connect directly
-#' db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-#' etl_init(db)
+#' require(dplyr)
+#' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+#' etl_cars <- etl_connect("mtcars", db)
+#' str(etl_cars)
 
-etl_init <- function (con, ...) UseMethod("etl_init")
+etl_init <- function(obj, ...) UseMethod("etl_init")
 
 #' @rdname etl_init
 #' @method etl_init default
 #' @export
 
-etl_init.default <- function (con, ...) {
+etl_init.default <- function(obj, ...) {
 #  sql <- system.file("inst", package = "etl")
-  dbRunScript(con, "~/Dropbox/lib/etl/inst/sql/mtcars.psql")
+  obj$init <- dbRunScript(obj$con, "~/Dropbox/lib/etl/inst/sql/mtcars.psql")
+  return(obj)
 }
 
 

@@ -5,9 +5,9 @@
 \alias{etl_connect.default}
 \title{Connect to a SQL database}
 \usage{
-etl_connect(x, db_con, ...)
+etl_connect(x, db_con, dir = tempdir(), ...)
 
-\method{etl_connect}{default}(x, db_con, ...)
+\method{etl_connect}{default}(x, db_con, dir = tempdir(), ...)
 }
 \arguments{
 \item{x}{the name of the package that you wish to populate}
@@ -15,7 +15,12 @@ etl_connect(x, db_con, ...)
 \item{db_con}{a \code{\link[dplyr]{src}} or
 \code{\link[DBI]{DBIConnection-class}} object}
 
+\item{dir}{a directory to store the raw data files}
+
 \item{...}{arguments passed to methods}
+}
+\value{
+an object of class \code{etl_*} and \code{\link{etl}}
 }
 \description{
 Connect to a SQL database
@@ -25,13 +30,14 @@ require(RPostgreSQL)
 
 # connect using dplyr
 require(dplyr)
-db <- src_postgres("airlines", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
+db <- src_postgres("mtcars", user = "postgres", password = "postgres",
+host = "localhost")
 etl_cars <- etl_connect("mtcars", db)
-class(etl_cars)
-etl_cars
+str(etl_cars)
 
 # connect using DBI
-con <- dbConnect(RPostgreSQL::PostgreSQL(), user = "postgres", password = "scem8467", host = "localhost", dbname = "airlines", port = 5433)
+con <- dbConnect(RPostgreSQL::PostgreSQL(), user = "postgres",
+password = "postgres", host = "localhost", dbname = "mtcars")
 etl_cars <- etl_connect("mtcars", db)
 }
 \seealso{

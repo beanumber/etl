@@ -5,12 +5,12 @@
 \alias{etl_cleanup.default}
 \title{Cleanup after data loaded into DB}
 \usage{
-etl_cleanup(con, dir, ...)
+etl_cleanup(obj, ...)
 
-\method{etl_cleanup}{default}(con, dir, ...)
+\method{etl_cleanup}{default}(obj, ...)
 }
 \arguments{
-\item{con}{a \code{\link[DBI]{DBIConnection-class}} object}
+\item{obj}{an \code{\link{etl}} object}
 
 \item{...}{arguments passed to methods}
 }
@@ -20,10 +20,12 @@ Cleanup after data loaded into DB
 \examples{
 require(RPostgreSQL)
 # connect directly
-db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-etl_init(db)
-etl_push(db)
-etl_cleanup(db)
+require(dplyr)
+db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+etl_cars <- etl_connect("mtcars", db)
+etl_cars \%>\%
+ etl_create() \%>\%
+ etl_cleanup()
 }
 \seealso{
 Other etl.functions: \code{\link{etl_connect}},

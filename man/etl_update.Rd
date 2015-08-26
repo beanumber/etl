@@ -5,12 +5,12 @@
 \alias{etl_update.default}
 \title{Update an existing DB}
 \usage{
-etl_update(con, ...)
+etl_update(obj, ...)
 
-\method{etl_update}{default}(con, ...)
+\method{etl_update}{default}(obj, ...)
 }
 \arguments{
-\item{con}{a \code{\link[DBI]{DBIConnection-class}} object}
+\item{obj}{an \code{\link{etl}} object}
 
 \item{...}{arguments passed to methods}
 }
@@ -19,9 +19,13 @@ Update an existing DB
 }
 \examples{
 require(RPostgreSQL)
-# connect directly
-db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-etl_update(db)
+require(dplyr)
+db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+etl_cars <- etl_connect("mtcars", db)
+etl_cars \%>\%
+ etl_init() \%>\%
+ etl_update() \%>\%
+ str()
 }
 \seealso{
 Other etl.functions: \code{\link{etl_cleanup}},

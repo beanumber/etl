@@ -5,12 +5,12 @@
 \alias{etl_create.default}
 \title{Create and populate a database from an online source}
 \usage{
-etl_create(con, ...)
+etl_create(obj, ...)
 
-\method{etl_create}{default}(con, ...)
+\method{etl_create}{default}(obj, ...)
 }
 \arguments{
-\item{con}{a \code{\link[DBI]{DBIConnection-class}} object}
+\item{obj}{an \code{\link{etl}} object}
 
 \item{...}{arguments passed to methods}
 }
@@ -22,9 +22,10 @@ Create and populate a database from an online source
 }
 \examples{
 require(RPostgreSQL)
-# connect directly
-db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-etl_create(db)
+require(dplyr)
+db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+etl_cars <- etl_connect("mtcars", db)
+str(etl_create(etl_cars))
 }
 \seealso{
 Other etl.functions: \code{\link{etl_cleanup}},

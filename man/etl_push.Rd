@@ -5,27 +5,32 @@
 \alias{etl_push.default}
 \title{Push data to the DB}
 \usage{
-etl_push(con, dir, ...)
+etl_push(obj, ...)
 
-\method{etl_push}{default}(con, dir, ...)
+\method{etl_push}{default}(obj, ...)
 }
 \arguments{
-\item{con}{a \code{\link[DBI]{DBIConnection-class}} object}
+\item{obj}{an \code{\link{etl}} object}
 
 \item{...}{arguments passed to methods}
 }
 \value{
-result from \code{\link[DBI]{dbWriteTable}}
+the \code{\link{etl}} object
 }
 \description{
 Push data to the DB
 }
 \examples{
 require(RPostgreSQL)
-# connect directly
-db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-etl_init(db)
-etl_push(db)
+require(dplyr)
+db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+etl_cars <- etl_connect("mtcars", db)
+etl_cars \%>\%
+ etl_init() \%>\%
+ etl_scrape() \%>\%
+ etl_process() \%>\%
+ etl_push() \%>\%
+ str()
 }
 \seealso{
 Other etl.functions: \code{\link{etl_cleanup}},

@@ -5,21 +5,30 @@
 \alias{etl_scrape.default}
 \title{Scrape data from an online source}
 \usage{
-etl_scrape(dir = tempdir(), ...)
+etl_scrape(obj, ...)
 
-\method{etl_scrape}{default}(dir = tempdir(), ...)
+\method{etl_scrape}{default}(obj, ...)
 }
 \arguments{
+\item{obj}{an \code{\link{etl}} object}
+
 \item{...}{arguments passed to methods}
 }
 \value{
-a path to the directory
+the (possibly modified) \code{\link{etl}} object
 }
 \description{
 Scrape data from an online source
 }
 \examples{
-etl_scrape(dir = "~/Desktop")
+require(RPostgreSQL)
+require(dplyr)
+db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+etl_cars <- etl_connect("mtcars", db)
+etl_cars \%>\%
+ etl_init() \%>\%
+ etl_scrape() \%>\%
+ str()
 }
 \seealso{
 Other etl.functions: \code{\link{etl_cleanup}},

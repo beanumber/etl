@@ -6,21 +6,29 @@
 #' @examples
 #'
 #' require(RPostgreSQL)
-#' # connect directly
-#' db <- etl_connect("mtcars", user = "postgres", password = "scem8467", host = "localhost", port = 5433)
-#' etl_update(db)
-#'
+#' require(dplyr)
+#' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+#' etl_cars <- etl_connect("mtcars", db)
+#' etl_cars %>%
+#'  etl_init() %>%
+#'  etl_update() %>%
+#'  str()
 
-etl_update <- function (con, ...) UseMethod("etl_update")
+etl_update <- function(obj, ...) UseMethod("etl_update")
 
 #' @rdname etl_update
 #' @method etl_update default
 #' @export
 
-etl_update.default <- function (con, ...) {
-  dir <- etl_scrape(con, ...)
-  dir <- etl_process(dir, ...)
-  if (etl_push(con, dir, ...)) {
-    etl_cleanup(con, dir, ...)
+etl_update.default <- function(obj, ...) {
+  obj <- obj %>%
+    etl_scrape(...) %>%
+    etl_process(...) %>%
+    etl_push(...)
+  if (obj$push) {
+    etl_cleanup(obj, ...)
+  } else {
+    stop("Unable to push data to the database.")
   }
+  return(obj)
 }

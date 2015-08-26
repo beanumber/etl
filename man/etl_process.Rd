@@ -5,23 +5,30 @@
 \alias{etl_process.default}
 \title{Process raw data into a format suitable for DB insert}
 \usage{
-etl_process(dir, ...)
+etl_process(obj, ...)
 
-\method{etl_process}{default}(dir, ...)
+\method{etl_process}{default}(obj, ...)
 }
 \arguments{
+\item{obj}{an \code{\link{etl}} object}
+
 \item{...}{arguments passed to methods}
 }
 \value{
-a path to the directory
+the \code{\link{etl}} object
 }
 \description{
 Process raw data into a format suitable for DB insert
 }
 \examples{
-myDir <- "~/Desktop"
-etl_scrape(dir = myDir)
-etl_process()
+require(RPostgreSQL)
+require(dplyr)
+db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+etl_cars <- etl_connect("mtcars", db)
+etl_cars \%>\%
+ etl_scrape() \%>\%
+ etl_process() \%>\%
+ str()
 }
 \seealso{
 etl_init
