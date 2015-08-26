@@ -12,8 +12,8 @@
 #' @importFrom DBI dbConnect
 #' @examples
 #'
+#' \dontrun{
 #' require(RPostgreSQL)
-#'
 #' # connect using dplyr
 #' require(dplyr)
 #' db <- src_postgres("mtcars", user = "postgres", password = "postgres",
@@ -25,7 +25,7 @@
 #' con <- dbConnect(RPostgreSQL::PostgreSQL(), user = "postgres",
 #' password = "postgres", host = "localhost", dbname = "mtcars")
 #' etl_cars <- etl_connect("mtcars", db)
-#'
+#' }
 
 etl_connect <- function(x, db_con, dir = tempdir(), ...) UseMethod("etl_connect")
 

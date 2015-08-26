@@ -3,11 +3,14 @@
 \name{etl_cleanup}
 \alias{etl_cleanup}
 \alias{etl_cleanup.default}
+\alias{etl_cleanup.etl_mtcars}
 \title{Cleanup after data loaded into DB}
 \usage{
 etl_cleanup(obj, ...)
 
 \method{etl_cleanup}{default}(obj, ...)
+
+\method{etl_cleanup}{etl_mtcars}(obj, ...)
 }
 \arguments{
 \item{obj}{an \code{\link{etl}} object}
@@ -18,6 +21,7 @@ etl_cleanup(obj, ...)
 Cleanup after data loaded into DB
 }
 \examples{
+\dontrun{
 require(RPostgreSQL)
 # connect directly
 require(dplyr)
@@ -28,17 +32,22 @@ etl_cars \%>\%
  etl_cleanup() \%>\%
  str()
 }
+}
 \seealso{
 Other etl.functions: \code{\link{etl_connect}},
   \code{\link{etl_connect.default}};
   \code{\link{etl_create}},
   \code{\link{etl_create.default}}; \code{\link{etl_init}},
-  \code{\link{etl_init.default}};
+  \code{\link{etl_init.default}},
+  \code{\link{etl_init.etl_mtcars}};
   \code{\link{etl_process}},
-  \code{\link{etl_process.default}};
-  \code{\link{etl_push}}, \code{\link{etl_push.default}};
+  \code{\link{etl_process.default}},
+  \code{\link{etl_process.etl_mtcars}};
+  \code{\link{etl_push}}, \code{\link{etl_push.default}},
+  \code{\link{etl_push.etl_mtcars}};
   \code{\link{etl_scrape}},
-  \code{\link{etl_scrape.default}};
+  \code{\link{etl_scrape.default}},
+  \code{\link{etl_scrape.etl_mtcars}};
   \code{\link{etl_update}},
   \code{\link{etl_update.default}}
 }

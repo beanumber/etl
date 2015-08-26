@@ -3,11 +3,14 @@
 \name{etl_init}
 \alias{etl_init}
 \alias{etl_init.default}
+\alias{etl_init.etl_mtcars}
 \title{Initialize the DB with schema}
 \usage{
 etl_init(obj, ...)
 
 \method{etl_init}{default}(obj, ...)
+
+\method{etl_init}{etl_mtcars}(obj, ...)
 }
 \arguments{
 \item{obj}{an \code{\link{etl}} object}
@@ -21,24 +24,30 @@ the \code{\link{etl}} object
 Initialize the DB with schema
 }
 \examples{
+\dontrun{
 require(RPostgreSQL)
 require(dplyr)
 db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
 etl_cars <- etl_connect("mtcars", db)
 str(etl_cars)
 }
+}
 \seealso{
 Other etl.functions: \code{\link{etl_cleanup}},
-  \code{\link{etl_cleanup.default}};
+  \code{\link{etl_cleanup.default}},
+  \code{\link{etl_cleanup.etl_mtcars}};
   \code{\link{etl_connect}},
   \code{\link{etl_connect.default}};
   \code{\link{etl_create}},
   \code{\link{etl_create.default}};
   \code{\link{etl_process}},
-  \code{\link{etl_process.default}};
-  \code{\link{etl_push}}, \code{\link{etl_push.default}};
+  \code{\link{etl_process.default}},
+  \code{\link{etl_process.etl_mtcars}};
+  \code{\link{etl_push}}, \code{\link{etl_push.default}},
+  \code{\link{etl_push.etl_mtcars}};
   \code{\link{etl_scrape}},
-  \code{\link{etl_scrape.default}};
+  \code{\link{etl_scrape.default}},
+  \code{\link{etl_scrape.etl_mtcars}};
   \code{\link{etl_update}},
   \code{\link{etl_update.default}}
 }

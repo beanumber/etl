@@ -3,11 +3,14 @@
 \name{etl_process}
 \alias{etl_process}
 \alias{etl_process.default}
+\alias{etl_process.etl_mtcars}
 \title{Process raw data into a format suitable for DB insert}
 \usage{
 etl_process(obj, ...)
 
 \method{etl_process}{default}(obj, ...)
+
+\method{etl_process}{etl_mtcars}(obj, ...)
 }
 \arguments{
 \item{obj}{an \code{\link{etl}} object}
@@ -21,6 +24,7 @@ the \code{\link{etl}} object
 Process raw data into a format suitable for DB insert
 }
 \examples{
+\dontrun{
 require(RPostgreSQL)
 require(dplyr)
 db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
@@ -30,18 +34,24 @@ etl_cars \%>\%
  etl_process() \%>\%
  str()
 }
+}
 \seealso{
 etl_init
 
 Other etl.functions: \code{\link{etl_cleanup}},
-  \code{\link{etl_cleanup.default}};
+  \code{\link{etl_cleanup.default}},
+  \code{\link{etl_cleanup.etl_mtcars}};
   \code{\link{etl_connect}},
   \code{\link{etl_connect.default}};
   \code{\link{etl_create}},
   \code{\link{etl_create.default}}; \code{\link{etl_init}},
-  \code{\link{etl_init.default}}; \code{\link{etl_push}},
-  \code{\link{etl_push.default}}; \code{\link{etl_scrape}},
-  \code{\link{etl_scrape.default}};
+  \code{\link{etl_init.default}},
+  \code{\link{etl_init.etl_mtcars}};
+  \code{\link{etl_push}}, \code{\link{etl_push.default}},
+  \code{\link{etl_push.etl_mtcars}};
+  \code{\link{etl_scrape}},
+  \code{\link{etl_scrape.default}},
+  \code{\link{etl_scrape.etl_mtcars}};
   \code{\link{etl_update}},
   \code{\link{etl_update.default}}
 }

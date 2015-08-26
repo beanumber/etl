@@ -5,6 +5,7 @@
 #' @family etl functions
 #' @examples
 #'
+#' \dontrun{
 #' require(RPostgreSQL)
 #' require(dplyr)
 #' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
@@ -13,6 +14,7 @@
 #'  etl_init() %>%
 #'  etl_update() %>%
 #'  str()
+#' }
 
 etl_update <- function(obj, ...) UseMethod("etl_update")
 

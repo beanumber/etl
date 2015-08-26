@@ -26,8 +26,8 @@ an object of class \code{etl_*} and \code{\link{etl}}
 Connect to a SQL database
 }
 \examples{
+\dontrun{
 require(RPostgreSQL)
-
 # connect using dplyr
 require(dplyr)
 db <- src_postgres("mtcars", user = "postgres", password = "postgres",
@@ -40,17 +40,23 @@ con <- dbConnect(RPostgreSQL::PostgreSQL(), user = "postgres",
 password = "postgres", host = "localhost", dbname = "mtcars")
 etl_cars <- etl_connect("mtcars", db)
 }
+}
 \seealso{
 Other etl.functions: \code{\link{etl_cleanup}},
-  \code{\link{etl_cleanup.default}};
+  \code{\link{etl_cleanup.default}},
+  \code{\link{etl_cleanup.etl_mtcars}};
   \code{\link{etl_create}},
   \code{\link{etl_create.default}}; \code{\link{etl_init}},
-  \code{\link{etl_init.default}};
+  \code{\link{etl_init.default}},
+  \code{\link{etl_init.etl_mtcars}};
   \code{\link{etl_process}},
-  \code{\link{etl_process.default}};
-  \code{\link{etl_push}}, \code{\link{etl_push.default}};
+  \code{\link{etl_process.default}},
+  \code{\link{etl_process.etl_mtcars}};
+  \code{\link{etl_push}}, \code{\link{etl_push.default}},
+  \code{\link{etl_push.etl_mtcars}};
   \code{\link{etl_scrape}},
-  \code{\link{etl_scrape.default}};
+  \code{\link{etl_scrape.default}},
+  \code{\link{etl_scrape.etl_mtcars}};
   \code{\link{etl_update}},
   \code{\link{etl_update.default}}
 }

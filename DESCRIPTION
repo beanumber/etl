@@ -1,7 +1,7 @@
 Package: etl
 Type: Package
 Title: Extract-Transfer-Load framework for medium data
-Version: 0.1.0.9001
+Version: 0.1.0.9002
 Authors@R: as.person(c(
     "Ben Baumer <ben.baumer@gmail.com> [aut, cre]"
   ))

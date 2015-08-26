@@ -6,15 +6,16 @@
 #' @family etl functions
 #' @examples
 #'
+#' \dontrun{
 #' require(RPostgreSQL)
 #' require(dplyr)
-#' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+#' db <- src_postgres("mtcars", user = "postgres", password = "scem8467", host = "localhost")
 #' etl_cars <- etl_connect("mtcars", db)
 #' etl_cars %>%
 #'  etl_init() %>%
 #'  etl_scrape() %>%
 #'  str()
-#'
+#' }
 
 etl_scrape <- function(obj, ...) UseMethod("etl_scrape")
 
@@ -23,6 +24,16 @@ etl_scrape <- function(obj, ...) UseMethod("etl_scrape")
 #' @export
 
 etl_scrape.default <- function(obj, ...) {
+  # download the data from the Internet
+  warning(paste0("No available methods. Did you write the method etl_scrape.", class(obj)[1]), "()?")
+  return(obj)
+}
+
+#' @rdname etl_scrape
+#' @method etl_scrape etl_mtcars
+#' @export
+
+etl_scrape.etl_mtcars <- function(obj, ...) {
   if (!dir.exists(obj$dir)) {
     obj$dir <- tempdir()
   }

@@ -78,10 +78,9 @@ db %>%
 
 ## Create your own ETL packages
 
-Suppose you want to create your own ETL package called `pkgname`. All you have to do is write a package that requires `etl`, and then you have to write **three S3 methods**:
+Suppose you want to create your own ETL package called `pkgname`. All you have to do is write a package that requires `etl`, and then you have to write **two S3 methods**:
 
 ```{r, eval=FALSE}
-etl_init.etl_pkgname()
 etl_scrape.etl_pkgname()
 etl_push.etl_pkgname()
 ```
@@ -89,6 +88,7 @@ etl_push.etl_pkgname()
 You may also wish to write
 
 ```{r, eval=FALSE}
+etl_init.etl_pkgname()
 etl_process.etl_pkgname()
 etl_cleanup.etl_pkgname()
 ```

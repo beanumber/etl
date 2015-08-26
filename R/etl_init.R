@@ -7,11 +7,13 @@
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' require(RPostgreSQL)
 #' require(dplyr)
 #' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
 #' etl_cars <- etl_connect("mtcars", db)
 #' str(etl_cars)
+#' }
 
 etl_init <- function(obj, ...) UseMethod("etl_init")
 
@@ -20,6 +22,16 @@ etl_init <- function(obj, ...) UseMethod("etl_init")
 #' @export
 
 etl_init.default <- function(obj, ...) {
+  #  sql <- system.file("inst", package = "etl")
+  message(paste0("No available methods. Did you write the method etl_init.", class(obj)[1]), "()?")
+  return(obj)
+}
+
+#' @rdname etl_init
+#' @method etl_init etl_mtcars
+#' @export
+
+etl_init.etl_mtcars <- function(obj, ...) {
 #  sql <- system.file("inst", package = "etl")
   obj$init <- dbRunScript(obj$con, "~/Dropbox/lib/etl/inst/sql/mtcars.psql")
   return(obj)

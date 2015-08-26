@@ -3,11 +3,14 @@
 \name{etl_scrape}
 \alias{etl_scrape}
 \alias{etl_scrape.default}
+\alias{etl_scrape.etl_mtcars}
 \title{Scrape data from an online source}
 \usage{
 etl_scrape(obj, ...)
 
 \method{etl_scrape}{default}(obj, ...)
+
+\method{etl_scrape}{etl_mtcars}(obj, ...)
 }
 \arguments{
 \item{obj}{an \code{\link{etl}} object}
@@ -21,26 +24,32 @@ the (possibly modified) \code{\link{etl}} object
 Scrape data from an online source
 }
 \examples{
+\dontrun{
 require(RPostgreSQL)
 require(dplyr)
-db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+db <- src_postgres("mtcars", user = "postgres", password = "scem8467", host = "localhost")
 etl_cars <- etl_connect("mtcars", db)
 etl_cars \%>\%
  etl_init() \%>\%
  etl_scrape() \%>\%
  str()
 }
+}
 \seealso{
 Other etl.functions: \code{\link{etl_cleanup}},
-  \code{\link{etl_cleanup.default}};
+  \code{\link{etl_cleanup.default}},
+  \code{\link{etl_cleanup.etl_mtcars}};
   \code{\link{etl_connect}},
   \code{\link{etl_connect.default}};
   \code{\link{etl_create}},
   \code{\link{etl_create.default}}; \code{\link{etl_init}},
-  \code{\link{etl_init.default}};
+  \code{\link{etl_init.default}},
+  \code{\link{etl_init.etl_mtcars}};
   \code{\link{etl_process}},
-  \code{\link{etl_process.default}};
-  \code{\link{etl_push}}, \code{\link{etl_push.default}};
+  \code{\link{etl_process.default}},
+  \code{\link{etl_process.etl_mtcars}};
+  \code{\link{etl_push}}, \code{\link{etl_push.default}},
+  \code{\link{etl_push.etl_mtcars}};
   \code{\link{etl_update}},
   \code{\link{etl_update.default}}
 }

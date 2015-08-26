@@ -21,23 +21,30 @@ the result of \code{\link{etl_update}}
 Create and populate a database from an online source
 }
 \examples{
+\dontrun{
 require(RPostgreSQL)
 require(dplyr)
 db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
 etl_cars <- etl_connect("mtcars", db)
 str(etl_create(etl_cars))
 }
+}
 \seealso{
 Other etl.functions: \code{\link{etl_cleanup}},
-  \code{\link{etl_cleanup.default}};
+  \code{\link{etl_cleanup.default}},
+  \code{\link{etl_cleanup.etl_mtcars}};
   \code{\link{etl_connect}},
   \code{\link{etl_connect.default}};
-  \code{\link{etl_init}}, \code{\link{etl_init.default}};
+  \code{\link{etl_init}}, \code{\link{etl_init.default}},
+  \code{\link{etl_init.etl_mtcars}};
   \code{\link{etl_process}},
-  \code{\link{etl_process.default}};
-  \code{\link{etl_push}}, \code{\link{etl_push.default}};
+  \code{\link{etl_process.default}},
+  \code{\link{etl_process.etl_mtcars}};
+  \code{\link{etl_push}}, \code{\link{etl_push.default}},
+  \code{\link{etl_push.etl_mtcars}};
   \code{\link{etl_scrape}},
-  \code{\link{etl_scrape.default}};
+  \code{\link{etl_scrape.default}},
+  \code{\link{etl_scrape.etl_mtcars}};
   \code{\link{etl_update}},
   \code{\link{etl_update.default}}
 }
