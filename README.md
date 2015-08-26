@@ -1,7 +1,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
 
 # etl
-R package to facilitate ETL operations
+R package to facilitate [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations
 
 ```{r, message=FALSE}
 require(etl)
