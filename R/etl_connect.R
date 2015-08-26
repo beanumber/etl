@@ -35,7 +35,7 @@ etl_connect <- function(x, db_con, dir = tempdir(), ...) UseMethod("etl_connect"
 
 etl_connect.default <- function(x, db_con, dir = tempdir(), ...) {
   if (x != "mtcars") {
-    message(paste("Please make sure that the package", x, "is loaded"))
+    message(paste0("Please make sure that the '", x, "' package is loaded"))
   }
   if (is(db_con, "src")) {
     conn <- db_con$con
