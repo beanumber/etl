@@ -1,3 +1,5 @@
+[![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
+
 # etl
 R package to facilitate ETL operations
 
