@@ -13,7 +13,8 @@
 #' etl_cars <- etl_connect("mtcars", db)
 #' etl_cars %>%
 #'  etl_create() %>%
-#'  etl_cleanup()
+#'  etl_cleanup() %>%
+#'  str()
 #'
 
 etl_cleanup <- function(obj, ...) UseMethod("etl_cleanup")
@@ -25,4 +26,5 @@ etl_cleanup <- function(obj, ...) UseMethod("etl_cleanup")
 etl_cleanup.default <- function(obj, ...) {
   # delete files
   # run VACCUUM ANALYZE, etc.
+  return(obj)
 }

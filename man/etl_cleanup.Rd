@@ -25,7 +25,8 @@ db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "l
 etl_cars <- etl_connect("mtcars", db)
 etl_cars \%>\%
  etl_create() \%>\%
- etl_cleanup()
+ etl_cleanup() \%>\%
+ str()
 }
 \seealso{
 Other etl.functions: \code{\link{etl_connect}},
