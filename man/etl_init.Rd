@@ -27,7 +27,7 @@ Initialize the DB with schema
 \dontrun{
 require(RPostgreSQL)
 require(dplyr)
-db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+db <- src_postgres("mtcars", user = "postgres", host = "localhost")
 etl_cars <- etl_connect("mtcars", db)
 str(etl_cars)
 }

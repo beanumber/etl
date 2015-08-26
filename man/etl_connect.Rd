@@ -30,14 +30,14 @@ Connect to a SQL database
 require(RPostgreSQL)
 # connect using dplyr
 require(dplyr)
-db <- src_postgres("mtcars", user = "postgres", password = "postgres",
+db <- src_postgres("mtcars", user = "postgres",
 host = "localhost")
 etl_cars <- etl_connect("mtcars", db)
 str(etl_cars)
 
 # connect using DBI
 con <- dbConnect(RPostgreSQL::PostgreSQL(), user = "postgres",
-password = "postgres", host = "localhost", dbname = "mtcars")
+host = "localhost", dbname = "mtcars")
 etl_cars <- etl_connect("mtcars", db)
 }
 }

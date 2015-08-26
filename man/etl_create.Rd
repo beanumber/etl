@@ -24,7 +24,7 @@ Create and populate a database from an online source
 \dontrun{
 require(RPostgreSQL)
 require(dplyr)
-db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+db <- src_postgres("mtcars", user = "postgres", host = "localhost")
 etl_cars <- etl_connect("mtcars", db)
 str(etl_create(etl_cars))
 }

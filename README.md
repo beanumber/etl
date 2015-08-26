@@ -7,7 +7,7 @@ R package to facilitate [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_
 require(etl)
 require(RPostgreSQL)
 require(dplyr)
-db <- src_postgres(dbname = "mtcars", user = "postgres", password = "postgres", host = "localhost")
+db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
 etl_cars <- etl_connect("mtcars", db)
 str(etl_cars)
 ```

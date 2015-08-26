@@ -10,7 +10,7 @@
 #' require(RPostgreSQL)
 #' # connect directly
 #' require(dplyr)
-#' db <- src_postgres("mtcars", user = "postgres", password = "postgres", host = "localhost")
+#' db <- src_postgres("mtcars", user = "postgres", host = "localhost")
 #' etl_cars <- etl_connect("mtcars", db)
 #' etl_cars %>%
 #'  etl_create() %>%
