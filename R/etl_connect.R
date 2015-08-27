@@ -4,6 +4,8 @@
 #' @param db_con a \code{\link[dplyr]{src}} or
 #' \code{\link[DBI]{DBIConnection-class}} object
 #' @param dir a directory to store the raw data files
+#' @param files a list of files that have been downloaded
+#' @param push a vector a messages from \code{\link[DBI]{dbWriteTable}}
 #' @param ... arguments passed to methods
 #' @return an object of class \code{etl_*} and \code{\link{etl}}
 #' @export
@@ -45,7 +47,8 @@ etl_connect.default <- function(x, db_con, dir = tempdir(), ...) {
   if (!is(conn, "DBIConnection")) {
     stop("Could not make connection to database.")
   }
-  obj <- list("pkg" = x, con = conn, dir = normalizePath(dir))
+  obj <- list("pkg" = x, con = conn, dir = normalizePath(dir), files = NULL,
+              push = NULL)
   class(obj) <- c(paste0("etl_", x), "etl")
   return(obj)
 }

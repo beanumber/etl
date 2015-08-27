@@ -27,7 +27,7 @@ etl_update.default <- function(obj, ...) {
     etl_scrape(...) %>%
     etl_process(...) %>%
     etl_push(...)
-  if (obj$push) {
+  if (!is.null(obj$push)) {
     etl_cleanup(obj, ...)
   } else {
     stop("Unable to push data to the database.")
