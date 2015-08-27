@@ -38,7 +38,7 @@ etl_extract <- function(x, ...) UseMethod("etl_extract")
 #' @rdname etl_extract
 #' @method etl_extract mtcars
 etl_extract.mtcars <- function(x, ...) {
-  data(mtcars, package = "datasets")
+  data(mtcars, package = "datasets", envir = environment())
   x$data <- mtcars
   x
 }
@@ -80,8 +80,14 @@ etl_load.mtcars <- function(x, conn, ...) {
   invisible(x)
 }
 
+#' Update a database
+#'
+#' @param x an \link{etl} object.
 #' @export
 etl_update <- function(x, ...) UseMethod("etl_update")
 
+#' Clean a database
+#'
+#' @param x an \link{etl} object.
 #' @export
 etl_cleanup <- function(x, ...) UseMethod("etl_cleanup")
