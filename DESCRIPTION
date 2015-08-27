@@ -1,7 +1,7 @@
 Package: etl
 Type: Package
 Title: Extract-Transfer-Load framework for medium data
-Version: 0.1.0.9005
+Version: 0.1.0.9006
 Authors@R: as.person(c(
     "Ben Baumer <ben.baumer@gmail.com> [aut, cre]"
   ))
@@ -23,7 +23,8 @@ Suggests:
   knitr,
   methods,
   RPostgreSQL,
-  RMySQL
+  RMySQL,
+  RSQLite
 URL: http://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/airlines/etl
 VignetteBuilder: knitr
