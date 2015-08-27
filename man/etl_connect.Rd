@@ -18,10 +18,6 @@ etl_connect(x, db_con, dir = tempdir(), ...)
 \item{dir}{a directory to store the raw data files}
 
 \item{...}{arguments passed to methods}
-
-\item{files}{a list of files that have been downloaded}
-
-\item{push}{a vector a messages from \code{\link[DBI]{dbWriteTable}}}
 }
 \value{
 an object of class \code{etl_*} and \code{\link{etl}}
