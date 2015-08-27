@@ -24,7 +24,8 @@ Suggests:
   RMySQL,
   knitr,
   methods,
-  httr
+  httr,
+  RSQLite
 URL: http://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/etl/issues
 VignetteBuilder: knitr
