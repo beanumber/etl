@@ -45,7 +45,7 @@ etl_connect.default <- function(x, db_con, dir = tempdir(), ...) {
   if (!is(conn, "DBIConnection")) {
     stop("Could not make connection to database.")
   }
-  obj <- list("pkg" = x, con = conn, dir = dir)
+  obj <- list("pkg" = x, con = conn, dir = normalizePath(dir))
   class(obj) <- c(paste0("etl_", x), "etl")
   return(obj)
 }
