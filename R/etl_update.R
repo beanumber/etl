@@ -30,7 +30,7 @@ etl_update.default <- function(obj, ...) {
   if (!is.null(obj$push)) {
     etl_cleanup(obj, ...)
   } else {
-    stop("Unable to push data to the database.")
+    warning("Unable to push data to the database?")
   }
   return(obj)
 }
