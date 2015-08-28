@@ -100,7 +100,7 @@ db %>%
   summarise(N = n(), meanMPG = mean(mpg))
 ```
 
-    ## Source: sqlite 3.8.6 [/tmp/Rtmp4Pm6QH/file7c632a8b37af]
+    ## Source: sqlite 3.8.6 [/tmp/RtmpMQdCVD/file7dcc5093e34a]
     ## From: <derived table> [?? x 3]
     ## 
     ##    cyl  N  meanMPG
@@ -128,3 +128,14 @@ etl_cleanup.etl_pkgname()
 ```
 
 All of these functions must take and return an object of class `etl_pkgname` that inherits from `etl`. Please see the [`airlines`](https://github.com/beanumber/airlines) package for an example.
+
+Use other ETL packages
+----------------------
+
+Packages that use the `etl` framework:
+
+``` r
+tools::dependsOnPkgs("etl")
+```
+
+    ## [1] "airlines"

@@ -91,3 +91,11 @@ etl_cleanup.etl_pkgname()
 ```
 
 All of these functions must take and return an object of class `etl_pkgname` that inherits from `etl`. Please see the [`airlines`](https://github.com/beanumber/airlines) package for an example. 
+
+## Use other ETL packages
+
+Packages that use the `etl` framework:
+
+```{r}
+tools::dependsOnPkgs("etl")
+```
