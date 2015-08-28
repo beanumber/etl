@@ -2,10 +2,13 @@
 % Please edit documentation in R/etl.R
 \name{etl_transform}
 \alias{etl_transform}
+\alias{etl_transform.default}
 \alias{etl_transform.mtcars}
 \title{Transform data}
 \usage{
 etl_transform(x, ...)
+
+\method{etl_transform}{default}(x, ...)
 
 \method{etl_transform}{mtcars}(x, ...)
 }

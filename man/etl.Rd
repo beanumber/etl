@@ -24,11 +24,18 @@ e <- etl_extract(e)
 e <- etl_transform(e)
 str(e)
 
-# create a database and load
+# create a database connection
 library(dplyr)
 db <- src_sqlite(tempfile(fileext = ".sqlite3"), create = TRUE)
+
+# send data to the database
 etl_load(e, db)
 tbl(db, "mtcars")
+
+# you can also specify your own schema if you want
+db <- src_sqlite(tempfile(fileext = ".sqlite3"), create = TRUE)
+schema <- system.file("sql/mtcars.sqlite3", package = "etl")
+etl_load(e, db, schema)
 }
 }
 
