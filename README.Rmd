@@ -1,0 +1,112 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+[![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
+
+# etl
+R package to facilitate [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations
+
+```{r, message=FALSE}
+require(etl)
+require(dplyr)
+```
+
+```{r, message=FALSE}
+require(RPostgreSQL)
+db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+require(RMySQL)
+db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
+require(RSQLite)
+db <- src_sqlite(path = tempfile(), create = TRUE)
+```
+
+```{r}
+cars <- etl("mtcars", db)
+str(cars)
+```
+
+## Step-by-step
+
+Initialize the database
+
+```{r}
+require(magrittr)
+cars %<>%
+  etl_init()
+str(cars)
+```
+
+Download the raw data
+
+```{r}
+cars %<>%
+  etl_extract()
+list.files(cars$dir)
+```
+
+Do any data processing
+
+```{r}
+cars %<>% etl_transform()
+```
+
+Push the data to the database
+
+```{r}
+cars %<>% etl_load()
+str(cars)
+```
+
+Do any data cleanup
+
+```{r}
+cars %<>% etl_cleanup(cars)
+```
+
+## Streamlined
+
+OR, do the whole thing in one step!
+
+```{r}
+cars <- etl("mtcars", db) %>%
+  etl_create()
+```
+
+You can also update an existing database without re-initializing, but watch out for primary key collisions.
+
+```{r, eval=FALSE}
+cars <- etl("mtcars", db) %>%
+  etl_update()
+```
+
+## Do Your Analysis
+
+Now that your database is populated, you can work with it as a `src` data table just like any other `dplyr` table. 
+```{r}
+db %>%
+  tbl(from = "mtcars") %>%
+  group_by(cyl) %>%
+  summarise(N = n(), meanMPG = mean(mpg))
+```
+
+## Create your own ETL packages
+
+Suppose you want to create your own ETL package called `pkgname`. All you have to do is write a package that requires `etl`, and then you have to write **two S3 methods**:
+
+```{r, eval=FALSE}
+etl_extract.etl_pkgname()
+etl_load.etl_pkgname()
+```
+
+You may also wish to write
+
+```{r, eval=FALSE}
+etl_init.etl_pkgname()
+etl_transform.etl_pkgname()
+etl_cleanup.etl_pkgname()
+```
+
+All of these functions must take and return an object of class `etl_pkgname` that inherits from `etl`. Please see the [`airlines`](https://github.com/beanumber/airlines) package for an example. 
