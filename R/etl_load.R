@@ -1,27 +1,9 @@
-#' @title Push data to the DB
-#'
-#' @inheritParams etl_init
+#' @rdname etl_create
 #' @export
-#' @importFrom DBI dbWriteTable
-#' @return the \code{\link{etl}} object
-#' @family etl functions
-#' @examples
-#'
-#' \dontrun{
-#' require(RPostgreSQL)
-#' require(dplyr)
-#' db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-#' etl_cars <- etl_connect("mtcars", db)
-#' etl_cars %>%
-#'  etl_init() %>%
-#'  etl_extract() %>%
-#'  etl_transform() %>%
-#'  etl_load()
-#' }
 
 etl_load <- function(obj, ...) UseMethod("etl_load")
 
-#' @rdname etl_load
+#' @rdname etl_create
 #' @method etl_load default
 #' @export
 
@@ -31,8 +13,9 @@ etl_load.default <- function(obj, ...) {
   return(obj)
 }
 
-#' @rdname etl_load
+#' @rdname etl_create
 #' @method etl_load etl_mtcars
+#' @importFrom DBI dbWriteTable
 #' @export
 
 etl_load.etl_mtcars <- function(obj, ...) {

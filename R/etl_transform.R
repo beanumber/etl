@@ -1,26 +1,9 @@
-#' @title Process raw data into a format suitable for DB insert
-#'
-#' @inheritParams etl_init
+#' @rdname etl_create
 #' @export
-#' @return the \code{\link{etl}} object
-#' @seealso etl_init
-#' @family etl functions
-#' @examples
-#'
-#' \dontrun{
-#' require(RPostgreSQL)
-#' require(dplyr)
-#' db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-#' etl_cars <- etl_connect("mtcars", db)
-#' etl_cars %>%
-#'  etl_extract() %>%
-#'  etl_transform() %>%
-#'  str()
-#' }
 
 etl_transform <- function(obj, ...) UseMethod("etl_transform")
 
-#' @rdname etl_transform
+#' @rdname etl_create
 #' @method etl_transform default
 #' @export
 
@@ -30,7 +13,7 @@ etl_transform.default <- function(obj, ...) {
   return(obj)
 }
 
-#' @rdname etl_transform
+#' @rdname etl_create
 #' @method etl_transform etl_mtcars
 #' @export
 

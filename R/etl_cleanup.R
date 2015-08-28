@@ -1,26 +1,9 @@
-#' @title Cleanup after data loaded into DB
-#'
-#' @inheritParams etl_init
-#' @return NULL
+#' @rdname etl_create
 #' @export
-#' @family etl functions
-#' @examples
-#'
-#' \dontrun{
-#' require(RPostgreSQL)
-#' # connect directly
-#' require(dplyr)
-#' db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-#' etl_cars <- etl_connect("mtcars", db)
-#' etl_cars %>%
-#'  etl_create() %>%
-#'  etl_cleanup() %>%
-#'  str()
-#' }
 
 etl_cleanup <- function(obj, ...) UseMethod("etl_cleanup")
 
-#' @rdname etl_cleanup
+#' @rdname etl_create
 #' @method etl_cleanup default
 #' @export
 
@@ -31,7 +14,7 @@ etl_cleanup.default <- function(obj, ...) {
   return(obj)
 }
 
-#' @rdname etl_cleanup
+#' @rdname etl_create
 #' @method etl_cleanup etl_mtcars
 #' @export
 

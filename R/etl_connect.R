@@ -7,22 +7,23 @@
 #' @param ... arguments passed to methods
 #' @return an object of class \code{etl_*} and \code{\link{etl}}
 #' @export
-#' @family etl functions
+#' @seealso \code{\link{etl_create}}
 #' @examples
 #'
 #' \dontrun{
-#' require(RPostgreSQL)
-#' # connect using dplyr
-#' require(dplyr)
-#' db <- src_postgres("mtcars", user = "postgres",
-#' host = "localhost")
-#' etl_cars <- etl_connect("mtcars", db)
-#' str(etl_cars)
 #'
+#' # connect using dplyr
+#' if (require(RPostgreSQL) & require(dplyr)) {
+#'   db <- src_postgres("mtcars", user = "postgres",
+#'   host = "localhost")
+#'   cars <- etl_connect("mtcars", db)
+#'   str(cars)
+#' }
 #' # connect using DBI
+#' require(DBI)
 #' con <- dbConnect(RPostgreSQL::PostgreSQL(), user = "postgres",
 #' host = "localhost", dbname = "mtcars")
-#' etl_cars <- etl_connect("mtcars", db)
+#' cars <- etl_connect("mtcars", db)
 #' }
 
 etl_connect <- function(x, db_con, dir = tempdir(), ...) UseMethod("etl_connect")

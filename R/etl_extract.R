@@ -1,25 +1,9 @@
-#' @title Scrape data from an online source
-#'
-#' @inheritParams etl_init
+#' @rdname etl_create
 #' @export
-#' @return the (possibly modified) \code{\link{etl}} object
-#' @family etl functions
-#' @examples
-#'
-#' \dontrun{
-#' require(RPostgreSQL)
-#' require(dplyr)
-#' db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-#' etl_cars <- etl_connect("mtcars", db)
-#' etl_cars %>%
-#'  etl_init() %>%
-#'  etl_extract() %>%
-#'  str()
-#' }
 
 etl_extract <- function(obj, ...) UseMethod("etl_extract")
 
-#' @rdname etl_extract
+#' @rdname etl_create
 #' @method etl_extract default
 #' @export
 
@@ -29,7 +13,7 @@ etl_extract.default <- function(obj, ...) {
   return(obj)
 }
 
-#' @rdname etl_extract
+#' @rdname etl_create
 #' @method etl_extract etl_mtcars
 #' @export
 

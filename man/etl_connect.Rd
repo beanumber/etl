@@ -27,37 +27,22 @@ Connect to a SQL database
 }
 \examples{
 \dontrun{
-require(RPostgreSQL)
-# connect using dplyr
-require(dplyr)
-db <- src_postgres("mtcars", user = "postgres",
-host = "localhost")
-etl_cars <- etl_connect("mtcars", db)
-str(etl_cars)
 
+# connect using dplyr
+if (require(RPostgreSQL) & require(dplyr)) {
+  db <- src_postgres("mtcars", user = "postgres",
+  host = "localhost")
+  cars <- etl_connect("mtcars", db)
+  str(cars)
+}
 # connect using DBI
+require(DBI)
 con <- dbConnect(RPostgreSQL::PostgreSQL(), user = "postgres",
 host = "localhost", dbname = "mtcars")
-etl_cars <- etl_connect("mtcars", db)
+cars <- etl_connect("mtcars", db)
 }
 }
 \seealso{
-Other etl.functions: \code{\link{etl_cleanup}},
-  \code{\link{etl_cleanup.default}},
-  \code{\link{etl_cleanup.etl_mtcars}};
-  \code{\link{etl_create}},
-  \code{\link{etl_create.default}};
-  \code{\link{etl_extract}},
-  \code{\link{etl_extract.default}},
-  \code{\link{etl_extract.etl_mtcars}};
-  \code{\link{etl_init}}, \code{\link{etl_init.default}},
-  \code{\link{etl_init.etl_mtcars}};
-  \code{\link{etl_load}}, \code{\link{etl_load.default}},
-  \code{\link{etl_load.etl_mtcars}};
-  \code{\link{etl_transform}},
-  \code{\link{etl_transform.default}},
-  \code{\link{etl_transform.etl_mtcars}};
-  \code{\link{etl_update}},
-  \code{\link{etl_update.default}}
+\code{\link{etl_create}}
 }
 

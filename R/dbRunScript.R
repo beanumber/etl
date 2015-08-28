@@ -3,6 +3,7 @@
 #' @inheritParams etl_init
 #' @param con a \code{\link[DBI]{DBIConnection-class}} object
 #' @param script path to a SQL script file
+#' @param ... currently ignored
 #' @details The SQL script file must be \code{\"} delimited.
 #' @return a list of results from \code{\link[DBI]{dbGetQuery}}
 #' @export

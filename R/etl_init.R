@@ -1,24 +1,19 @@
-#' @title Initialize the DB with schema
-#'
-#' @param obj an \code{\link{etl}} object
-#' @param ... arguments passed to methods
-#' @return the \code{\link{etl}} object
-#' @family etl functions
+#' @rdname etl_create
 #' @export
+#' @seealso etl_connect
 #' @examples
 #'
 #' \dontrun{
-#' require(dplyr)
-#' if (require(RPostgreSQL)) {
+#' if (require(RPostgreSQL) & require(dplyr)) {
 #'   db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-#'   etl_cars <- etl_connect("mtcars", db)
-#'   etl_cars
+#'   cars <- etl_connect("mtcars", db)
+#'   cars %<>% etl_create()
 #'  }
 #' }
 
 etl_init <- function(obj, ...) UseMethod("etl_init")
 
-#' @rdname etl_init
+#' @rdname etl_create
 #' @method etl_init default
 #' @export
 
@@ -28,7 +23,7 @@ etl_init.default <- function(obj, ...) {
   return(obj)
 }
 
-#' @rdname etl_init
+#' @rdname etl_create
 #' @method etl_init etl_mtcars
 #' @export
 

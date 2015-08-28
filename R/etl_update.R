@@ -1,24 +1,10 @@
-#' @title Update an existing DB
-#'
-#' @inheritParams etl_init
+#' @rdname etl_create
 #' @importFrom magrittr %<>%
 #' @export
-#' @family etl functions
-#' @examples
-#'
-#' \dontrun{
-#' require(RPostgreSQL)
-#' require(dplyr)
-#' db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-#' etl_cars <- etl_connect("mtcars", db)
-#' etl_cars %>%
-#'  etl_init() %>%
-#'  etl_update()
-#' }
 
 etl_update <- function(obj, ...) UseMethod("etl_update")
 
-#' @rdname etl_update
+#' @rdname etl_create
 #' @method etl_update default
 #' @export
 

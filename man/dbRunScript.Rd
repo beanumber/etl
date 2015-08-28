@@ -11,7 +11,7 @@ dbRunScript(con, script, ...)
 
 \item{script}{path to a SQL script file}
 
-\item{...}{arguments passed to methods}
+\item{...}{currently ignored}
 }
 \value{
 a list of results from \code{\link[DBI]{dbGetQuery}}
