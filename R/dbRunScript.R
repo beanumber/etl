@@ -17,5 +17,5 @@ dbRunScript <- function(con, script, ...) {
   }
   sql_text <- paste0(readLines(script), collapse = "")
   sql <- unlist(stringr::str_split(sql_text, pattern = ";"))
-  sapply(sql, DBI::dbGetQuery, conn = con)
+  sapply(sql, DBI::dbSendQuery, conn = con)
 }

@@ -1,12 +1,13 @@
 #' @rdname etl_create
 #' @export
-#' @seealso etl_connect
+#' @seealso etl
 #' @examples
 #'
+#' require(magrittr)
 #' \dontrun{
 #' if (require(RPostgreSQL) & require(dplyr)) {
 #'   db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-#'   cars <- etl_connect("mtcars", db)
+#'   cars <- etl("mtcars", db)
 #'   cars %<>% etl_create()
 #'  }
 #' }

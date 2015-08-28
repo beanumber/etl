@@ -104,7 +104,7 @@ Additionally, two convenience function chain these operations together:
 require(magrittr)
 if (require(RSQLite) & require(dplyr)) {
  db <- src_sqlite(path = tempfile(), create = TRUE)
- cars <- etl_connect("mtcars", db)
+ cars <- etl("mtcars", db)
  cars \%>\%
    etl_init() \%>\%
    etl_extract() \%>\%
@@ -116,17 +116,18 @@ if (require(RSQLite) & require(dplyr)) {
    group_by(cyl) \%>\%
    summarise(N = n(), meanMPG = mean(mpg))
 }
+require(magrittr)
 \dontrun{
 if (require(RPostgreSQL) & require(dplyr)) {
   db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-  cars <- etl_connect("mtcars", db)
+  cars <- etl("mtcars", db)
   cars \%<>\% etl_create()
  }
 }
 }
 \seealso{
-\code{\link{etl_connect}}
+\code{\link{etl}}
 
-etl_connect
+etl
 }
 

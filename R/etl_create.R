@@ -32,13 +32,13 @@
 #'  where the database already exists, but you want to insert some new data. }
 #' }
 #' @return Each one of these functions returns an \code{\link{etl}} object.
-#' @seealso \code{\link{etl_connect}}
+#' @seealso \code{\link{etl}}
 #' @examples
 #'
 #' require(magrittr)
 #' if (require(RSQLite) & require(dplyr)) {
 #'  db <- src_sqlite(path = tempfile(), create = TRUE)
-#'  cars <- etl_connect("mtcars", db)
+#'  cars <- etl("mtcars", db)
 #'  cars %>%
 #'    etl_init() %>%
 #'    etl_extract() %>%
