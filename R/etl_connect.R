@@ -8,8 +8,6 @@
 #' @return an object of class \code{etl_*} and \code{\link{etl}}
 #' @export
 #' @family etl functions
-#' @importFrom dplyr src_postgres
-#' @importFrom DBI dbConnect
 #' @examples
 #'
 #' \dontrun{

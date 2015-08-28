@@ -16,8 +16,7 @@
 #'  etl_init() %>%
 #'  etl_extract() %>%
 #'  etl_transform() %>%
-#'  etl_load() %>%
-#'  str()
+#'  etl_load()
 #' }
 
 etl_load <- function(obj, ...) UseMethod("etl_load")

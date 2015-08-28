@@ -6,12 +6,15 @@
 #' @family etl functions
 #' @examples
 #'
-#' \dontrun{
-#' require(RPostgreSQL)
-#' require(dplyr)
-#' db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-#' etl_cars <- etl_connect("mtcars", db)
-#' str(etl_create(etl_cars))
+#' require(magrittr)
+#' if (require(RSQLite) & require(dplyr)) {
+#'  db <- src_sqlite(path = tempfile(), create = TRUE)
+#'  cars <- etl_connect("mtcars", db)
+#'  cars %<>% etl_create()
+#'  db %>%
+#'    tbl(from = "mtcars") %>%
+#'    group_by(cyl) %>%
+#'    summarise(N = n(), meanMPG = mean(mpg))
 #' }
 
 etl_create <- function(obj, ...) UseMethod("etl_create")

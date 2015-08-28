@@ -33,8 +33,7 @@ etl_cars \%>\%
  etl_init() \%>\%
  etl_extract() \%>\%
  etl_transform() \%>\%
- etl_load() \%>\%
- str()
+ etl_load()
 }
 }
 \seealso{

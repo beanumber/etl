@@ -1,6 +1,7 @@
 #' @title Update an existing DB
 #'
 #' @inheritParams etl_init
+#' @importFrom magrittr %<>%
 #' @export
 #' @family etl functions
 #' @examples
@@ -12,8 +13,7 @@
 #' etl_cars <- etl_connect("mtcars", db)
 #' etl_cars %>%
 #'  etl_init() %>%
-#'  etl_update() %>%
-#'  str()
+#'  etl_update()
 #' }
 
 etl_update <- function(obj, ...) UseMethod("etl_update")
@@ -23,7 +23,7 @@ etl_update <- function(obj, ...) UseMethod("etl_update")
 #' @export
 
 etl_update.default <- function(obj, ...) {
-  obj <- obj %>%
+  obj %<>%
     etl_extract(...) %>%
     etl_transform(...) %>%
     etl_load(...)

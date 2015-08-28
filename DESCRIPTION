@@ -1,7 +1,7 @@
 Package: etl
 Type: Package
 Title: Extract-Transfer-Load framework for medium data
-Version: 0.1.0.9007
+Version: 0.1.0.9008
 Authors@R: as.person(c(
     "Ben Baumer <ben.baumer@gmail.com> [aut, cre]",
     "Carson Sievert <cpsievert1@gmail.com> [aut]"
@@ -15,17 +15,18 @@ Description: etl provides an S3 framework for loading medium-sized data from the
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
-  dplyr,
+  magrittr,
   DBI,
   stringr
 Depends:
   R (>= 2.10)
 Suggests:
   knitr,
+  dplyr,
   methods,
   RPostgreSQL,
   RMySQL,
   RSQLite
 URL: http://github.com/beanumber/etl
-BugReports: https://github.com/beanumber/airlines/etl
+BugReports: https://github.com/beanumber/etl/issues
 VignetteBuilder: knitr

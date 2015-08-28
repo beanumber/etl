@@ -25,8 +25,7 @@ db <- src_postgres("mtcars", user = "postgres", host = "localhost")
 etl_cars <- etl_connect("mtcars", db)
 etl_cars \%>\%
  etl_init() \%>\%
- etl_update() \%>\%
- str()
+ etl_update()
 }
 }
 \seealso{

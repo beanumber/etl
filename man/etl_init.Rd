@@ -25,11 +25,12 @@ Initialize the DB with schema
 }
 \examples{
 \dontrun{
-require(RPostgreSQL)
 require(dplyr)
-db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-etl_cars <- etl_connect("mtcars", db)
-str(etl_cars)
+if (require(RPostgreSQL)) {
+  db <- src_postgres("mtcars", user = "postgres", host = "localhost")
+  etl_cars <- etl_connect("mtcars", db)
+  etl_cars
+ }
 }
 }
 \seealso{

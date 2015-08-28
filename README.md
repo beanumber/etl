@@ -5,9 +5,19 @@ R package to facilitate [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_
 
 ```{r, message=FALSE}
 require(etl)
-require(RPostgreSQL)
 require(dplyr)
+```
+
+```{r, message=FALSE}
+require(RPostgreSQL)
 db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+require(RMySQL)
+db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
+require(RSQLite)
+db <- src_sqlite(path = tempfile(), create = TRUE)
+```
+
+```{r}
 etl_cars <- etl_connect("mtcars", db)
 str(etl_cars)
 ```
