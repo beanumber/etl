@@ -33,14 +33,14 @@ list.files(etl_cars$dir)
 Do any data processing
 
 ```{r}
-etl_cars <- etl_process(etl_cars)
+etl_cars <- etl_transform(etl_cars)
 ```
 
 Push the data to the database
 
 ```{r}
 etl_cars <- etl_cars %>%
-  etl_push()
+  etl_load()
 str(etl_cars)
 ```
 
@@ -82,14 +82,14 @@ Suppose you want to create your own ETL package called `pkgname`. All you have t
 
 ```{r, eval=FALSE}
 etl_extract.etl_pkgname()
-etl_push.etl_pkgname()
+etl_load.etl_pkgname()
 ```
 
 You may also wish to write
 
 ```{r, eval=FALSE}
 etl_init.etl_pkgname()
-etl_process.etl_pkgname()
+etl_transform.etl_pkgname()
 etl_cleanup.etl_pkgname()
 ```
 

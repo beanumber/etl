@@ -14,27 +14,27 @@
 #' etl_cars <- etl_connect("mtcars", db)
 #' etl_cars %>%
 #'  etl_extract() %>%
-#'  etl_process() %>%
+#'  etl_transform() %>%
 #'  str()
 #' }
 
-etl_process <- function(obj, ...) UseMethod("etl_process")
+etl_transform <- function(obj, ...) UseMethod("etl_transform")
 
-#' @rdname etl_process
-#' @method etl_process default
+#' @rdname etl_transform
+#' @method etl_transform default
 #' @export
 
-etl_process.default <- function(obj, ...) {
+etl_transform.default <- function(obj, ...) {
   # load the data and process it if necessary
-  message(paste0("No available methods. Did you write the method etl_process.", class(obj)[1]), "()?")
+  message(paste0("No available methods. Did you write the method etl_transform.", class(obj)[1]), "()?")
   return(obj)
 }
 
-#' @rdname etl_process
-#' @method etl_process etl_mtcars
+#' @rdname etl_transform
+#' @method etl_transform etl_mtcars
 #' @export
 
-etl_process.etl_mtcars <- function(obj, ...) {
+etl_transform.etl_mtcars <- function(obj, ...) {
   if (!dir.exists(obj$dir)) {
     stop("Directory does not exist! Please specify a valid path to the raw data.")
   }
