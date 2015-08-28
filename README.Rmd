@@ -7,68 +7,40 @@ output:
 [![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
 
 # etl
-R package to facilitate [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations
+`etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations. The end result is a populated SQL database, but the user interaction takes place solely within R.
 
-```{r, message=FALSE}
-require(etl)
-require(dplyr)
+To install, use the `devtools` package, and then load it. 
+
+```{r, eval=FALSE}
+devtools::install_github("beanumber/etl")
 ```
 
 ```{r, message=FALSE}
-require(RPostgreSQL)
-db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
-require(RMySQL)
-db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
+require(etl)
+```
+
+In order to populate the SQL database, you need to connect to it. `etl` accepts connections from either `dplyr` or `DBI` -- here we demonstrate the `dplyr` interface. **Note:** you must create the `mtcars` database and have permission to write to it!
+
+```{r, message=FALSE}
+require(dplyr)
+# require(RPostgreSQL)
+# db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+# require(RMySQL)
+# db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
 require(RSQLite)
 db <- src_sqlite(path = tempfile(), create = TRUE)
 ```
 
+Instantiate an `etl` object using a string that determines the class of the resulting object, and the package that provides access to that data. The trivial `mtcars` database is built into `etl`. 
+
 ```{r}
 cars <- etl("mtcars", db)
-str(cars)
+class(cars)
 ```
 
-## Step-by-step
+# Populate the database
 
-Initialize the database
-
-```{r}
-require(magrittr)
-cars %<>%
-  etl_init()
-str(cars)
-```
-
-Download the raw data
-
-```{r}
-cars %<>%
-  etl_extract()
-list.files(cars$dir)
-```
-
-Do any data processing
-
-```{r}
-cars %<>% etl_transform()
-```
-
-Push the data to the database
-
-```{r}
-cars %<>% etl_load()
-str(cars)
-```
-
-Do any data cleanup
-
-```{r}
-cars %<>% etl_cleanup(cars)
-```
-
-## Streamlined
-
-OR, do the whole thing in one step!
+To populate the whole database from scratch, use `etl_create`. 
 
 ```{r}
 cars <- etl("mtcars", db) %>%
@@ -80,6 +52,15 @@ You can also update an existing database without re-initializing, but watch out 
 ```{r, eval=FALSE}
 cars <- etl("mtcars", db) %>%
   etl_update()
+```
+
+## Step-by-step
+
+Under the hood, there are five functions that `etl` chains together:
+
+```{r}
+getS3method("etl_create", "default")
+getS3method("etl_update", "default")
 ```
 
 ## Do Your Analysis

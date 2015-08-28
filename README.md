@@ -3,119 +3,43 @@
 etl
 ===
 
-R package to facilitate [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations
+`etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations. The end result is a populated SQL database, but the user interaction takes place solely within R.
+
+To install, use the `devtools` package, and then load it.
 
 ``` r
-require(etl)
-require(dplyr)
+devtools::install_github("beanumber/etl")
 ```
 
 ``` r
-require(RPostgreSQL)
-db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
-require(RMySQL)
-db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
+require(etl)
+```
+
+In order to populate the SQL database, you need to connect to it. `etl` accepts connections from either `dplyr` or `DBI` -- here we demonstrate the `dplyr` interface. **Note:** you must create the `mtcars` database and have permission to write to it!
+
+``` r
+require(dplyr)
+# require(RPostgreSQL)
+# db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+# require(RMySQL)
+# db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
 require(RSQLite)
 db <- src_sqlite(path = tempfile(), create = TRUE)
 ```
 
+Instantiate an `etl` object using a string that determines the class of the resulting object, and the package that provides access to that data. The trivial `mtcars` database is built into `etl`.
+
 ``` r
 cars <- etl("mtcars", db)
-str(cars)
+class(cars)
 ```
 
-    ## List of 6
-    ##  $ pkg  : chr "mtcars"
-    ##  $ con  :Formal class 'SQLiteConnection' [package "RSQLite"] with 5 slots
-    ##   .. ..@ Id                 :<externalptr> 
-    ##   .. ..@ dbname             : chr "/tmp/RtmpCDI1YI/file77de9780430"
-    ##   .. ..@ loadable.extensions: logi TRUE
-    ##   .. ..@ flags              : int 6
-    ##   .. ..@ vfs                : chr ""
-    ##  $ dir  : chr "/tmp/RtmpCDI1YI"
-    ##  $ init : NULL
-    ##  $ files: NULL
-    ##  $ push : NULL
-    ##  - attr(*, "class")= chr [1:2] "etl_mtcars" "etl"
+    ## [1] "etl_mtcars" "etl"
 
-Step-by-step
-------------
+Populate the database
+=====================
 
-Initialize the database
-
-``` r
-require(magrittr)
-```
-
-    ## Loading required package: magrittr
-
-``` r
-cars %<>%
-  etl_init()
-str(cars)
-```
-
-    ## List of 6
-    ##  $ pkg  : chr "mtcars"
-    ##  $ con  :Formal class 'SQLiteConnection' [package "RSQLite"] with 5 slots
-    ##   .. ..@ Id                 :<externalptr> 
-    ##   .. ..@ dbname             : chr "/tmp/RtmpCDI1YI/file77de9780430"
-    ##   .. ..@ loadable.extensions: logi TRUE
-    ##   .. ..@ flags              : int 6
-    ##   .. ..@ vfs                : chr ""
-    ##  $ dir  : chr "/tmp/RtmpCDI1YI"
-    ##  $ init : logi TRUE
-    ##  $ files: NULL
-    ##  $ push : NULL
-    ##  - attr(*, "class")= chr [1:2] "etl_mtcars" "etl"
-
-Download the raw data
-
-``` r
-cars %<>%
-  etl_extract()
-list.files(cars$dir)
-```
-
-    ## [1] "file77de9780430" "mtcars.csv"
-
-Do any data processing
-
-``` r
-cars %<>% etl_transform()
-```
-
-Push the data to the database
-
-``` r
-cars %<>% etl_load()
-str(cars)
-```
-
-    ## List of 6
-    ##  $ pkg  : chr "mtcars"
-    ##  $ con  :Formal class 'SQLiteConnection' [package "RSQLite"] with 5 slots
-    ##   .. ..@ Id                 :<externalptr> 
-    ##   .. ..@ dbname             : chr "/tmp/RtmpCDI1YI/file77de9780430"
-    ##   .. ..@ loadable.extensions: logi TRUE
-    ##   .. ..@ flags              : int 6
-    ##   .. ..@ vfs                : chr ""
-    ##  $ dir  : chr "/tmp/RtmpCDI1YI"
-    ##  $ init : logi TRUE
-    ##  $ files: NULL
-    ##  $ push : logi TRUE
-    ##  - attr(*, "class")= chr [1:2] "etl_mtcars" "etl"
-
-Do any data cleanup
-
-``` r
-cars %<>% etl_cleanup(cars)
-```
-
-Streamlined
------------
-
-OR, do the whole thing in one step!
+To populate the whole database from scratch, use `etl_create`.
 
 ``` r
 cars <- etl("mtcars", db) %>%
@@ -129,6 +53,41 @@ cars <- etl("mtcars", db) %>%
   etl_update()
 ```
 
+Step-by-step
+------------
+
+Under the hood, there are five functions that `etl` chains together:
+
+``` r
+getS3method("etl_create", "default")
+```
+
+    ## function(obj, ...) {
+    ##   if (is.null(obj$init)) {
+    ##     obj <- etl_init(obj, ...)
+    ##   }
+    ##   etl_update(obj, ...)
+    ## }
+    ## <environment: namespace:etl>
+
+``` r
+getS3method("etl_update", "default")
+```
+
+    ## function(obj, ...) {
+    ##   obj %<>%
+    ##     etl_extract(...) %>%
+    ##     etl_transform(...) %>%
+    ##     etl_load(...)
+    ##   if (!is.null(obj$push)) {
+    ##     etl_cleanup(obj, ...)
+    ##   } else {
+    ##     warning("Unable to push data to the database?")
+    ##   }
+    ##   return(obj)
+    ## }
+    ## <environment: namespace:etl>
+
 Do Your Analysis
 ----------------
 
@@ -141,13 +100,13 @@ db %>%
   summarise(N = n(), meanMPG = mean(mpg))
 ```
 
-    ## Source: sqlite 3.8.6 [/tmp/RtmpCDI1YI/file77de9780430]
+    ## Source: sqlite 3.8.6 [/tmp/Rtmp4Pm6QH/file7c632a8b37af]
     ## From: <derived table> [?? x 3]
     ## 
     ##    cyl  N  meanMPG
-    ## 1    4 22 26.66364
-    ## 2    6 14 19.74286
-    ## 3    8 28 15.10000
+    ## 1    4 11 26.66364
+    ## 2    6  7 19.74286
+    ## 3    8 14 15.10000
     ## .. ... ..      ...
 
 Create your own ETL packages
