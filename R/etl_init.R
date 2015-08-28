@@ -29,10 +29,6 @@ etl_init.default <- function(obj, ...) {
 #' @export
 
 etl_init.etl_mtcars <- function(obj, ...) {
-  if (class(obj$con) == "MySQLConnection") {
-    sql <- system.file("sql", "mtcars.mysql", package = "etl")
-    obj$init <- dbRunScript(obj$con, sql)
-  }
   if (class(obj$con) == "PostgreSQLConnection") {
     sql <- system.file("sql", "mtcars.psql", package = "etl")
     obj$init <- dbRunScript(obj$con, sql)
