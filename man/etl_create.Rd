@@ -35,6 +35,9 @@ Other etl.functions: \code{\link{etl_cleanup}},
   \code{\link{etl_cleanup.etl_mtcars}};
   \code{\link{etl_connect}},
   \code{\link{etl_connect.default}};
+  \code{\link{etl_extract}},
+  \code{\link{etl_extract.default}},
+  \code{\link{etl_extract.etl_mtcars}};
   \code{\link{etl_init}}, \code{\link{etl_init.default}},
   \code{\link{etl_init.etl_mtcars}};
   \code{\link{etl_process}},
@@ -42,9 +45,6 @@ Other etl.functions: \code{\link{etl_cleanup}},
   \code{\link{etl_process.etl_mtcars}};
   \code{\link{etl_push}}, \code{\link{etl_push.default}},
   \code{\link{etl_push.etl_mtcars}};
-  \code{\link{etl_scrape}},
-  \code{\link{etl_scrape.default}},
-  \code{\link{etl_scrape.etl_mtcars}};
   \code{\link{etl_update}},
   \code{\link{etl_update.default}}
 }

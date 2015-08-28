@@ -24,7 +24,7 @@ etl_update <- function(obj, ...) UseMethod("etl_update")
 
 etl_update.default <- function(obj, ...) {
   obj <- obj %>%
-    etl_scrape(...) %>%
+    etl_extract(...) %>%
     etl_process(...) %>%
     etl_push(...)
   if (!is.null(obj$push)) {

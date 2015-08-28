@@ -26,7 +26,7 @@ Download the raw data
 
 ```{r}
 etl_cars <- etl_cars %>%
-  etl_scrape()
+  etl_extract()
 list.files(etl_cars$dir)
 ```
 
@@ -81,7 +81,7 @@ db %>%
 Suppose you want to create your own ETL package called `pkgname`. All you have to do is write a package that requires `etl`, and then you have to write **two S3 methods**:
 
 ```{r, eval=FALSE}
-etl_scrape.etl_pkgname()
+etl_extract.etl_pkgname()
 etl_push.etl_pkgname()
 ```
 

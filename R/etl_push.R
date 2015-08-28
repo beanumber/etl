@@ -14,7 +14,7 @@
 #' etl_cars <- etl_connect("mtcars", db)
 #' etl_cars %>%
 #'  etl_init() %>%
-#'  etl_scrape() %>%
+#'  etl_extract() %>%
 #'  etl_process() %>%
 #'  etl_push() %>%
 #'  str()
