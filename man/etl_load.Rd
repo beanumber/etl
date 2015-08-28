@@ -5,11 +5,13 @@
 \alias{etl_load.default}
 \title{Create a database schema and populate it with data}
 \usage{
-etl_load(x, conn, schema, nms = names(x$data), ...)
+etl_load(obj, ...)
 
-\method{etl_load}{default}(x, conn, schema, nms = names(x$data), ...)
+\method{etl_load}{default}(obj, ...)
 }
 \arguments{
+\item{...}{arguments passed on to methods}
+
 \item{x}{an \link{etl} object.}
 
 \item{conn}{A database connection.}
@@ -20,8 +22,6 @@ a character vector containing the schema itself.}
 \item{nms}{A character vector describing the names of table(s) to be populated.
 This argument is ignored if schema is specified
 (in that case, the table names in the schema are used).}
-
-\item{...}{arguments passed on to methods}
 }
 \description{
 Create a database schema and populate it with data

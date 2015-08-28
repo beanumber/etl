@@ -5,14 +5,14 @@
 \alias{etl_extract.mtcars}
 \title{Extract data and pull into R}
 \usage{
-etl_extract(x, ...)
+etl_extract(obj, ...)
 
 \method{etl_extract}{mtcars}(x, ...)
 }
 \arguments{
-\item{x}{an \link{etl} object.}
-
 \item{...}{arguments passed onto methods}
+
+\item{x}{an \link{etl} object.}
 }
 \description{
 Extract data and pull into R

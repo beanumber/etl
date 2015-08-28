@@ -36,6 +36,18 @@ tbl(db, "mtcars")
 db <- src_sqlite(tempfile(fileext = ".sqlite3"), create = TRUE)
 schema <- system.file("sql/mtcars.sqlite3", package = "etl")
 etl_load(e, db, schema)
+
+# notice the more specific data types
+tbl(db, "mtcars")
+
+# etl_load() will appends to existing tables when appropriate,
+# so be careful not to duplicate rows
+dim(tbl(db, "mtcars"))
+#> [1] 32 12
+etl_load(e, db)
+dim(tbl(db, "mtcars"))
+#> [1] 64 12
+
 }
 }
 

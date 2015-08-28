@@ -6,16 +6,16 @@
 \alias{etl_transform.mtcars}
 \title{Transform data}
 \usage{
-etl_transform(x, ...)
+etl_transform(obj, ...)
 
-\method{etl_transform}{default}(x, ...)
+\method{etl_transform}{default}(obj, ...)
 
 \method{etl_transform}{mtcars}(x, ...)
 }
 \arguments{
-\item{x}{an \link{etl} object.}
-
 \item{...}{arguments passed on to methods}
+
+\item{x}{an \link{etl} object.}
 }
 \description{
 Transform data

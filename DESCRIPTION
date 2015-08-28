@@ -19,7 +19,9 @@ Depends:
 Imports:
   DBI
 Suggests:
+  knitr,
   dplyr,
+  methods,
   RPostgreSQL,
   RMySQL,
   knitr,
