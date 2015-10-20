@@ -47,7 +47,7 @@ etl <- function(x, db_con, dir = tempdir(), ...) UseMethod("etl")
 
 etl.default <- function(x, db_con, dir = tempdir(), ...) {
   if (x != "mtcars") {
-    if(!require(x, character.only = TRUE)) {
+    if (!requireNamespace(x)) {
       stop(paste0("Please make sure that the '", x, "' package is installed"))
     }
   }
