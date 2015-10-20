@@ -47,7 +47,9 @@ etl <- function(x, db_con, dir = tempdir(), ...) UseMethod("etl")
 
 etl.default <- function(x, db_con, dir = tempdir(), ...) {
   if (x != "mtcars") {
-    message(paste0("Please make sure that the '", x, "' package is loaded"))
+    if(!require(x, character.only = TRUE)) {
+      stop(paste0("Please make sure that the '", x, "' package is installed"))
+    }
   }
   if (is(db_con, "src")) {
     conn <- db_con$con

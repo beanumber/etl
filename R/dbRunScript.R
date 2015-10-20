@@ -19,5 +19,5 @@ dbRunScript <- function(con, script, ...) {
   sql <- unlist(stringr::str_split(sql_text, pattern = ";"))
   # strip out any blank lines -- these will produce an error
   good <- sql[grepl(".+", sql)]
-  sapply(good, DBI::dbSendQuery, conn = con)
+  sapply(good, DBI::dbGetQuery, conn = con)
 }
