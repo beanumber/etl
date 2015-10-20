@@ -15,7 +15,7 @@ dbRunScript <- function(con, script, ...) {
   if (!file.exists(script)) {
     stop("The specified file does not exist.")
   }
-  sql_text <- paste0(readLines(script), collapse = "")
+  sql_text <- paste0(readLines(script), collapse = " ")
   sql <- unlist(stringr::str_split(sql_text, pattern = ";"))
   # strip out any blank lines -- these will produce an error
   good <- sql[grepl(".+", sql)]
