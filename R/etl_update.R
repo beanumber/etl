@@ -1,11 +1,12 @@
 #' @rdname etl_create
-#' @importFrom magrittr %<>%
 #' @export
 
 etl_update <- function(obj, ...) UseMethod("etl_update")
 
 #' @rdname etl_create
 #' @method etl_update default
+#' @importFrom magrittr %<>%
+#' @importFrom magrittr %>%
 #' @export
 
 etl_update.default <- function(obj, ...) {

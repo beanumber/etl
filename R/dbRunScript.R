@@ -1,15 +1,27 @@
-#' Execute a SQL script
+#' Execute an SQL script
 #'
-#' @inheritParams etl_init
-#' @param con a \code{\link[DBI]{DBIConnection-class}} object
-#' @param script path to a SQL script file
+#' @param con a \code{DBIConnection-class} object
+#' @param script path to an SQL script file
 #' @param ... currently ignored
-#' @details The SQL script file must be \code{\"} delimited.
-#' @return a list of results from \code{\link[DBI]{dbGetQuery}}
+#' @details The SQL script file must be \code{;} delimited.
+#' @return a list of results from \code{dbGetQuery} for each of the individual
+#' SQL statements in \code{script}.
 #' @export
 #' @author Ben Baumer
 #' @importFrom stringr str_split
 #' @importFrom DBI dbGetQuery
+#'
+#' @examples
+#' sql <- "SHOW TABLES; SELECT 1+1 as Two;"
+#' tmpfile <- tempfile()
+#' write(sql, file = tmpfile)
+#'
+#' if (require(RMySQL)) {
+#'  con <- dbConnect(RMySQL::MySQL(), user = "r-user", password = "mypass", dbname = "mysql")
+#'  dbRunScript(con, script = tmpfile)
+#'  dbDisconnect(con)
+#' }
+#'
 
 dbRunScript <- function(con, script, ...) {
   if (!file.exists(script)) {

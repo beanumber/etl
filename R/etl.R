@@ -1,4 +1,6 @@
-#' @title Initialize an etl object
+#' Initialize an etl object
+#'
+#' @description Initialize en etl object
 #'
 #' @param x the name of the package that you wish to populate.
 #' This determines the class of the \code{\link{etl}} object, which
