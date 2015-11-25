@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS mtcars;
+
+CREATE TABLE mtcars(
+  "makeModel" TEXT,
+  "mpg" REAL,
+  "cyl" INTEGER,
+  "disp" INTEGER,
+  "hp" INTEGER,
+  "drat" REAL,
+  "wt" REAL,
+  "qsec" REAL,
+  "vs" INTEGER,
+  "am" INTEGER,
+  "gear" INTEGER,
+  "carb" INTEGER
+);

@@ -2,63 +2,54 @@
 % Please edit documentation in R/etl.R
 \name{etl}
 \alias{etl}
-\alias{etl.default}
 \title{Initialize an etl object}
 \usage{
-etl(x, db_con, dir = tempdir(), ...)
-
-\method{etl}{default}(x, db_con, dir = tempdir(), ...)
+etl(class)
 }
 \arguments{
-\item{x}{the name of the package that you wish to populate.
-This determines the class of the \code{\link{etl}} object, which
-determines method dispatch of \code{etl_*()} functions.}
-
-\item{db_con}{a \code{\link[dplyr]{src}} or
-\code{\link[DBI]{DBIConnection-class}} object}
-
-\item{dir}{a directory to store the raw data files}
-
-\item{...}{arguments passed to methods}
+\item{class}{String specifying the class of the etl object.
+This class determines method dispatch of \code{etl_*()} functions.}
 }
 \value{
-an object of class \code{etl_x} and \code{\link{etl}}
+an \code{\link{etl}} object with a class specified by \code{class}.
 }
 \description{
-Initialize en etl object
-}
-\details{
-An \code{\link{etl}} object is a list with the following
-items:
-\describe{
- \item{pkg}{the name of the package corresponding to the data source}
- \item{con}{an objection of class \code{\link[DBI]{DBIConnection-class}}}
- \item{dir}{the directory where the raw data is stored}
- \item{init}{has the database been initialized?}
- \item{push}{a vector a messages from \code{\link[DBI]{dbWriteTable}}}
- \item{files}{a list of files that have been downloaded}
- }
+Initialize an etl object
 }
 \examples{
 
 \dontrun{
+# define, extract, and transform a data source
+e <- etl("mtcars")
+e <- etl_extract(e)
+e <- etl_transform(e)
+str(e)
 
-# connect using dplyr
-if (require(RPostgreSQL) & require(dplyr)) {
-  db <- src_postgres("mtcars", user = "postgres",
-  host = "localhost")
-  cars <- etl("mtcars", db)
-  str(cars)
+# create a database connection
+library(dplyr)
+db <- src_sqlite(tempfile(fileext = ".sqlite3"), create = TRUE)
+
+# send data to the database
+etl_load(e, db)
+tbl(db, "mtcars")
+
+# you can also specify your own schema if you want
+db <- src_sqlite(tempfile(fileext = ".sqlite3"), create = TRUE)
+schema <- system.file("sql/mtcars.sqlite3", package = "etl")
+etl_load(e, db, schema)
+
+# notice the more specific data types
+tbl(db, "mtcars")
+
+# etl_load() will appends to existing tables when appropriate,
+# so be careful not to duplicate rows
+dim(tbl(db, "mtcars"))
+#> [1] 32 12
+etl_load(e, db)
+dim(tbl(db, "mtcars"))
+#> [1] 64 12
+
 }
-# connect using DBI
-require(DBI)
-con <- dbConnect(RPostgreSQL::PostgreSQL(), user = "postgres",
-host = "localhost", dbname = "mtcars")
-cars <- etl("mtcars", db)
-str(cars)
-}
-}
-\seealso{
-\code{\link{etl_create}}
+
 }
 
