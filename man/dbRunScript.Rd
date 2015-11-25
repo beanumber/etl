@@ -28,10 +28,12 @@ sql <- "SHOW TABLES; SELECT 1+1 as Two;"
 tmpfile <- tempfile()
 write(sql, file = tmpfile)
 
+\dontrun{
 if (require(RMySQL)) {
  con <- dbConnect(RMySQL::MySQL(), user = "r-user", password = "mypass", dbname = "mysql")
  dbRunScript(con, script = tmpfile)
  dbDisconnect(con)
+}
 }
 
 }
