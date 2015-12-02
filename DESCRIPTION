@@ -1,7 +1,7 @@
 Package: etl
 Type: Package
 Title: Extract-Transfer-Load Framework for Medium Data
-Version: 0.1.1.9004
+Version: 0.1.1.9005
 Authors@R: as.person(c(
     "Ben Baumer <ben.baumer@gmail.com> [aut, cre]",
     "Carson Sievert <cpsievert1@gmail.com> [aut]"
@@ -19,10 +19,10 @@ Imports:
     DBI,
     stringr
 Depends:
-    R (>= 2.10)
+    R (>= 2.10),
+    dplyr
 Suggests:
     knitr,
-    dplyr,
     methods,
     RPostgreSQL,
     RMySQL,

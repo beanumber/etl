@@ -18,7 +18,6 @@ require(etl)
 In order to populate the SQL database, you need to connect to it. `etl` accepts connections from either `dplyr` or `DBI` -- here we demonstrate the `dplyr` interface. **Note:** you must create the `mtcars` database and have permission to write to it!
 
 ``` r
-require(dplyr)
 # require(RPostgreSQL)
 # db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
 # require(RMySQL)
@@ -100,14 +99,15 @@ db %>%
   summarise(N = n(), meanMPG = mean(mpg))
 ```
 
-    ## Source: sqlite 3.8.6 [/tmp/RtmpMQdCVD/file7dcc5093e34a]
+    ## Source: sqlite 3.8.6 [/tmp/RtmpaS33mu/file5a8a1c2f7a58]
     ## From: <derived table> [?? x 3]
     ## 
-    ##    cyl  N  meanMPG
-    ## 1    4 11 26.66364
-    ## 2    6  7 19.74286
-    ## 3    8 14 15.10000
-    ## .. ... ..      ...
+    ##      cyl     N  meanMPG
+    ##    (int) (int)    (dbl)
+    ## 1      4    11 26.66364
+    ## 2      6     7 19.74286
+    ## 3      8    14 15.10000
+    ## ..   ...   ...      ...
 
 Create your own ETL packages
 ----------------------------
