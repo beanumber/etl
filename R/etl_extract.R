@@ -18,11 +18,13 @@ etl_extract.default <- function(obj, ...) {
 #' @export
 
 etl_extract.etl_mtcars <- function(obj, ...) {
-  if (!dir.exists(obj$dir)) {
-    obj$dir <- tempdir()
+  message("Extracting raw data...")
+  raw_dir <- paste0(attr(obj, "dir"), "/raw")
+  if (!dir.exists(raw_dir)) {
+    dir.create(raw_dir)
   }
-  filename <- paste0(obj$dir, "/mtcars.csv")
-  write.csv(mtcars, file = filename)
+  raw_filename <- paste0(raw_dir, "/mtcars.csv")
+  write.csv(mtcars, file = raw_filename)
   return(obj)
 }
 

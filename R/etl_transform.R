@@ -18,8 +18,10 @@ etl_transform.default <- function(obj, ...) {
 #' @export
 
 etl_transform.etl_mtcars <- function(obj, ...) {
-  if (!dir.exists(obj$dir)) {
-    stop("Directory does not exist! Please specify a valid path to the raw data.")
+  message("Transforming raw data...")
+  raw_dir <- paste0(attr(obj, "dir"), "/raw")
+  if (!dir.exists(raw_dir)) {
+    stop("The directory with the raw data does not exist. Please specify a valid path to the raw data.")
   }
   # load the data and process it if necessary
   return(obj)

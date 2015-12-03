@@ -34,9 +34,6 @@
 #' @return Each one of these functions returns an \code{\link{etl}} object.
 #' @seealso \code{\link{etl}}
 #' @examples
-#'
-#' require(magrittr)
-#' if (require(RSQLite) & require(dplyr)) {
 #'  db <- src_sqlite(path = tempfile(), create = TRUE)
 #'  cars <- etl("mtcars", db)
 #'  cars %>%
@@ -48,8 +45,11 @@
 #'  db %>%
 #'    tbl(from = "mtcars") %>%
 #'    group_by(cyl) %>%
-#'    summarise(N = n(), meanMPG = mean(mpg))
-#' }
+#'    summarise(N = n(), mean_mpg = mean(mpg))
+#'
+#'  # do it all in one step
+#'  cars %>%
+#'    etl_create()
 
 etl_create <- function(obj, ...) UseMethod("etl_create")
 
@@ -58,8 +58,23 @@ etl_create <- function(obj, ...) UseMethod("etl_create")
 #' @export
 
 etl_create.default <- function(obj, ...) {
-  if (is.null(obj$init)) {
-    obj <- etl_init(obj, ...)
-  }
-  etl_update(obj, ...)
+  etl_update(obj, init = TRUE, ...)
+}
+
+#' @rdname etl_create
+#' @export
+
+etl_update <- function(obj, ...) UseMethod("etl_update")
+
+#' @rdname etl_create
+#' @method etl_update default
+#' @export
+
+etl_update.default <- function(obj, ...) {
+  obj <- obj %>%
+    etl_extract(...) %>%
+    etl_transform(...) %>%
+    etl_load(...) %>%
+    etl_cleanup(...)
+  return(obj)
 }

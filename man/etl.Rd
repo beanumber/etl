@@ -5,58 +5,69 @@
 \alias{etl.default}
 \title{Initialize an etl object}
 \usage{
-etl(x, db_con, dir = tempdir(), ...)
+etl(x, db = NULL, dir = tempdir(), ...)
 
-\method{etl}{default}(x, db_con, dir = tempdir(), ...)
+\method{etl}{default}(x, db = NULL, dir = tempdir(), ...)
 }
 \arguments{
 \item{x}{the name of the package that you wish to populate.
 This determines the class of the \code{\link{etl}} object, which
 determines method dispatch of \code{etl_*()} functions.}
 
-\item{db_con}{a \code{\link[dplyr]{src}} or
-\code{\link[DBI]{DBIConnection-class}} object}
+\item{db}{a database connection that inherits from \code{\link[dplyr]{src_sql}}. It is
+NULL by default, which results in a \code{\link[dplyr]{src_sqlite}} connection being made}
 
 \item{dir}{a directory to store the raw data files}
 
 \item{...}{arguments passed to methods}
 }
 \value{
-an object of class \code{etl_x} and \code{\link{etl}}
+an object of class \code{etl_x} and \code{\link{etl}} that inherits
+from \code{\link[dplyr]{src_sql}}
 }
 \description{
 Initialize en etl object
 }
 \details{
-An \code{\link{etl}} object is a list with the following
-items:
+An \code{\link{etl}} object extends a \code{\link[dplyr]{src_sql}} object.
+It also has attributes for:
 \describe{
  \item{pkg}{the name of the package corresponding to the data source}
- \item{con}{an objection of class \code{\link[DBI]{DBIConnection-class}}}
  \item{dir}{the directory where the raw data is stored}
- \item{init}{has the database been initialized?}
  \item{push}{a vector a messages from \code{\link[DBI]{dbWriteTable}}}
  \item{files}{a list of files that have been downloaded}
  }
 }
 \examples{
 
-\dontrun{
-
-# connect using dplyr
-if (require(RPostgreSQL) & require(dplyr)) {
-  db <- src_postgres("mtcars", user = "postgres",
-  host = "localhost")
-  cars <- etl("mtcars", db)
-  str(cars)
-}
-# connect using DBI
-require(DBI)
-con <- dbConnect(RPostgreSQL::PostgreSQL(), user = "postgres",
-host = "localhost", dbname = "mtcars")
-cars <- etl("mtcars", db)
+# Instantiate the etl object
+cars <- etl("mtcars")
 str(cars)
+is.etl(cars)
+
+\dontrun{
+# connect using dplyr
+db <- src_postgres("mtcars", user = "postgres", host = "localhost")
+cars <- etl("mtcars", db)
 }
+
+# Do it step-by-step
+cars \%>\%
+  etl_extract() \%>\%
+  etl_transform() \%>\%
+  etl_load()
+src_tbls(cars)
+cars \%>\%
+  tbl("mtcars") \%>\%
+  group_by(cyl) \%>\%
+  summarize(N = n(), mean_mpg = mean(mpg))
+
+# Do it all in one step
+cars2 <- etl("mtcars")
+cars2 \%>\%
+  etl_update()
+src_tbls(cars2)
+
 }
 \seealso{
 \code{\link{etl_create}}
