@@ -11,7 +11,7 @@ is.etl <- function(x) inherits(x, "etl")
 # ensure we have a valid database connection
 verify_con <- function(x) {
   if (!inherits(x, "src")) {
-    sqlite_file <- paste0(tempfile(), ".sqlite")
+    sqlite_file <- tempfile(fileext = ".sqlite3")
     message(paste("Not a valid src. Creating a src_sqlite for you at", sqlite_file))
     x <- dplyr::src_sqlite(path = sqlite_file, create = TRUE)
   }

@@ -9,9 +9,6 @@
 \alias{etl_extract}
 \alias{etl_extract.default}
 \alias{etl_extract.etl_mtcars}
-\alias{etl_init}
-\alias{etl_init.default}
-\alias{etl_init.etl_mtcars}
 \alias{etl_load}
 \alias{etl_load.default}
 \alias{etl_load.etl_mtcars}
@@ -42,17 +39,11 @@ etl_extract(obj, ...)
 
 \method{etl_extract}{etl_mtcars}(obj, ...)
 
-etl_load(obj, init = FALSE, ...)
+etl_load(obj, schema, ...)
 
-\method{etl_load}{default}(obj, init = FALSE, ...)
+\method{etl_load}{default}(obj, schema, ...)
 
-\method{etl_load}{etl_mtcars}(obj, init = FALSE, ...)
-
-etl_init(obj, ...)
-
-\method{etl_init}{default}(obj, ...)
-
-\method{etl_init}{etl_mtcars}(obj, ...)
+\method{etl_load}{etl_mtcars}(obj, schema, ...)
 
 etl_transform(obj, ...)
 
@@ -65,8 +56,12 @@ etl_transform(obj, ...)
 
 \item{...}{arguments passed to methods}
 
-\item{init}{a logical indicating whether the database should be initialized
-before attempting to load the data into it. Use with caution, as this may
+\item{schema}{Either a filename pointing to SQL schema file or a character
+vector containing the schema itself. Note
+that the flavor of SQL in this file must match the type of the source. That is,
+if your object is of type \code{\link[dplyr]{sql_mysql}}, then make sure that
+the schema you specify here is written in MySQL (and not PostgreSQL). Please
+note that SQL syntax is not, in general, completely portable. Use with caution, as this may
 clobber any existing data you have in an existing database.}
 }
 \value{
@@ -121,18 +116,27 @@ Additionally, two convenience function chain these operations together:
  # do it all in one step
  cars \%>\%
    etl_create()
+# Instantiate the etl object
+cars <- etl("mtcars")
+str(cars)
 
-\dontrun{
-if (require(RPostgreSQL) & require(dplyr)) {
-  db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-  cars <- etl("mtcars")
-  cars \%>\% etl_init()
- }
-}
+# Do it step-by-step
+cars \%>\%
+  etl_extract() \%>\%
+  etl_transform() \%>\%
+  etl_load()
+
+# Note the rather imprecise data types for the columns. These are the default.
+tbl(cars, "mtcars")
+
+# But you can also specify your own schema if you want
+schema <- system.file("sql/mtcars.sqlite3", package = "etl")
+etl_load(cars, schema)
+
+# notice the more specific data types
+tbl(cars, "mtcars")
 }
 \seealso{
 \code{\link{etl}}
-
-etl
 }
 

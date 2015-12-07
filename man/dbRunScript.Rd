@@ -4,12 +4,13 @@
 \alias{dbRunScript}
 \title{Execute an SQL script}
 \usage{
-dbRunScript(con, script, ...)
+dbRunScript(conn, script, ...)
 }
 \arguments{
-\item{con}{a \code{DBIConnection-class} object}
+\item{conn}{a \code{DBIConnection-class} object}
 
-\item{script}{path to an SQL script file}
+\item{script}{Either a filename pointing to SQL script or
+a character vector of length 1 containing SQL.}
 
 \item{...}{currently ignored}
 }
@@ -25,19 +26,15 @@ The SQL script file must be \code{;} delimited.
 }
 \examples{
 sql <- "SHOW TABLES; SELECT 1+1 as Two;"
-tmpfile <- tempfile()
-write(sql, file = tmpfile)
+sql <- system.file("sql", "mtcars.mysql", package = "etl")
 
 \dontrun{
 if (require(RMySQL)) {
  con <- dbConnect(RMySQL::MySQL(), user = "r-user", password = "mypass", dbname = "mysql")
- dbRunScript(con, script = tmpfile)
+ dbRunScript(con, script = sql)
  dbDisconnect(con)
 }
 }
 
-}
-\author{
-Ben Baumer
 }
 

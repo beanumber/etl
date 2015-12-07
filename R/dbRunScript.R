@@ -1,37 +1,39 @@
 #' Execute an SQL script
 #'
-#' @param con a \code{DBIConnection-class} object
-#' @param script path to an SQL script file
+#' @param conn a \code{DBIConnection-class} object
+#' @param script Either a filename pointing to SQL script or
+#' a character vector of length 1 containing SQL.
 #' @param ... currently ignored
 #' @details The SQL script file must be \code{;} delimited.
 #' @return a list of results from \code{dbGetQuery} for each of the individual
 #' SQL statements in \code{script}.
 #' @export
-#' @author Ben Baumer
-#' @importFrom stringr str_split
-#' @importFrom DBI dbGetQuery
+#' @importFrom DBI dbSendQuery
 #'
 #' @examples
 #' sql <- "SHOW TABLES; SELECT 1+1 as Two;"
-#' tmpfile <- tempfile()
-#' write(sql, file = tmpfile)
+#' sql <- system.file("sql", "mtcars.mysql", package = "etl")
 #'
 #' \dontrun{
 #' if (require(RMySQL)) {
 #'  con <- dbConnect(RMySQL::MySQL(), user = "r-user", password = "mypass", dbname = "mysql")
-#'  dbRunScript(con, script = tmpfile)
+#'  dbRunScript(con, script = sql)
 #'  dbDisconnect(con)
 #' }
 #' }
 #'
 
-dbRunScript <- function(con, script, ...) {
-  if (!file.exists(script)) {
-    stop("The specified file does not exist.")
-  }
-  sql_text <- paste0(readLines(script), collapse = " ")
-  sql <- unlist(stringr::str_split(sql_text, pattern = ";"))
+dbRunScript <- function(conn, script, ...) {
+  if (file.exists(script))
+    script <- readChar(script, file.info(script)$size, useBytes = TRUE)
+  # TODO: ensure SQL is safe for use before executing
+  # NOTE: Already tried using DBI::dbQuoteString(),
+  # but their is no default method for SQLite ->
+  # https://github.com/rstats-db/RSQLite/issues/99
+  script <- gsub("\n", "", script, fixed = TRUE)
+  script <- unlist(strsplit(script, ";"))
+
   # strip out any blank lines -- these will produce an error
-  good <- sql[grepl(".+", sql)]
-  sapply(good, DBI::dbGetQuery, conn = con)
+  good <- script[grepl(".+", script)]
+  invisible(lapply(good, DBI::dbGetQuery, conn = conn))
 }

@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS mtcars;
+
+CREATE TABLE `mtcars` (
+  `makeModel` varchar(55) NOT NULL DEFAULT '',
+  `mpg` decimal(3,1) DEFAULT NULL,
+  `cyl` smallint(6) DEFAULT NULL,
+  `disp` decimal(4,1) DEFAULT NULL,
+  `hp` smallint(6) DEFAULT NULL,
+  `drat` decimal(3,2) DEFAULT NULL,
+  `wt` decimal(4,3) DEFAULT NULL,
+  `qsec` decimal(4,2) DEFAULT NULL,
+  `vs` smallint(6) DEFAULT NULL,
+  `am` smallint(6) DEFAULT NULL,
+  `gear` smallint(6) DEFAULT NULL,
+  `carb` smallint(4) DEFAULT NULL,
+  PRIMARY KEY (`makeModel`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
