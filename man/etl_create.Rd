@@ -39,11 +39,11 @@ etl_extract(obj, ...)
 
 \method{etl_extract}{etl_mtcars}(obj, ...)
 
-etl_load(obj, schema, ...)
+etl_load(obj, schema = FALSE, ...)
 
-\method{etl_load}{default}(obj, schema, ...)
+\method{etl_load}{default}(obj, schema = FALSE, ...)
 
-\method{etl_load}{etl_mtcars}(obj, schema, ...)
+\method{etl_load}{etl_mtcars}(obj, schema = FALSE, ...)
 
 etl_transform(obj, ...)
 
@@ -56,8 +56,9 @@ etl_transform(obj, ...)
 
 \item{...}{arguments passed to methods}
 
-\item{schema}{Either a filename pointing to SQL schema file or a character
-vector containing the schema itself. Note
+\item{schema}{Either a logical, a filename pointing to SQL schema file, or a character
+vector containing the schema itself. If \code{schema = TRUE}, then the built-in
+schema will be used. Note
 that the flavor of SQL in this file must match the type of the source. That is,
 if your object is of type \code{\link[dplyr]{sql_mysql}}, then make sure that
 the schema you specify here is written in MySQL (and not PostgreSQL). Please
@@ -77,10 +78,8 @@ The purpose of these functions are to download data from a
 particular data source from the Internet, process it, and load it
 into a SQL database server.
 
-There are five primary functions:
+There are four primary functions:
 \describe{
- \item{etl_init}{Initialize the database. For RDBMSs, an SQL initialization
- script is sent to the DB.}
  \item{etl_extract}{Download data from the Internet and store it locally in
  its raw form.}
  \item{etl_transform}{Maniuplate the raw data such that it can be loaded
@@ -95,23 +94,28 @@ Additionally, two convenience function chain these operations together:
 \describe{
  \item{etl_create}{Run all five in succession. This is useful when you want
  to create the database from scratch.}
- \item{etl_update}{Run all four, excepting \code{etl_init}. This is useful
+ \item{etl_update}{Run all four. This is useful
  where the database already exists, but you want to insert some new data. }
 }
 }
 \examples{
- db <- src_sqlite(path = tempfile(), create = TRUE)
- cars <- etl("mtcars", db)
- cars \%>\%
-   etl_init() \%>\%
-   etl_extract() \%>\%
-   etl_transform() \%>\%
-   etl_load() \%>\%
-   etl_cleanup()
- db \%>\%
-   tbl(from = "mtcars") \%>\%
-   group_by(cyl) \%>\%
-   summarise(N = n(), mean_mpg = mean(mpg))
+
+\dontrun{
+if (require(RPostgreSQL)) {
+  db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+}
+}
+cars <- etl("mtcars", db)
+cars \%>\%
+ etl_extract() \%>\%
+ etl_transform() \%>\%
+ etl_load() \%>\%
+ etl_cleanup()
+
+cars \%>\%
+ tbl(from = "mtcars") \%>\%
+ group_by(cyl) \%>\%
+ summarise(N = n(), mean_mpg = mean(mpg))
 
  # do it all in one step
  cars \%>\%
