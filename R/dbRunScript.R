@@ -8,24 +8,25 @@
 #' @return a list of results from \code{dbGetQuery} for each of the individual
 #' SQL statements in \code{script}.
 #' @export
-#' @importFrom DBI dbSendQuery
 #'
 #' @examples
 #' sql <- "SHOW TABLES; SELECT 1+1 as Two;"
-#' sql <- system.file("sql", "mtcars.mysql", package = "etl")
+#' sql2 <- system.file("sql", "mtcars.mysql", package = "etl")
 #'
 #' \dontrun{
 #' if (require(RMySQL)) {
 #'  con <- dbConnect(RMySQL::MySQL(), user = "r-user", password = "mypass", dbname = "mysql")
 #'  dbRunScript(con, script = sql)
+#'  dbRunScript(con, script = sql2)
 #'  dbDisconnect(con)
 #' }
 #' }
 #'
 
 dbRunScript <- function(conn, script, ...) {
-  if (file.exists(script))
+  if (file.exists(script)) {
     script <- readChar(script, file.info(script)$size, useBytes = TRUE)
+  }
   # TODO: ensure SQL is safe for use before executing
   # NOTE: Already tried using DBI::dbQuoteString(),
   # but their is no default method for SQLite ->
@@ -35,5 +36,5 @@ dbRunScript <- function(conn, script, ...) {
 
   # strip out any blank lines -- these will produce an error
   good <- script[grepl(".+", script)]
-  invisible(lapply(good, DBI::dbGetQuery, conn = conn))
+  invisible(lapply(good, dbGetQuery_safe, conn = conn))
 }

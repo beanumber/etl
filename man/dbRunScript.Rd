@@ -26,12 +26,13 @@ The SQL script file must be \code{;} delimited.
 }
 \examples{
 sql <- "SHOW TABLES; SELECT 1+1 as Two;"
-sql <- system.file("sql", "mtcars.mysql", package = "etl")
+sql2 <- system.file("sql", "mtcars.mysql", package = "etl")
 
 \dontrun{
 if (require(RMySQL)) {
  con <- dbConnect(RMySQL::MySQL(), user = "r-user", password = "mypass", dbname = "mysql")
  dbRunScript(con, script = sql)
+ dbRunScript(con, script = sql2)
  dbDisconnect(con)
 }
 }

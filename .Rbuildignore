@@ -5,3 +5,4 @@
 ^.*\.Rmd$
 ^.*ignore\.R$
 ^.*\.Rignore$
+^Makefile$

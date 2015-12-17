@@ -4,7 +4,7 @@
 #' vector containing the schema itself. If \code{schema = TRUE}, then the built-in
 #' schema will be used. Note
 #' that the flavor of SQL in this file must match the type of the source. That is,
-#' if your object is of type \code{\link[dplyr]{sql_mysql}}, then make sure that
+#' if your object is of type \code{\link[dplyr]{src_mysql}}, then make sure that
 #' the schema you specify here is written in MySQL (and not PostgreSQL). Please
 #' note that SQL syntax is not, in general, completely portable. Use with caution, as this may
 #' clobber any existing data you have in an existing database.
@@ -58,7 +58,7 @@ etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
   db <- verify_con(obj)
   if (is(db$con, "DBIConnection")) {
     if (schema == TRUE) {
-      schema <- get_schema(db$con)
+      schema <- get_schema(db)
     }
     if (!missing(schema)) {
       message(dbRunScript(db$con, schema))

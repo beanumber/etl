@@ -30,3 +30,27 @@ verify_dat <- function(dat) {
             "These will not be exported to the database.")
   dat[is_df]
 }
+
+
+#' Execute arbitrary SQL code without forcing a data frame to be returned
+#'
+#' @description Execute arbitrary SQL code without forcing a data frame to be returned
+#'
+#' @inheritParams DBI::dbGetQuery
+#'
+#' @import DBI
+#' @export
+dbGetQuery_safe <- function(conn, statement, ...) {
+            rs <- dbSendQuery(conn, statement, ...)
+            on.exit(dbClearResult(rs))
+
+            tryCatch(df <- dbFetch(rs, n = -1, ...), error = function(c) {
+#              message(c)
+              df <- NULL
+            })
+            if (!dbHasCompleted(rs)) {
+              warning("Pending rows", call. = FALSE)
+            }
+
+            df
+          }

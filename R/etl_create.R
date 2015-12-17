@@ -36,9 +36,10 @@
 #' \dontrun{
 #' if (require(RPostgreSQL)) {
 #'   db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+#'   cars <- etl("mtcars", db)
 #' }
 #' }
-#' cars <- etl("mtcars", db)
+#' cars <- etl("mtcars")
 #' cars %>%
 #'  etl_extract() %>%
 #'  etl_transform() %>%

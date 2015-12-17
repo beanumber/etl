@@ -26,6 +26,20 @@ cars <- etl("mtcars")
 class(cars)
 ```
 
+## Connect to a local or remote database
+
+`etl` works with a local or remote database to store your data. Every `etl` object extends a `dplyr::src_sql` object. If, as in the example above, you do not specify a SQL source, a local `RSQLite` database will be created for you. However, you can also specify any source that inherits from `dplyr::src_sql`.
+
+> Note: If you want to use a database other than a local RSQLite, you must create the `mtcars` database and have permission to write to it first!
+
+```{r, eval=FALSE}
+require(RPostgreSQL)
+db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+require(RMySQL)
+db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
+cars <- etl("mtcars", db)
+```
+
 At the heart of `etl` are three functions: `etl_extract()`, `etl_transform()`, and `etl_load()`. 
 
 ## Download data from an online source
@@ -45,21 +59,6 @@ This creates a local store of raw data.
 cars %>%
   etl_transform()
 ```
-
-## Connect to a local or remote database
-
-In order to populate the SQL database, you need to connect to it. `etl` accepts connections from any object that inherits from `dplyr::src_sql` object. **Note:** If you want to use a database other than a local RSQLite, you must create the `mtcars` database and have permission to write to it!
-
-```{r, message=FALSE}
-# require(RPostgreSQL)
-# db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
-# require(RMySQL)
-# db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
-require(RSQLite)
-db <- src_sqlite(path = tempfile(), create = TRUE)
-```
-
-If you don't want to connect to a RDBMS, then you can leave the `db` argument out. 
 
 ## Populate the database
 
@@ -95,7 +94,7 @@ getS3method("etl_update", "default")
 
 ## Do Your Analysis
 
-Now that your database is populated, you can work with it as a `src` data table just like any other `dplyr` table. 
+Now that your database is populated, you can work with it as a `src` data table just like any other `dplyr` source. 
 ```{r}
 cars %>%
   tbl("mtcars") %>%
@@ -115,7 +114,6 @@ etl_load.etl_pkgname()
 You may also wish to write
 
 ```{r, eval=FALSE}
-etl_init.etl_pkgname()
 etl_transform.etl_pkgname()
 etl_cleanup.etl_pkgname()
 ```

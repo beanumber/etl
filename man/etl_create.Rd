@@ -60,7 +60,7 @@ etl_transform(obj, ...)
 vector containing the schema itself. If \code{schema = TRUE}, then the built-in
 schema will be used. Note
 that the flavor of SQL in this file must match the type of the source. That is,
-if your object is of type \code{\link[dplyr]{sql_mysql}}, then make sure that
+if your object is of type \code{\link[dplyr]{src_mysql}}, then make sure that
 the schema you specify here is written in MySQL (and not PostgreSQL). Please
 note that SQL syntax is not, in general, completely portable. Use with caution, as this may
 clobber any existing data you have in an existing database.}
@@ -103,9 +103,10 @@ Additionally, two convenience function chain these operations together:
 \dontrun{
 if (require(RPostgreSQL)) {
   db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+  cars <- etl("mtcars", db)
 }
 }
-cars <- etl("mtcars", db)
+cars <- etl("mtcars")
 cars \%>\%
  etl_extract() \%>\%
  etl_transform() \%>\%

@@ -47,8 +47,10 @@ is.etl(cars)
 
 \dontrun{
 # connect using dplyr
-db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-cars <- etl("mtcars", db)
+if (require(RPostgreSQL)) {
+ db <- src_postgres("mtcars", user = "postgres", host = "localhost")
+ cars <- etl("mtcars", db)
+}
 }
 
 # Do it step-by-step
