@@ -42,7 +42,7 @@ etl_load.default <- function(obj, schema = FALSE, ...) {
   db <- verify_con(db)
   # insert data from somewhere
   warning(paste0("No available methods. Did you write the method etl_load.", class(obj)[1]), "()?")
-  return(obj)
+  invisible(obj)
 }
 
 #' @rdname etl_create
@@ -70,7 +70,7 @@ etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
   } else {
     stop("Invalid connection to database.")
   }
-  return(db)
+  invisible(db)
 }
 
 get_schema <- function(con) UseMethod("get_schema")

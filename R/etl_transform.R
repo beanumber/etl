@@ -10,7 +10,7 @@ etl_transform <- function(obj, ...) UseMethod("etl_transform")
 etl_transform.default <- function(obj, ...) {
   # load the data and process it if necessary
   message(paste0("No available methods. Did you write the method etl_transform.", class(obj)[1]), "()?")
-  return(obj)
+  invisible(obj)
 }
 
 #' @rdname etl_create
@@ -24,7 +24,7 @@ etl_transform.etl_mtcars <- function(obj, ...) {
     stop("The directory with the raw data does not exist. Please specify a valid path to the raw data.")
   }
   # load the data and process it if necessary
-  return(obj)
+  invisible(obj)
 }
 
 
