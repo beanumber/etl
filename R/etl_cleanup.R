@@ -11,7 +11,7 @@ etl_cleanup.default <- function(obj, ...) {
   # delete files
   # run VACCUUM ANALYZE, etc.
   message(paste0("No available methods. Did you write the method etl_cleanup.", class(obj)[1]), "()?")
-  return(obj)
+  invisible(obj)
 }
 
 #' @rdname etl_create
@@ -21,5 +21,5 @@ etl_cleanup.default <- function(obj, ...) {
 etl_cleanup.etl_mtcars <- function(obj, ...) {
   # delete files
   # run VACCUUM ANALYZE, etc.
-  return(obj)
+  invisible(obj)
 }

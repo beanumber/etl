@@ -80,5 +80,5 @@ etl_update.default <- function(obj, ...) {
     etl_transform(...) %>%
     etl_load(...) %>%
     etl_cleanup(...)
-  return(obj)
+  invisible(obj)
 }

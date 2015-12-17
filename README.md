@@ -21,7 +21,7 @@ Instantiate an `etl` object using a string that determines the class of the resu
 cars <- etl("mtcars")
 ```
 
-    ## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpBFmGKe/file52022e5ceb4.sqlite3
+    ## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpPyjhIs/file52dd6db3b12e.sqlite3
 
 ``` r
 class(cars)
@@ -104,9 +104,6 @@ cars %>%
     ## Data was successfully written to database.
     ## mtcars
 
-    ## src:  sqlite 3.8.6 [/tmp/RtmpBFmGKe/file52022e5ceb4.sqlite3]
-    ## tbls: mtcars
-
 You can also update an existing database without re-initializing, but watch out for primary key collisions.
 
 ``` r
@@ -138,7 +135,7 @@ getS3method("etl_update", "default")
     ##     etl_transform(...) %>%
     ##     etl_load(...) %>%
     ##     etl_cleanup(...)
-    ##   return(obj)
+    ##   invisible(obj)
     ## }
     ## <environment: namespace:etl>
 
@@ -154,7 +151,7 @@ cars %>%
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
-    ## Source: sqlite 3.8.6 [/tmp/RtmpBFmGKe/file52022e5ceb4.sqlite3]
+    ## Source: sqlite 3.8.6 [/tmp/RtmpPyjhIs/file52dd6db3b12e.sqlite3]
     ## From: <derived table> [?? x 3]
     ## 
     ##      cyl     N mean_mpg
