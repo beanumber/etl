@@ -72,14 +72,14 @@ cars %>%
 To populate the whole database from scratch, use `etl_create`. 
 
 ```{r}
-cars <- etl("mtcars") %>%
+cars %>%
   etl_create()
 ```
 
 You can also update an existing database without re-initializing, but watch out for primary key collisions.
 
 ```{r, eval=FALSE}
-cars <- etl("mtcars") %>%
+cars %>%
   etl_update()
 ```
 
