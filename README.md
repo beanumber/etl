@@ -1,141 +1,214 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
 [![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
 
-etl
-===
+# etl
+`etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations for **medium data**. The end result is generally a populated SQL database, but the user interaction takes place solely within R.
 
-`etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations. The end result is a populated SQL database, but the user interaction takes place solely within R.
+To install, use the `devtools` package, and then load it. 
 
-To install, use the `devtools` package, and then load it.
 
-``` r
+```r
 devtools::install_github("beanumber/etl")
 ```
 
-``` r
+
+```r
 require(etl)
 ```
 
-In order to populate the SQL database, you need to connect to it. `etl` accepts connections from either `dplyr` or `DBI` -- here we demonstrate the `dplyr` interface. **Note:** you must create the `mtcars` database and have permission to write to it!
+Instantiate an `etl` object using a string that determines the class of the resulting object, and the package that provides access to that data. The trivial `mtcars` database is built into `etl`. 
 
-``` r
-# require(RPostgreSQL)
-# db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
-# require(RMySQL)
-# db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
-require(RSQLite)
-db <- src_sqlite(path = tempfile(), create = TRUE)
+
+```r
+cars <- etl("mtcars")
 ```
 
-Instantiate an `etl` object using a string that determines the class of the resulting object, and the package that provides access to that data. The trivial `mtcars` database is built into `etl`.
+```
+## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpluZbv4/file4bff56eb4f77.sqlite3
+```
 
-``` r
-cars <- etl("mtcars", db)
+```r
 class(cars)
 ```
 
-    ## [1] "etl_mtcars" "etl"
+```
+## [1] "etl_mtcars" "etl"        "src_sqlite" "src_sql"    "src"
+```
 
-Populate the database
-=====================
+## Connect to a local or remote database
 
-To populate the whole database from scratch, use `etl_create`.
+`etl` works with a local or remote database to store your data. Every `etl` object extends a `dplyr::src_sql` object. If, as in the example above, you do not specify a SQL source, a local `RSQLite` database will be created for you. However, you can also specify any source that inherits from `dplyr::src_sql`.
 
-``` r
-cars <- etl("mtcars", db) %>%
+> Note: If you want to use a database other than a local RSQLite, you must create the `mtcars` database and have permission to write to it first!
+
+
+```r
+require(RPostgreSQL)
+db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+require(RMySQL)
+db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
+cars <- etl("mtcars", db)
+```
+
+At the heart of `etl` are three functions: `etl_extract()`, `etl_transform()`, and `etl_load()`. 
+
+## Download data from an online source
+
+The first step is to acquire data from an online source. 
+
+
+```r
+cars %>%
+  etl_extract()
+```
+
+```
+## Extracting raw data...
+```
+
+```
+## Error in UseMethod("db_list_tables"): no applicable method for 'db_list_tables' applied to an object of class "SQLiteConnection"
+```
+
+This creates a local store of raw data. 
+
+## Transform that data from its raw form to data.frame(s)
+
+
+```r
+cars %>%
+  etl_transform()
+```
+
+```
+## Transforming raw data...
+```
+
+```
+## Error in UseMethod("db_list_tables"): no applicable method for 'db_list_tables' applied to an object of class "SQLiteConnection"
+```
+
+## Populate the database
+
+
+```r
+cars %>%
+  etl_load()
+```
+
+```
+## Error in etl_load.etl_mtcars(.): could not find function "is"
+```
+
+## Do it all at once
+
+To populate the whole database from scratch, use `etl_create`. 
+
+
+```r
+cars <- etl("mtcars") %>%
   etl_create()
+```
+
+```
+## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpluZbv4/file4bff35a7100.sqlite3
+## Extracting raw data...
+## Transforming raw data...
+```
+
+```
+## Error in etl_load.etl_mtcars(., ...): could not find function "is"
 ```
 
 You can also update an existing database without re-initializing, but watch out for primary key collisions.
 
-``` r
-cars <- etl("mtcars", db) %>%
+
+```r
+cars <- etl("mtcars") %>%
   etl_update()
 ```
 
-Step-by-step
-------------
+## Step-by-step
 
 Under the hood, there are five functions that `etl` chains together:
 
-``` r
+
+```r
 getS3method("etl_create", "default")
 ```
 
-    ## function(obj, ...) {
-    ##   if (is.null(obj$init)) {
-    ##     obj <- etl_init(obj, ...)
-    ##   }
-    ##   etl_update(obj, ...)
-    ## }
-    ## <environment: namespace:etl>
+```
+## function(obj, ...) {
+##   etl_update(obj, schema = TRUE, ...)
+## }
+## <environment: namespace:etl>
+```
 
-``` r
+```r
 getS3method("etl_update", "default")
 ```
 
-    ## function(obj, ...) {
-    ##   obj %<>%
-    ##     etl_extract(...) %>%
-    ##     etl_transform(...) %>%
-    ##     etl_load(...)
-    ##   if (!is.null(obj$push)) {
-    ##     etl_cleanup(obj, ...)
-    ##   } else {
-    ##     warning("Unable to push data to the database?")
-    ##   }
-    ##   return(obj)
-    ## }
-    ## <environment: namespace:etl>
-
-Do Your Analysis
-----------------
-
-Now that your database is populated, you can work with it as a `src` data table just like any other `dplyr` table.
-
-``` r
-db %>%
-  tbl(from = "mtcars") %>%
-  group_by(cyl) %>%
-  summarise(N = n(), meanMPG = mean(mpg))
+```
+## function(obj, ...) {
+##   obj <- obj %>%
+##     etl_extract(...) %>%
+##     etl_transform(...) %>%
+##     etl_load(...) %>%
+##     etl_cleanup(...)
+##   return(obj)
+## }
+## <environment: namespace:etl>
 ```
 
-    ## Source: sqlite 3.8.6 [/tmp/RtmpaS33mu/file5a8a1c2f7a58]
-    ## From: <derived table> [?? x 3]
-    ## 
-    ##      cyl     N  meanMPG
-    ##    (int) (int)    (dbl)
-    ## 1      4    11 26.66364
-    ## 2      6     7 19.74286
-    ## 3      8    14 15.10000
-    ## ..   ...   ...      ...
+## Do Your Analysis
 
-Create your own ETL packages
-----------------------------
+Now that your database is populated, you can work with it as a `src` data table just like any other `dplyr` source. 
+
+```r
+cars %>%
+  tbl("mtcars") %>%
+  group_by(cyl) %>%
+  summarise(N = n(), mean_mpg = mean(mpg))
+```
+
+```
+## Error in UseMethod("db_has_table"): no applicable method for 'db_has_table' applied to an object of class "SQLiteConnection"
+```
+
+## Create your own ETL packages
 
 Suppose you want to create your own ETL package called `pkgname`. All you have to do is write a package that requires `etl`, and then you have to write **two S3 methods**:
 
-``` r
+
+```r
 etl_extract.etl_pkgname()
 etl_load.etl_pkgname()
 ```
 
 You may also wish to write
 
-``` r
-etl_init.etl_pkgname()
+
+```r
 etl_transform.etl_pkgname()
 etl_cleanup.etl_pkgname()
 ```
 
-All of these functions must take and return an object of class `etl_pkgname` that inherits from `etl`. Please see the [`airlines`](https://github.com/beanumber/airlines) package for an example.
+All of these functions must take and return an object of class `etl_pkgname` that inherits from `etl`. Please see the [`airlines`](https://github.com/beanumber/airlines) package for an example. 
 
-Use other ETL packages
-----------------------
+## Use other ETL packages
 
 Packages that use the `etl` framework:
 
-``` r
+
+```r
 tools::dependsOnPkgs("etl")
 ```
 
-    ## [1] "airlines"
+```
+## [1] "airlines"
+```
