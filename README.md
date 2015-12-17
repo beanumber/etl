@@ -21,7 +21,7 @@ Instantiate an `etl` object using a string that determines the class of the resu
 cars <- etl("mtcars")
 ```
 
-    ## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpJTbjbO/file508d47c47c5.sqlite3
+    ## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpBFmGKe/file52022e5ceb4.sqlite3
 
 ``` r
 class(cars)
@@ -58,9 +58,6 @@ cars %>%
 
     ## Extracting raw data...
 
-    ## src:  sqlite 3.8.6 [/tmp/RtmpJTbjbO/file508d47c47c5.sqlite3]
-    ## tbls:
-
 This creates a local store of raw data.
 
 Transform that data from its raw form to data.frame(s)
@@ -73,9 +70,6 @@ cars %>%
 
     ## Transforming raw data...
 
-    ## src:  sqlite 3.8.6 [/tmp/RtmpJTbjbO/file508d47c47c5.sqlite3]
-    ## tbls:
-
 Populate the database
 ---------------------
 
@@ -86,9 +80,6 @@ cars %>%
 
     ## Data was successfully written to database.
     ## mtcars
-
-    ## src:  sqlite 3.8.6 [/tmp/RtmpJTbjbO/file508d47c47c5.sqlite3]
-    ## tbls: mtcars
 
 Do it all at once
 -----------------
@@ -113,7 +104,7 @@ cars %>%
     ## Data was successfully written to database.
     ## mtcars
 
-    ## src:  sqlite 3.8.6 [/tmp/RtmpJTbjbO/file508d47c47c5.sqlite3]
+    ## src:  sqlite 3.8.6 [/tmp/RtmpBFmGKe/file52022e5ceb4.sqlite3]
     ## tbls: mtcars
 
 You can also update an existing database without re-initializing, but watch out for primary key collisions.
@@ -163,7 +154,7 @@ cars %>%
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
-    ## Source: sqlite 3.8.6 [/tmp/RtmpJTbjbO/file508d47c47c5.sqlite3]
+    ## Source: sqlite 3.8.6 [/tmp/RtmpBFmGKe/file52022e5ceb4.sqlite3]
     ## From: <derived table> [?? x 3]
     ## 
     ##      cyl     N mean_mpg
