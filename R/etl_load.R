@@ -61,7 +61,7 @@ etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
       schema <- get_schema(db)
     }
     if (!missing(schema)) {
-      message(dbRunScript(db$con, schema))
+      message(dbRunScript(db$con, schema, ...))
     }
     if (DBI::dbWriteTable(db$con, "mtcars", value = data, row.names = FALSE, append = TRUE)) {
       message("Data was successfully written to database.")

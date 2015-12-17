@@ -36,5 +36,5 @@ dbRunScript <- function(conn, script, ...) {
 
   # strip out any blank lines -- these will produce an error
   good <- script[grepl(".+", script)]
-  invisible(lapply(good, dbGetQuery_safe, conn = conn))
+  invisible(lapply(good, dbGetQuery_safe, conn = conn, ... = ...))
 }

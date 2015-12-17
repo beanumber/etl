@@ -53,7 +53,7 @@
 #'
 #'  # do it all in one step
 #'  cars %>%
-#'    etl_create()
+#'    etl_create(echo = TRUE)
 
 etl_create <- function(obj, ...) UseMethod("etl_create")
 

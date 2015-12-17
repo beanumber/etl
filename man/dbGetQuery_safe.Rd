@@ -4,13 +4,15 @@
 \alias{dbGetQuery_safe}
 \title{Execute arbitrary SQL code without forcing a data frame to be returned}
 \usage{
-dbGetQuery_safe(conn, statement, ...)
+dbGetQuery_safe(conn, statement, echo = FALSE, ...)
 }
 \arguments{
 \item{conn}{A \code{\linkS4class{DBIConnection}} object, as produced by
 \code{\link{dbConnect}}.}
 
 \item{statement}{a character vector of length 1 containing SQL.}
+
+\item{echo}{show the SQL statement as messages?}
 
 \item{...}{Other parameters passed on to methods.}
 }

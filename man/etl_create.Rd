@@ -120,7 +120,7 @@ cars \%>\%
 
  # do it all in one step
  cars \%>\%
-   etl_create()
+   etl_create(echo = TRUE)
 # Instantiate the etl object
 cars <- etl("mtcars")
 str(cars)

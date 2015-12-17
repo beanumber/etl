@@ -37,10 +37,14 @@ verify_dat <- function(dat) {
 #' @description Execute arbitrary SQL code without forcing a data frame to be returned
 #'
 #' @inheritParams DBI::dbGetQuery
+#' @param echo show the SQL statement as messages?
 #'
 #' @import DBI
 #' @export
-dbGetQuery_safe <- function(conn, statement, ...) {
+dbGetQuery_safe <- function(conn, statement, echo = FALSE, ...) {
+            if (echo) {
+              message(statement)
+            }
             rs <- dbSendQuery(conn, statement, ...)
             on.exit(dbClearResult(rs))
 
