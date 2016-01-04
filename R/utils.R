@@ -58,3 +58,59 @@ dbGetQuery_safe <- function(conn, statement, echo = FALSE, ...) {
 
             df
           }
+
+
+#' Retrieve a pre-defined schema
+#'
+#' @description If the table definitions are at all non-trivial,
+#' you may wish to include a pre-defined table schema. This function
+#' will retrieve it.
+#'
+#' @param con A database connection
+#' @param schema_name The name of the schema
+#' @param pkg The package defining the schema
+#' @param ext The file extension used for the SQL schema file
+#' @param ... Currently ignored
+#'
+#' @export
+#' @examples
+#'
+#' cars <- etl("mtcars")
+#' get_schema(cars, "mtcars", "etl")
+
+get_schema <- function(con, schema_name, pkg, ext = NULL, ...) UseMethod("get_schema")
+
+#' @export
+#' @rdname get_schema
+#' @method get_schema default
+
+get_schema.default <- function(con, schema_name, pkg, ext = NULL, ...) {
+  sql <- paste0("sql/", schema_name, ".", ext)
+  return(system.file(sql, package = pkg))
+}
+
+#' @export
+#' @rdname get_schema
+#' @method get_schema src_sqlite
+
+get_schema.src_sqlite <- function(con, schema_name, pkg, ext = NULL, ...) {
+  NextMethod(ext = "sqlite3")
+}
+
+
+#' @export
+#' @rdname get_schema
+#' @method get_schema src_mysql
+
+get_schema.src_mysql <- function(con, schema_name, pkg, ...) {
+  NextMethod(ext = "mysql")
+}
+
+#' @export
+#' @rdname get_schema
+#' @method get_schema src_postgres
+#'
+get_schema.src_postgres <- function(con, schema_name, pkg, ...) {
+  NextMethod(ext = "psql")
+}
+

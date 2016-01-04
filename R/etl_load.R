@@ -58,7 +58,7 @@ etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
   db <- verify_con(obj)
   if (is(db$con, "DBIConnection")) {
     if (schema == TRUE) {
-      schema <- get_schema(db)
+      schema <- get_schema(db, "mtcars", "etl")
     }
     if (!missing(schema)) {
       message(dbRunScript(db$con, schema, ...))
@@ -72,18 +72,3 @@ etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
   }
   invisible(db)
 }
-
-get_schema <- function(con) UseMethod("get_schema")
-
-get_schema.src_sqlite <- function(con) {
-  system.file("sql/mtcars.sqlite3", package = "etl")
-}
-
-get_schema.src_mysql <- function(con) {
-  system.file("sql/mtcars.mysql", package = "etl")
-}
-
-get_schema.src_postgres <- function(con) {
-  system.file("sql/mtcars.psql", package = "etl")
-}
-
