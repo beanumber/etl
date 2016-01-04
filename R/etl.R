@@ -70,6 +70,18 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
   db <- verify_con(db)
   obj <- structure(db, data = NULL, "pkg" = x, dir = normalizePath(dir),
               files = NULL, push = NULL, class = c(paste0("etl_", x), "etl", class(db)))
+
+  # create subdirectories within dir
+  raw_dir <- paste0(attr(obj, "dir"), "/raw")
+  if (!dir.exists(raw_dir)) {
+    dir.create(raw_dir)
+  }
+  load_dir <- paste0(attr(obj, "dir"), "/load")
+  if (!dir.exists(load_dir)) {
+    dir.create(load_dir)
+  }
+  attr(obj, "raw_dir") <- raw_dir
+  attr(obj, "load_dir") <- load_dir
   return(obj)
 }
 

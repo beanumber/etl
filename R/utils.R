@@ -113,4 +113,3 @@ get_schema.src_mysql <- function(con, schema_name, pkg, ...) {
 get_schema.src_postgres <- function(con, schema_name, pkg, ...) {
   NextMethod(ext = "psql")
 }
-
