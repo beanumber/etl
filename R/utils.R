@@ -86,7 +86,7 @@ get_schema <- function(con, schema_name, pkg, ext = NULL, ...) UseMethod("get_sc
 
 get_schema.default <- function(con, schema_name, pkg, ext = NULL, ...) {
   sql <- paste0("sql/", schema_name, ".", ext)
-  return(system.file(sql, package = pkg))
+  return(system.file(sql, package = pkg, mustWork = TRUE))
 }
 
 #' @export

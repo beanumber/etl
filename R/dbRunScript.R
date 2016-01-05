@@ -25,16 +25,16 @@
 
 dbRunScript <- function(conn, script, ...) {
   if (file.exists(script)) {
-    script <- readChar(script, file.info(script)$size, useBytes = TRUE)
+    sql <- readChar(script, file.info(script)$size, useBytes = TRUE)
   }
   # TODO: ensure SQL is safe for use before executing
   # NOTE: Already tried using DBI::dbQuoteString(),
-  # but their is no default method for SQLite ->
+  # but there is no default method for SQLite ->
   # https://github.com/rstats-db/RSQLite/issues/99
-  script <- gsub("\n", "", script, fixed = TRUE)
-  script <- unlist(strsplit(script, ";"))
+  sql <- gsub("\n", " ", sql, fixed = TRUE)
+  sql <- unlist(strsplit(sql, ";"))
 
   # strip out any blank lines -- these will produce an error
-  good <- script[grepl(".+", script)]
+  good <- sql[grepl("\\w+", sql)]
   invisible(lapply(good, dbGetQuery_safe, conn = conn, ... = ...))
 }
