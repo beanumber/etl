@@ -68,6 +68,9 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
     }
   }
   db <- verify_con(db)
+  if (!dir.exists(dir)) {
+    dir.create(dir, recursive = TRUE)
+  }
   obj <- structure(db, data = NULL, "pkg" = x, dir = normalizePath(dir),
               files = NULL, push = NULL, class = c(paste0("etl_", x), "etl", class(db)))
 

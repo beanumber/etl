@@ -25,6 +25,7 @@
 
 dbRunScript <- function(conn, script, ...) {
   if (file.exists(script)) {
+    message(paste0("Loading SQL script at ", script))
     sql <- readChar(script, file.info(script)$size, useBytes = TRUE)
   }
   # TODO: ensure SQL is safe for use before executing
