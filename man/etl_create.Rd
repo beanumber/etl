@@ -105,6 +105,10 @@ if (require(RPostgreSQL)) {
   db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
   cars <- etl("mtcars", db)
 }
+#' if (require(RMySQL)) {
+  db <- src_mysql(dbname = "mtcars", user = "r-user", host = "localhost", password = "mypass")
+  cars <- etl("mtcars", db)
+}
 }
 cars <- etl("mtcars")
 cars \%>\%

@@ -61,11 +61,11 @@ etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
       schema <- get_schema(db, "mtcars", "etl")
     }
     if (!missing(schema)) {
-      message(dbRunScript(db$con, schema, ...))
+      dbRunScript(db$con, schema, ...)
     }
     if (DBI::dbWriteTable(db$con, "mtcars", value = data, row.names = FALSE, append = TRUE)) {
       message("Data was successfully written to database.")
-      message(DBI::dbListTables(db$con))
+#      message(DBI::dbListTables(db$con))
     }
   } else {
     stop("Invalid connection to database.")
