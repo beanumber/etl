@@ -4,7 +4,7 @@
 \alias{dbRunScript}
 \title{Execute an SQL script}
 \usage{
-dbRunScript(conn, script, ...)
+dbRunScript(conn, script, echo = FALSE, ...)
 }
 \arguments{
 \item{conn}{a \code{DBIConnection-class} object}
@@ -12,7 +12,9 @@ dbRunScript(conn, script, ...)
 \item{script}{Either a filename pointing to SQL script or
 a character vector of length 1 containing SQL.}
 
-\item{...}{currently ignored}
+\item{echo}{print the SQL commands to the output?}
+
+\item{...}{arguments passed to \code{\link[DBI]{dbGetQuery}}}
 }
 \value{
 a list of results from \code{dbGetQuery} for each of the individual
@@ -27,12 +29,18 @@ The SQL script file must be \code{;} delimited.
 \examples{
 sql <- "SHOW TABLES; SELECT 1+1 as Two;"
 sql2 <- system.file("sql", "mtcars.mysql", package = "etl")
+sql3 <- "SELECT * FROM user WHERE user = 'mysql';SELECT * FROM user WHERE 't' = 't';"
 
+if (require(RSQLite)) {
+  con <- dbConnect(RSQLite::SQLite())
+  dbRunScript(con, "SELECT 1+1 as Two; VACUUM; ANALYZE;")
+}
 \dontrun{
 if (require(RMySQL)) {
  con <- dbConnect(RMySQL::MySQL(), user = "r-user", password = "mypass", dbname = "mysql")
  dbRunScript(con, script = sql)
  dbRunScript(con, script = sql2)
+ dbRunScript(con, script = sql3)
  dbDisconnect(con)
 }
 }
