@@ -67,10 +67,10 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
       stop(paste0("Please make sure that the '", x, "' package is installed"))
     }
   }
-  db <- verify_con(db)
   if (!dir.exists(dir)) {
     dir.create(dir, recursive = TRUE)
   }
+  db <- verify_con(db, dir)
   obj <- structure(db, data = NULL, "pkg" = x, dir = normalizePath(dir),
               files = NULL, push = NULL, class = c(paste0("etl_", x), "etl", class(db)))
 
@@ -88,14 +88,6 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
   return(obj)
 }
 
-
-# S4 class definition
-# setClass("etl_mtcars", contains = "DBIConnection")
-#
-# setIs("etl_mtcars", "PostgreSQLConnection",
-#       coerce = function(from) from,
-#       replace= function(from, value) {
-#         from <- value; from })
 
 
 

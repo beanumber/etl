@@ -125,6 +125,11 @@ cars \%>\%
  # do it all in one step
  cars \%>\%
    etl_create(echo = TRUE)
+ # specify a directory for the data
+ \dontrun{
+ cars <- etl("mtcars", dir = "~/dumps/mtcars/")
+ str(cars)
+ }
 # Instantiate the etl object
 cars <- etl("mtcars")
 str(cars)
