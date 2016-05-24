@@ -108,7 +108,7 @@ summary_dir <- function(dir) {
   files <- file.info(list.files(dir, full.names = TRUE))
   # filesize in GB
   data.frame(n = nrow(files),
-             size = paste(sum(files$size) / 10^9, "GB"),
+             size = paste(round(sum(files$size) / 10^9, digits = 3), "GB"),
              path = dir, stringsAsFactors = FALSE)
 }
 
