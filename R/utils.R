@@ -81,3 +81,15 @@ get_schema.src_mysql <- function(con, schema_name, pkg, ...) {
 get_schema.src_postgres <- function(con, schema_name, pkg, ...) {
   NextMethod(ext = "psql")
 }
+
+#' Check for files that don't already exist
+#' @param src a character vector of paths to filenames that you want to have
+#' @param dir a path to a directory where  you want the files to be
+#' @return a logical vector of the same length as \code{src} indicating which
+#' files in \code{src} do not already exist in \code{dir}.
+#' @export
+files_that_dont_exist <- function(src, dir) {
+  lcl <- paste0(dir, "/", basename(src))
+  missing <- !file.exists(lcl)
+}
+
