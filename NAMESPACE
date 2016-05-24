@@ -2,7 +2,6 @@
 
 S3method(etl,default)
 S3method(etl_cleanup,default)
-S3method(etl_cleanup,etl_mtcars)
 S3method(etl_create,default)
 S3method(etl_extract,default)
 S3method(etl_extract,etl_mtcars)

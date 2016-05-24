@@ -91,5 +91,6 @@ get_schema.src_postgres <- function(con, schema_name, pkg, ...) {
 files_that_dont_exist <- function(src, dir) {
   lcl <- paste0(dir, "/", basename(src))
   missing <- !file.exists(lcl)
+  return(missing)
 }
 

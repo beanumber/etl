@@ -3,7 +3,6 @@
 \name{etl_cleanup}
 \alias{etl_cleanup}
 \alias{etl_cleanup.default}
-\alias{etl_cleanup.etl_mtcars}
 \alias{etl_create}
 \alias{etl_create.default}
 \alias{etl_extract}
@@ -21,10 +20,8 @@
 \usage{
 etl_cleanup(obj, ...)
 
-\method{etl_cleanup}{default}(obj, ...)
-
-\method{etl_cleanup}{etl_mtcars}(obj, delete_raw = FALSE,
-  delete_load = FALSE, pattern = "\\\\.(csv|zip)$", ...)
+\method{etl_cleanup}{default}(obj, delete_raw = FALSE, delete_load = FALSE,
+  pattern = "\\\\.(csv|zip)$", ...)
 
 etl_create(obj, ...)
 
