@@ -88,6 +88,28 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
   return(obj)
 }
 
+#' @rdname etl
+#' @method summary etl
+#' @inheritParams base::summary
+#' @export
+#' @examples
+#'
+#' cars <- etl("mtcars")
+#' summary(cars)
 
+summary.etl <- function(object, ...) {
+  dplyr::bind_rows(summary_dir(attr(object, "raw_dir")),
+                   summary_dir(attr(object, "load_dir"))) %>%
+    print()
+  NextMethod()
+}
+
+summary_dir <- function(dir) {
+  files <- file.info(list.files(dir, full.names = TRUE))
+  # filesize in GB
+  data.frame(n = nrow(files),
+             size = paste(sum(files$size) / 10^9, "GB"),
+             path = dir, stringsAsFactors = FALSE)
+}
 
 

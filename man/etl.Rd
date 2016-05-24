@@ -3,11 +3,14 @@
 \name{etl}
 \alias{etl}
 \alias{etl.default}
+\alias{summary.etl}
 \title{Initialize an etl object}
 \usage{
 etl(x, db = NULL, dir = tempdir(), ...)
 
 \method{etl}{default}(x, db = NULL, dir = tempdir(), ...)
+
+\method{summary}{etl}(object, ...)
 }
 \arguments{
 \item{x}{the name of the package that you wish to populate.
@@ -20,6 +23,8 @@ NULL by default, which results in a \code{\link[dplyr]{src_sqlite}} connection b
 \item{dir}{a directory to store the raw data files}
 
 \item{...}{arguments passed to methods}
+
+\item{object}{an object for which a summary is desired.}
 }
 \value{
 an object of class \code{etl_x} and \code{\link{etl}} that inherits
@@ -70,6 +75,9 @@ cars2 \%>\%
   etl_update()
 src_tbls(cars2)
 
+
+cars <- etl("mtcars")
+summary(cars)
 }
 \seealso{
 \code{\link{etl_create}}
