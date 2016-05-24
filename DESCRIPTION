@@ -1,10 +1,10 @@
 Package: etl
 Type: Package
 Title: Extract-Transfer-Load Framework for Medium Data
-Version: 0.2.2.9005
+Version: 0.2.2.9007
 Authors@R: as.person(c(
     "Ben Baumer <ben.baumer@gmail.com> [aut, cre]",
-    "Carson Sievert <cpsievert1@gmail.com> [aut]"
+    "Carson Sievert <cpsievert1@gmail.com> [ctb]"
   ))
 Maintainer: Ben Baumer <ben.baumer@gmail.com>
 Description: A framework for loading medium-sized data from
@@ -16,13 +16,15 @@ License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
     DBI,
-    RSQLite
+    RSQLite,
+    datasets,
+    methods,
+    utils
 Depends:
     R (>= 2.10),
     dplyr
 Suggests:
     knitr,
-    methods,
     RPostgreSQL,
     RMySQL
 URL: http://github.com/beanumber/etl

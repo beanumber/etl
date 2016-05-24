@@ -15,12 +15,13 @@ etl_extract.default <- function(obj, ...) {
 
 #' @rdname etl_create
 #' @method etl_extract etl_mtcars
+#' @importFrom utils write.csv
 #' @export
 
 etl_extract.etl_mtcars <- function(obj, ...) {
   message("Extracting raw data...")
   raw_filename <- paste0(attr(obj, "raw_dir"), "/mtcars.csv")
-  write.csv(mtcars, file = raw_filename)
+  utils::write.csv(datasets::mtcars, file = raw_filename)
   invisible(obj)
 }
 

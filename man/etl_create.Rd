@@ -23,7 +23,8 @@ etl_cleanup(obj, ...)
 
 \method{etl_cleanup}{default}(obj, ...)
 
-\method{etl_cleanup}{etl_mtcars}(obj, ...)
+\method{etl_cleanup}{etl_mtcars}(obj, delete_raw = FALSE,
+  delete_load = FALSE, pattern = "\\\\.(csv|zip)$", ...)
 
 etl_create(obj, ...)
 
@@ -55,6 +56,13 @@ etl_transform(obj, ...)
 \item{obj}{an \code{\link{etl}} object}
 
 \item{...}{arguments passed to methods}
+
+\item{delete_raw}{should files be deleted from the \code{raw_dir}?}
+
+\item{delete_load}{should files be deleted from the \code{load_dir}?}
+
+\item{pattern}{regular expression matching file names to be deleted. By default,
+this matches filenames ending in \code{.csv} and \code{.zip}.}
 
 \item{schema}{Either a logical, a filename pointing to SQL schema file, or a character
 vector containing the schema itself. If \code{schema = TRUE}, then the built-in

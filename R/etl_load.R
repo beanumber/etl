@@ -47,16 +47,17 @@ etl_load.default <- function(obj, schema = FALSE, ...) {
 
 #' @rdname etl_create
 #' @method etl_load etl_mtcars
-#' @importFrom DBI dbWriteTable
-#' @importFrom DBI dbListTables
+#' @importFrom DBI dbWriteTable dbListTables
+#' @importFrom utils read.csv
+#' @importFrom methods is
 #' @export
 
 etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
   raw_dir <- paste0(attr(obj, "dir"), "/raw")
-  data <- read.csv(paste0(raw_dir, "/mtcars.csv"))
+  data <- utils::read.csv(paste0(raw_dir, "/mtcars.csv"))
 
   db <- verify_con(obj)
-  if (is(db$con, "DBIConnection")) {
+  if (methods::is(db$con, "DBIConnection")) {
     if (schema == TRUE) {
       schema <- get_schema(db, "mtcars", "etl")
     }
