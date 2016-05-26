@@ -82,15 +82,18 @@ get_schema.src_postgres <- function(con, schema_name, pkg, ...) {
   NextMethod(ext = "psql")
 }
 
-#' Check for files that don't already exist
+#' Download only those files that don't already exist
+#' @param obj an \code{\link{etl}} object
 #' @param src a character vector of paths to filenames that you want to have
-#' @param dir a path to a directory where  you want the files to be
-#' @return a logical vector of the same length as \code{src} indicating which
+#' @param ... arguments passed to \code{\link[utils]{download.file}}
+#' @details Downloads only those files in \code{src} that are not already present
+#' the \code{raw_dir} attribute of \code{obj}
 #' files in \code{src} do not already exist in \code{dir}.
 #' @export
-files_that_dont_exist <- function(src, dir) {
-  lcl <- paste0(dir, "/", basename(src))
+smart_download <- function(obj, src, ...) {
+  lcl <- paste0(attr(obj, "raw_dir"), "/", basename(src))
   missing <- !file.exists(lcl)
-  return(missing)
+  mapply(utils::download.file, src[missing], lcl[missing])
 }
+
 
