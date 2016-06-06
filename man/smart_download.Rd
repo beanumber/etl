@@ -9,7 +9,7 @@ smart_download(obj, src, ...)
 \arguments{
 \item{obj}{an \code{\link{etl}} object}
 
-\item{src}{a character vector of paths to filenames that you want to have}
+\item{src}{a character vector of URLs that you want to download}
 
 \item{...}{arguments passed to \code{\link[utils]{download.file}}}
 }
@@ -17,8 +17,7 @@ smart_download(obj, src, ...)
 Download only those files that don't already exist
 }
 \details{
-Downloads only those files in \code{src} that are not already present
-the \code{raw_dir} attribute of \code{obj}
-files in \code{src} do not already exist in \code{dir}.
+Downloads only those files in \code{src} that are not already present in
+the directory specified by the \code{raw_dir} attribute of \code{obj}.
 }
 

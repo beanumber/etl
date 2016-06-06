@@ -1,22 +1,34 @@
-#' Initialize an etl object
+#' Initialize an \code{etl} object
 #'
-#' @description Initialize en etl object
+#' @description Initialize an \code{etl} object
 #'
-#' @param x the name of the package that you wish to populate.
-#' This determines the class of the \code{\link{etl}} object, which
-#' determines method dispatch of \code{etl_*()} functions.
+#' @param x the name of the \code{etl} package that you wish to populate with data.
+#' This determines the class of the resulting \code{\link{etl}} object, which
+#' determines method dispatch of \code{etl_*()} functions. There is no default,
+#' but you can use \code{mtcars} as an test example.
 #' @param db a database connection that inherits from \code{\link[dplyr]{src_sql}}. It is
-#' NULL by default, which results in a \code{\link[dplyr]{src_sqlite}} connection being made
-#' @param dir a directory to store the raw data files
-#' @param ... arguments passed to methods
-#' @details An \code{\link{etl}} object extends a \code{\link[dplyr]{src_sql}} object.
+#' NULL by default, which results in a \code{\link[dplyr]{src_sqlite}} connection
+#' being created in \code{dir}.
+#' @param dir a directory to store the raw and processed data files
+#' @param ... arguments passed to methods (currently ignored)
+#' @details A constructor function that instantiates an \code{\link{etl}} object.
+#' An \code{\link{etl}} object extends a \code{\link[dplyr]{src_sql}} object.
 #' It also has attributes for:
 #' \describe{
-#'  \item{pkg}{the name of the package corresponding to the data source}
-#'  \item{dir}{the directory where the raw data is stored}
-#'  \item{push}{a vector a messages from \code{\link[DBI]{dbWriteTable}}}
-#'  \item{files}{a list of files that have been downloaded}
+#'  \item{pkg}{the name of the \code{\link{etl}} package corresponding to the data source}
+#'  \item{dir}{the directory where the raw and processed data are stored}
+#'  \item{raw_dir}{the directory where the raw data files are stored}
+#'  \item{load_dir}{the directory where the processed data files are stored}
 #'  }
+#' Just like any \code{\link[dplyr]{src_sql}} object, an \code{\link{etl}} object
+#' is a data source backed by an SQL database. However, an \code{\link{etl}} object
+#' has additional functionality based on the presumption that the SQL database
+#' will be populated from data files stored on the local hard disk. The ETL functions
+#' documented in \code{\link{etl_create}} provide the necessary funcitonality
+#' for \strong{extract}ing data from the Internet to \code{raw_dir},
+#' \strong{transform}ing those data
+#' and placing the cleaned up data (usually in CSV format) into \code{load_dir},
+#' and finally \strong{load}ing the clean data into the SQL database.
 #' @return an object of class \code{etl_x} and \code{\link{etl}} that inherits
 #' from \code{\link[dplyr]{src_sql}}
 #' @export
@@ -27,9 +39,10 @@
 #' cars <- etl("mtcars")
 #' str(cars)
 #' is.etl(cars)
+#' summary(cars)
 #'
 #' \dontrun{
-#' # connect using dplyr
+#' # connect to a PostgreSQL server
 #' if (require(RPostgreSQL)) {
 #'  db <- src_postgres("mtcars", user = "postgres", host = "localhost")
 #'  cars <- etl("mtcars", db)
@@ -94,6 +107,7 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
 #' @export
 #' @examples
 #'
+#' # generic summary function provides information about the object
 #' cars <- etl("mtcars")
 #' summary(cars)
 

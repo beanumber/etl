@@ -2,6 +2,15 @@
 #'
 #' @export
 #' @param x an object
+#' @return \code{TRUE} or \code{FALSE}, depending on whether \code{x} has class
+#' \code{\link{etl}}
+#' @examples
+#' cars <- etl("mtcars")
+#' # returns TRUE
+#' is.etl(cars)
+#'
+#' # returns FALSE
+#' is.etl("hello world")
 
 is.etl <- function(x) inherits(x, "etl")
 
@@ -84,16 +93,15 @@ get_schema.src_postgres <- function(con, schema_name, pkg, ...) {
 
 #' Download only those files that don't already exist
 #' @param obj an \code{\link{etl}} object
-#' @param src a character vector of paths to filenames that you want to have
+#' @param src a character vector of URLs that you want to download
 #' @param ... arguments passed to \code{\link[utils]{download.file}}
-#' @details Downloads only those files in \code{src} that are not already present
-#' the \code{raw_dir} attribute of \code{obj}
-#' files in \code{src} do not already exist in \code{dir}.
+#' @details Downloads only those files in \code{src} that are not already present in
+#' the directory specified by the \code{raw_dir} attribute of \code{obj}.
 #' @export
 smart_download <- function(obj, src, ...) {
   lcl <- paste0(attr(obj, "raw_dir"), "/", basename(src))
   missing <- !file.exists(lcl)
-  mapply(utils::download.file, src[missing], lcl[missing])
+  mapply(utils::download.file, src[missing], lcl[missing], ... = ...)
 }
 
 

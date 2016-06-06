@@ -7,9 +7,9 @@
 dbRunScript(conn, script, echo = FALSE, ...)
 }
 \arguments{
-\item{conn}{a \code{DBIConnection-class} object}
+\item{conn}{a \code{\link[DBI]{DBIConnection-class}} object}
 
-\item{script}{Either a filename pointing to SQL script or
+\item{script}{Either a filename pointing to an SQL script or
 a character vector of length 1 containing SQL.}
 
 \item{echo}{print the SQL commands to the output?}
@@ -24,7 +24,9 @@ SQL statements in \code{script}.
 Execute an SQL script
 }
 \details{
-The SQL script file must be \code{;} delimited.
+The SQL script file must be \code{;} delimited. This will function will
+be superseded by \code{dbExecute} in the next release of \pkg{DBI}.
+See \url{https://github.com/rstats-db/DBI/pull/109}.
 }
 \examples{
 sql <- "SHOW TABLES; SELECT 1+1 as Two;"
@@ -37,7 +39,8 @@ if (require(RSQLite)) {
 }
 \dontrun{
 if (require(RMySQL)) {
- con <- dbConnect(RMySQL::MySQL(), user = "r-user", password = "mypass", dbname = "mysql")
+ con <- dbConnect(RMySQL::MySQL(), default.file = path.expand("~/.my.cnf"),
+   group = "client",user = NULL, password = NULL, dbname = "mysql")
  dbRunScript(con, script = sql)
  dbRunScript(con, script = sql2)
  dbRunScript(con, script = sql3)

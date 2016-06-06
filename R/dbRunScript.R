@@ -1,11 +1,13 @@
 #' Execute an SQL script
 #'
-#' @param conn a \code{DBIConnection-class} object
-#' @param script Either a filename pointing to SQL script or
+#' @param conn a \code{\link[DBI]{DBIConnection-class}} object
+#' @param script Either a filename pointing to an SQL script or
 #' a character vector of length 1 containing SQL.
 #' @param echo print the SQL commands to the output?
 #' @param ... arguments passed to \code{\link[DBI]{dbGetQuery}}
-#' @details The SQL script file must be \code{;} delimited.
+#' @details The SQL script file must be \code{;} delimited. This will function will
+#' be superseded by \code{dbExecute} in the next release of \pkg{DBI}.
+#' See \url{https://github.com/rstats-db/DBI/pull/109}.
 #' @return a list of results from \code{dbGetQuery} for each of the individual
 #' SQL statements in \code{script}.
 #' @importFrom DBI SQL
@@ -22,7 +24,8 @@
 #' }
 #' \dontrun{
 #' if (require(RMySQL)) {
-#'  con <- dbConnect(RMySQL::MySQL(), user = "r-user", password = "mypass", dbname = "mysql")
+#'  con <- dbConnect(RMySQL::MySQL(), default.file = path.expand("~/.my.cnf"),
+#'    group = "client",user = NULL, password = NULL, dbname = "mysql")
 #'  dbRunScript(con, script = sql)
 #'  dbRunScript(con, script = sql2)
 #'  dbRunScript(con, script = sql3)

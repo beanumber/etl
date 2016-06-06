@@ -11,9 +11,6 @@
 #' @export
 #'
 #' @examples
-#' # Instantiate the etl object
-#' cars <- etl("mtcars")
-#' str(cars)
 #'
 #' # Do it step-by-step
 #' cars %>%

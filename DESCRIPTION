@@ -1,7 +1,8 @@
 Package: etl
 Type: Package
 Title: Extract-Transfer-Load Framework for Medium Data
-Version: 0.2.2.9012
+Version: 0.3.1.9000
+Date: 2016-06-06
 Authors@R: as.person(c(
     "Ben Baumer <ben.baumer@gmail.com> [aut, cre]",
     "Carson Sievert <cpsievert1@gmail.com> [ctb]"
@@ -9,10 +10,10 @@ Authors@R: as.person(c(
 Maintainer: Ben Baumer <ben.baumer@gmail.com>
 Description: A framework for loading medium-sized data from
     the Internet to a local or remote relational database management system (RDBMS).
-    This package itself doesn't do much more that provide a toy example and set up
+    This package itself doesn't do much more than provide a toy example and set up
     the method structure. Packages that depend on this package will facilitate the
-    construction and maintenance of their respective data bases.
-License: MIT + file LICENSE
+    construction and maintenance of their respective databases.
+License: CC0
 LazyData: TRUE
 Imports:
     DBI,

@@ -9,7 +9,19 @@ is.etl(x)
 \arguments{
 \item{x}{an object}
 }
+\value{
+\code{TRUE} or \code{FALSE}, depending on whether \code{x} has class
+\code{\link{etl}}
+}
 \description{
 Test an etl object
+}
+\examples{
+cars <- etl("mtcars")
+# returns TRUE
+is.etl(cars)
+
+# returns FALSE
+is.etl("hello world")
 }
 
