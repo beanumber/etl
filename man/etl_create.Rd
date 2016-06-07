@@ -139,21 +139,19 @@ cars \%>\%
  str(cars)
  }
 
+cars <- etl("mtcars")
 # Do it step-by-step
 cars \%>\%
   etl_extract() \%>\%
   etl_transform() \%>\%
   etl_load()
 
-# Note the rather imprecise data types for the columns. These are the default.
+# Note the somewhat imprecise data types for the columns. These are the default.
 tbl(cars, "mtcars")
 
 # But you can also specify your own schema if you want
 schema <- system.file("sql/mtcars.sqlite3", package = "etl")
 etl_load(cars, schema)
-
-# notice the more specific data types
-tbl(cars, "mtcars")
 }
 \seealso{
 \code{\link{etl}}

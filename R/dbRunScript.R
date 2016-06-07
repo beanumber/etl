@@ -10,7 +10,7 @@
 #' See \url{https://github.com/rstats-db/DBI/pull/109}.
 #' @return a list of results from \code{dbGetQuery} for each of the individual
 #' SQL statements in \code{script}.
-#' @importFrom DBI SQL
+#' @importFrom DBI SQL dbGetQuery
 #' @export
 #'
 #' @examples
@@ -51,5 +51,5 @@ dbRunScript <- function(conn, script, echo = FALSE, ...) {
   if (echo) {
     print(good)
   }
-  lapply(good, dbGetQuery, conn = conn, ... = ...)
+  lapply(good, DBI::dbGetQuery, conn = conn, ... = ...)
 }

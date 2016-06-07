@@ -14,7 +14,6 @@
 
 is.etl <- function(x) inherits(x, "etl")
 
-#' @import RSQLite
 #' @import dplyr
 
 # ensure we have a valid database connection

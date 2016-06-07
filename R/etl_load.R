@@ -12,22 +12,19 @@
 #'
 #' @examples
 #'
+#' cars <- etl("mtcars")
 #' # Do it step-by-step
 #' cars %>%
 #'   etl_extract() %>%
 #'   etl_transform() %>%
 #'   etl_load()
 #'
-#' # Note the rather imprecise data types for the columns. These are the default.
+#' # Note the somewhat imprecise data types for the columns. These are the default.
 #' tbl(cars, "mtcars")
 #'
 #' # But you can also specify your own schema if you want
 #' schema <- system.file("sql/mtcars.sqlite3", package = "etl")
 #' etl_load(cars, schema)
-#'
-#' # notice the more specific data types
-#' tbl(cars, "mtcars")
-
 
 etl_load <- function(obj, schema = FALSE, ...) UseMethod("etl_load")
 
@@ -44,12 +41,13 @@ etl_load.default <- function(obj, schema = FALSE, ...) {
 
 #' @rdname etl_create
 #' @method etl_load etl_mtcars
-#' @importFrom DBI dbWriteTable dbListTables
+#' @importFrom DBI dbWriteTable
 #' @importFrom utils read.csv
 #' @importFrom methods is
 #' @export
 
 etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
+  message("Loading processed data...")
   raw_dir <- paste0(attr(obj, "dir"), "/raw")
   data <- utils::read.csv(paste0(raw_dir, "/mtcars.csv"))
 
@@ -63,7 +61,6 @@ etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
     }
     if (DBI::dbWriteTable(db$con, "mtcars", value = data, row.names = FALSE, append = TRUE)) {
       message("Data was successfully written to database.")
-#      message(DBI::dbListTables(db$con))
     }
   } else {
     stop("Invalid connection to database.")

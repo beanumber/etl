@@ -4,7 +4,7 @@ CREATE TABLE mtcars(
   "makeModel" TEXT,
   "mpg" REAL,
   "cyl" INTEGER,
-  "disp" INTEGER,
+  "disp" REAL,
   "hp" INTEGER,
   "drat" REAL,
   "wt" REAL,
