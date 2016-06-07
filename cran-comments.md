@@ -12,6 +12,7 @@
 
 ## Reverse dependencies
 
-This is a new release, so there are no reverse dependencies.
+This is a new release, so there are no reverse dependencies yet. But I have several
+packages on GitHub that I will be submitting once this one is on CRAN.
 
 
