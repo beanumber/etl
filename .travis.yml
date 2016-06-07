@@ -15,9 +15,6 @@ notifications:
 
 # System dependencies for HTTP calling
 r_binary_packages:
- - KernSmooth
- - Hmisc
- - lattice
  - dplyr
 
 # Install the bleeding edge version of a package from github (eg to pick
