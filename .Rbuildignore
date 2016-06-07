@@ -5,6 +5,5 @@
 ^.*\.Rmd$
 ^.*ignore\.R$
 ^.*\.Rignore$
-^NEWS.md$
 ^cran-comments\.md$
 ^revdep$
