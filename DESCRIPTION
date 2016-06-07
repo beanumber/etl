@@ -9,7 +9,7 @@ Authors@R: as.person(c(
   ))
 Maintainer: Ben Baumer <ben.baumer@gmail.com>
 Description: A framework for loading medium-sized data from
-    the Internet to a local or remote relational database management system (RDBMS).
+    the Internet to a local or remote relational database management system.
     This package itself doesn't do much more than provide a toy example and set up
     the method structure. Packages that depend on this package will facilitate the
     construction and maintenance of their respective databases.
@@ -30,5 +30,4 @@ Suggests:
     RMySQL
 URL: http://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/etl/issues
-VignetteBuilder: knitr
 RoxygenNote: 5.0.1
