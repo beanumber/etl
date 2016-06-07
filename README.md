@@ -1,7 +1,7 @@
-[![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
+ETL
+================
 
-etl
-===
+[![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
 
 `etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations for **medium data**. The end result is generally a populated SQL database, but the user interaction takes place solely within R.
 
@@ -12,7 +12,7 @@ devtools::install_github("beanumber/etl")
 ```
 
 ``` r
-require(etl)
+library(etl)
 ```
 
 Instantiate an `etl` object using a string that determines the class of the resulting object, and the package that provides access to that data. The trivial `mtcars` database is built into `etl`.
@@ -21,7 +21,7 @@ Instantiate an `etl` object using a string that determines the class of the resu
 cars <- etl("mtcars")
 ```
 
-    ## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpPyjhIs/file52dd6db3b12e.sqlite3
+    ## Not a valid src. Creating a src_sqlite for you at /var/folders/m8/zyw5tjzn0plc0c_ldm848zzw0000gr/T//RtmplFgMlA/fileb229e42a56b.sqlite3
 
 ``` r
 class(cars)
@@ -37,17 +37,17 @@ Connect to a local or remote database
 > Note: If you want to use a database other than a local RSQLite, you must create the `mtcars` database and have permission to write to it first!
 
 ``` r
-require(RPostgreSQL)
+library(RPostgreSQL)
 db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
-require(RMySQL)
+library(RMySQL)
 db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
 cars <- etl("mtcars", db)
 ```
 
 At the heart of `etl` are three functions: `etl_extract()`, `etl_transform()`, and `etl_load()`.
 
-Download data from an online source
------------------------------------
+Extract
+-------
 
 The first step is to acquire data from an online source.
 
@@ -60,8 +60,10 @@ cars %>%
 
 This creates a local store of raw data.
 
-Transform that data from its raw form to data.frame(s)
-------------------------------------------------------
+Transform
+---------
+
+These data may need to be transformed from their raw form to files suitable for importing into SQL (usually CSVs).
 
 ``` r
 cars %>%
@@ -70,8 +72,10 @@ cars %>%
 
     ## Transforming raw data...
 
-Populate the database
----------------------
+Load
+----
+
+Populate the SQL database with the transformed data.
 
 ``` r
 cars %>%
@@ -79,7 +83,6 @@ cars %>%
 ```
 
     ## Data was successfully written to database.
-    ## mtcars
 
 Do it all at once
 -----------------
@@ -92,17 +95,12 @@ cars %>%
 ```
 
     ## Extracting raw data...
+
     ## Transforming raw data...
 
-    ## Warning in sqliteFetch(res, n = n): resultSet does not correspond to a
-    ## SELECT statement
+    ## Loading SQL script at /Library/Frameworks/R.framework/Versions/3.2/Resources/library/etl/sql/mtcars.sqlite3
 
-    ## Warning in sqliteFetch(res, n = n): resultSet does not correspond to a
-    ## SELECT statement
-
-    ## list()list()
     ## Data was successfully written to database.
-    ## mtcars
 
 You can also update an existing database without re-initializing, but watch out for primary key collisions.
 
@@ -114,16 +112,7 @@ cars %>%
 Step-by-step
 ------------
 
-Under the hood, there are five functions that `etl` chains together:
-
-``` r
-getS3method("etl_create", "default")
-```
-
-    ## function(obj, ...) {
-    ##   etl_update(obj, schema = TRUE, ...)
-    ## }
-    ## <environment: namespace:etl>
+Under the hood, there are four functions that `etl_update` chains together:
 
 ``` r
 getS3method("etl_update", "default")
@@ -139,6 +128,17 @@ getS3method("etl_update", "default")
     ## }
     ## <environment: namespace:etl>
 
+`etl_create` is simply a call to `etl_update` that forces the SQL database to be written from scratch.
+
+``` r
+getS3method("etl_create", "default")
+```
+
+    ## function(obj, ...) {
+    ##   etl_update(obj, schema = TRUE, ...)
+    ## }
+    ## <environment: namespace:etl>
+
 Do Your Analysis
 ----------------
 
@@ -151,7 +151,7 @@ cars %>%
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
-    ## Source: sqlite 3.8.6 [/tmp/RtmpPyjhIs/file52dd6db3b12e.sqlite3]
+    ## Source: sqlite 3.8.6 [/var/folders/m8/zyw5tjzn0plc0c_ldm848zzw0000gr/T//RtmplFgMlA/fileb229e42a56b.sqlite3]
     ## From: <derived table> [?? x 3]
     ## 
     ##      cyl     N mean_mpg
@@ -178,7 +178,7 @@ etl_transform.etl_pkgname()
 etl_cleanup.etl_pkgname()
 ```
 
-All of these functions must take and return an object of class `etl_pkgname` that inherits from `etl`. Please see the [`airlines`](https://github.com/beanumber/airlines) package for an example.
+All of these functions must take and return an object of class `etl_pkgname` that inherits from `etl`. Please see the packages listed below for examples.
 
 Use other ETL packages
 ----------------------
@@ -189,4 +189,4 @@ Packages that use the `etl` framework:
 tools::dependsOnPkgs("etl")
 ```
 
-    ## [1] "airlines"
+    ## [1] "airlines" "fec"      "macleish"

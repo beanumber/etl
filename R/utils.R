@@ -97,6 +97,7 @@ get_schema.src_postgres <- function(con, schema_name, pkg, ...) {
 #' @param ... arguments passed to \code{\link[utils]{download.file}}
 #' @details Downloads only those files in \code{src} that are not already present in
 #' the directory specified by the \code{raw_dir} attribute of \code{obj}.
+#' @author idiom courtesy of Hadley Wickham
 #' @export
 smart_download <- function(obj, src, ...) {
   lcl <- paste0(attr(obj, "raw_dir"), "/", basename(src))

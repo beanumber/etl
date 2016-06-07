@@ -20,4 +20,7 @@ Download only those files that don't already exist
 Downloads only those files in \code{src} that are not already present in
 the directory specified by the \code{raw_dir} attribute of \code{obj}.
 }
+\author{
+idiom courtesy of Hadley Wickham
+}
 
