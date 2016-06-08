@@ -6,13 +6,14 @@ output:
 ---
 
 [![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/etl)](https://cran.r-project.org/package=etl)
 
 `etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations for **medium data**. The end result is generally a populated SQL database, but the user interaction takes place solely within R.
 
-To install, use the `devtools` package, and then load it. 
+`etl` is now on CRAN, so you can install it in the usual way, then load it. 
 
 ```{r, eval=FALSE}
-devtools::install_github("beanumber/etl")
+install.packages("etl")
 ```
 
 ```{r, message=FALSE}

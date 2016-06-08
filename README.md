@@ -1,14 +1,14 @@
 ETL
 ================
 
-[![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
+[![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/etl)](https://cran.r-project.org/package=etl)
 
 `etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations for **medium data**. The end result is generally a populated SQL database, but the user interaction takes place solely within R.
 
-To install, use the `devtools` package, and then load it.
+`etl` is now on CRAN, so you can install it in the usual way, then load it.
 
 ``` r
-devtools::install_github("beanumber/etl")
+install.packages("etl")
 ```
 
 ``` r
@@ -21,7 +21,7 @@ Instantiate an `etl` object using a string that determines the class of the resu
 cars <- etl("mtcars")
 ```
 
-    ## Not a valid src. Creating a src_sqlite for you at /var/folders/m8/zyw5tjzn0plc0c_ldm848zzw0000gr/T//RtmplFgMlA/fileb229e42a56b.sqlite3
+    ## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpQB9urV/file78ad2c7db1f4.sqlite3
 
 ``` r
 class(cars)
@@ -82,6 +82,8 @@ cars %>%
   etl_load()
 ```
 
+    ## Loading processed data...
+
     ## Data was successfully written to database.
 
 Do it all at once
@@ -98,7 +100,9 @@ cars %>%
 
     ## Transforming raw data...
 
-    ## Loading SQL script at /Library/Frameworks/R.framework/Versions/3.2/Resources/library/etl/sql/mtcars.sqlite3
+    ## Loading processed data...
+
+    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.3/etl/sql/mtcars.sqlite3
 
     ## Data was successfully written to database.
 
@@ -151,7 +155,7 @@ cars %>%
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
-    ## Source: sqlite 3.8.6 [/var/folders/m8/zyw5tjzn0plc0c_ldm848zzw0000gr/T//RtmplFgMlA/fileb229e42a56b.sqlite3]
+    ## Source: sqlite 3.8.6 [/tmp/RtmpQB9urV/file78ad2c7db1f4.sqlite3]
     ## From: <derived table> [?? x 3]
     ## 
     ##      cyl     N mean_mpg
@@ -189,4 +193,4 @@ Packages that use the `etl` framework:
 tools::dependsOnPkgs("etl")
 ```
 
-    ## [1] "airlines" "fec"      "macleish"
+    ## [1] "airlines" "citibike" "fec"      "macleish" "nyc311"
