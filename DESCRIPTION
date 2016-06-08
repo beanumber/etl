@@ -1,8 +1,8 @@
 Package: etl
 Type: Package
 Title: Extract-Transfer-Load Framework for Medium Data
-Version: 0.3.1
-Date: 2016-06-07
+Version: 0.3.1.9000
+Date: 2016-06-08
 Authors@R: c(
     person("Ben", "Baumer", email = "ben.baumer@gmail.com",
       role = c("aut", "cre")),

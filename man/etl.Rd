@@ -3,6 +3,7 @@
 \name{etl}
 \alias{etl}
 \alias{etl.default}
+\alias{is.etl}
 \alias{summary.etl}
 \title{Initialize an \code{etl} object}
 \usage{
@@ -11,6 +12,8 @@ etl(x, db = NULL, dir = tempdir(), ...)
 \method{etl}{default}(x, db = NULL, dir = tempdir(), ...)
 
 \method{summary}{etl}(object, ...)
+
+is.etl(object)
 }
 \arguments{
 \item{x}{the name of the \code{etl} package that you wish to populate with data.
@@ -29,8 +32,12 @@ being created in \code{dir}.}
 \item{object}{an object for which a summary is desired.}
 }
 \value{
-an object of class \code{etl_x} and \code{\link{etl}} that inherits
+For \code{\link{etl}}, an object of class \code{etl_x} and
+\code{\link{etl}} that inherits
 from \code{\link[dplyr]{src_sql}}
+
+For \code{\link{is.etl}}, \code{TRUE} or \code{FALSE},
+depending on whether \code{x} has class \code{\link{etl}}
 }
 \description{
 Initialize an \code{etl} object
@@ -92,6 +99,12 @@ src_tbls(cars2)
 # generic summary function provides information about the object
 cars <- etl("mtcars")
 summary(cars)
+cars <- etl("mtcars")
+# returns TRUE
+is.etl(cars)
+
+# returns FALSE
+is.etl("hello world")
 }
 \seealso{
 \code{\link{etl_create}}

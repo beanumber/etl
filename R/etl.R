@@ -29,7 +29,8 @@
 #' \strong{transform}ing those data
 #' and placing the cleaned up data (usually in CSV format) into \code{load_dir},
 #' and finally \strong{load}ing the clean data into the SQL database.
-#' @return an object of class \code{etl_x} and \code{\link{etl}} that inherits
+#' @return For \code{\link{etl}}, an object of class \code{etl_x} and
+#' \code{\link{etl}} that inherits
 #' from \code{\link[dplyr]{src_sql}}
 #' @export
 #' @seealso \code{\link{etl_create}}
@@ -126,4 +127,18 @@ summary_dir <- function(dir) {
              path = dir, stringsAsFactors = FALSE)
 }
 
+#' @rdname etl
+#' @export
+#' @inheritParams summary.etl
+#' @return For \code{\link{is.etl}}, \code{TRUE} or \code{FALSE},
+#' depending on whether \code{x} has class \code{\link{etl}}
+#' @examples
+#' cars <- etl("mtcars")
+#' # returns TRUE
+#' is.etl(cars)
+#'
+#' # returns FALSE
+#' is.etl("hello world")
+
+is.etl <- function(object) inherits(object, "etl")
 

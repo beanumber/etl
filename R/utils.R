@@ -1,19 +1,3 @@
-#' Test an etl object
-#'
-#' @export
-#' @param x an object
-#' @return \code{TRUE} or \code{FALSE}, depending on whether \code{x} has class
-#' \code{\link{etl}}
-#' @examples
-#' cars <- etl("mtcars")
-#' # returns TRUE
-#' is.etl(cars)
-#'
-#' # returns FALSE
-#' is.etl("hello world")
-
-is.etl <- function(x) inherits(x, "etl")
-
 #' @import dplyr
 
 # ensure we have a valid database connection
