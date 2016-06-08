@@ -15,4 +15,8 @@
 This is a new release, so there are no reverse dependencies yet. But I have several
 packages on GitHub that I will be submitting once this one is on CRAN.
 
+--
+
+Sorry about the `Authors@R` mistake. I was following [Hadley's alternate example](http://r-pkgs.had.co.nz/description.html#author), but I have corrected the problem. 
+
 
