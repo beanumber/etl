@@ -107,7 +107,7 @@ valid_year_month <- function(years, months, begin = "1970-01-01", end = Sys.Date
     mutate_(month_begin = ~lubridate::ymd(paste(year, month, "01", sep = "/"))) %>%
     mutate_(month_end = ~lubridate::ymd(
       ifelse(month == 12, paste(year + 1, "01/01", sep = "/"),
-                          paste(year, month, "01", sep = "/"))) - 1) %>%
+                          paste(year, month + 1, "01", sep = "/"))) - 1) %>%
     filter_(~year > 0 & month >= 1 & month <= 12) %>%
     filter_(~month_begin >= begin & month_begin <= end) %>%
     arrange_(~month_begin)
