@@ -88,4 +88,31 @@ smart_download <- function(obj, src, ...) {
   mapply(utils::download.file, src[missing], lcl[missing], ... = ...)
 }
 
+#' Ensure that years and month are within a certain time span
+#' @param years a vector of years
+#' @param months a vector of months
+#' @param begin the earliest valid date, defaults to the UNIX epoch
+#' @param end the most recent valid date, defaults to today
+#' @importFrom lubridate ymd
+#' @details blah
+#' @export
+valid_year_month <- function(years, months, begin = "1970-01-01", end = Sys.Date()) {
+  years <- as.numeric(years)
+  months <- as.numeric(months)
+  begin <- as.Date(begin)
+  end <- as.Date(end)
+
+  valid_months <- data.frame(expand.grid(years, months)) %>%
+    rename_(year = ~Var1, month = ~Var2) %>%
+    mutate_(month_begin = ~lubridate::ymd(paste(year, month, "01", sep = "/"))) %>%
+    mutate_(month_end = ~lubridate::ymd(
+      ifelse(month == 12, paste(year + 1, "01/01", sep = "/"),
+                          paste(year, month, "01", sep = "/"))) - 1) %>%
+    filter_(~year > 0 & month >= 1 & month <= 12) %>%
+    filter_(~month_begin >= begin & month_begin <= end) %>%
+    arrange_(~month_begin)
+  return(valid_months)
+}
+
+
 
