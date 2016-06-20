@@ -1,6 +1,7 @@
 # etl 0.3.2
 
-* Moved `is.etl` to main documentation for `etl`
+* Moved `is.etl` to main documentation for `etl` (30dee378)
+* Fixed typo in DESCRIPTION (4e77fba2)
 
 # etl 0.3.1
 

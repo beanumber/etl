@@ -1,7 +1,7 @@
 ETL
 ================
 
-[![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/etl)](https://cran.r-project.org/package=etl)
+[![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/etl)](https://cran.r-project.org/package=etl) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/etl)](http://www.r-pkg.org/pkg/etl)
 
 `etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations for **medium data**. The end result is generally a populated SQL database, but the user interaction takes place solely within R.
 
@@ -21,7 +21,7 @@ Instantiate an `etl` object using a string that determines the class of the resu
 cars <- etl("mtcars")
 ```
 
-    ## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpQB9urV/file78ad2c7db1f4.sqlite3
+    ## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpXbCsO3/file69824c4ca498.sqlite3
 
 ``` r
 class(cars)
@@ -155,7 +155,7 @@ cars %>%
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
-    ## Source: sqlite 3.8.6 [/tmp/RtmpQB9urV/file78ad2c7db1f4.sqlite3]
+    ## Source: sqlite 3.8.6 [/tmp/RtmpXbCsO3/file69824c4ca498.sqlite3]
     ## From: <derived table> [?? x 3]
     ## 
     ##      cyl     N mean_mpg
@@ -193,4 +193,4 @@ Packages that use the `etl` framework:
 tools::dependsOnPkgs("etl")
 ```
 
-    ## [1] "airlines" "citibike" "fec"      "macleish" "nyc311"
+    ## [1] "macleish"
