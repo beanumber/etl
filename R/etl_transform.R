@@ -15,15 +15,17 @@ etl_transform.default <- function(obj, ...) {
 
 #' @rdname etl_create
 #' @method etl_transform etl_mtcars
+#' @importFrom utils read.csv write.csv
 #' @export
 
 etl_transform.etl_mtcars <- function(obj, ...) {
   message("Transforming raw data...")
-  raw_dir <- paste0(attr(obj, "dir"), "/raw")
-  if (!dir.exists(raw_dir)) {
-    stop("The directory with the raw data does not exist. Please specify a valid path to the raw data.")
-  }
-  # load the data and process it if necessary
+  src <- paste0(attr(obj, "raw_dir"), "/mtcars.csv")
+  data <- utils::read.csv(src)
+  data <- data %>%
+    rename_(makeModel = ~X)
+  lcl <- paste0(attr(obj, "load_dir"), "/mtcars.csv")
+  utils::write.csv(data, file = lcl, row.names = FALSE)
   invisible(obj)
 }
 

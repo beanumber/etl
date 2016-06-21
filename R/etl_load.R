@@ -48,8 +48,7 @@ etl_load.default <- function(obj, schema = FALSE, ...) {
 
 etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
   message("Loading processed data...")
-  raw_dir <- paste0(attr(obj, "dir"), "/raw")
-  data <- utils::read.csv(paste0(raw_dir, "/mtcars.csv"))
+  data <- utils::read.csv(paste0(attr(obj, "load_dir"), "/mtcars.csv"))
 
   db <- verify_con(obj)
   if (methods::is(db$con, "DBIConnection")) {
