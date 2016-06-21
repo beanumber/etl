@@ -2,6 +2,8 @@
 
 * Moved `is.etl` to main documentation for `etl` (30dee378)
 * Fixed typo in DESCRIPTION (4e77fba2)
+* Fixed bug in `etl_load.etl_mtcars` by making `etl_transform` safer
+* Made `verify_db` messages easier to read
 
 # etl 0.3.1
 

@@ -4,7 +4,8 @@
 verify_con <- function(x, dir = tempdir()) {
   if (!inherits(x, "src")) {
     sqlite_file <- tempfile(fileext = ".sqlite3", tmpdir = dir)
-    message(paste("Not a valid src. Creating a src_sqlite for you at", sqlite_file))
+    message("Not a valid src. Creating a src_sqlite for you at:")
+    message(sqlite_file)
     x <- dplyr::src_sqlite(path = sqlite_file, create = TRUE)
   }
   x
