@@ -2,23 +2,52 @@
 % Please edit documentation in R/utils.R
 \name{valid_year_month}
 \alias{valid_year_month}
-\title{Ensure that years and month are within a certain time span}
+\title{Ensure that years and months are within a certain time span}
 \usage{
 valid_year_month(years, months, begin = "1970-01-01", end = Sys.Date())
 }
 \arguments{
-\item{years}{a vector of years}
+\item{years}{a numeric vector of years}
 
-\item{months}{a vector of months}
+\item{months}{a numeric vector of months}
 
 \item{begin}{the earliest valid date, defaults to the UNIX epoch}
 
 \item{end}{the most recent valid date, defaults to today}
 }
+\value{
+a \code{\link{data.frame}} with four variables: \code{year},
+\code{month}, \code{month_begin} (the first day of the month), and
+\code{month_end} (the last day of the month).
+}
 \description{
-Ensure that years and month are within a certain time span
+Ensure that years and months are within a certain time span
 }
 \details{
-blah
+Often, a data source will \code{begin} and \code{end} at
+known points in time. At the same time, many data sources are divided
+into monthly archives. Given a set of \code{years} and \code{months},
+any combination of which should be considered valid, this function will
+return a \code{\link{data.frame}} in which each row is one of those
+valid year-month pairs. Further, if the optional \code{begin} and
+\code{end} arguments are specified, the rows will be filter to lie
+within that time interval. Furthermore, the first and last day of
+each month are computed.
+}
+\examples{
+
+valid_year_month(years = 1999:2001, months = c(1:3, 7))
+
+# Mets in the World Series since the UNIX epoch
+mets_ws <- c(1969, 1973, 1986, 2000, 2015)
+valid_year_month(years = mets_ws, months = 10)
+
+# Mets in the World Series during the Clinton administration
+if (require(ggplot2)) {
+  clinton <- filter(presidential, name == "Clinton")
+  valid_year_month(years = mets_ws, months = 10,
+    begin = clinton$start, end = clinton$end)
+}
+
 }
 
