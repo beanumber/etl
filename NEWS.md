@@ -4,6 +4,9 @@
 * Fixed typo in DESCRIPTION (4e77fba2)
 * Fixed bug in `etl_load.etl_mtcars` by making `etl_transform` safer
 * Made `verify_con` messages easier to read
+* Added new functions for help with computing dates and matching filenames to dates
+* Added several tests
+* Added `new_filenames` argument to `smart_download`
 
 # etl 0.3.1
 

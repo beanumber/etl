@@ -4,12 +4,15 @@
 \alias{smart_download}
 \title{Download only those files that don't already exist}
 \usage{
-smart_download(obj, src, ...)
+smart_download(obj, src, new_filenames = basename(src), ...)
 }
 \arguments{
 \item{obj}{an \code{\link{etl}} object}
 
 \item{src}{a character vector of URLs that you want to download}
+
+\item{new_filenames}{an optional character vector of filenames for the new (local) files. Defaults to
+having the same filenames as those in \code{src}.}
 
 \item{...}{arguments passed to \code{\link[utils]{download.file}}}
 }
@@ -19,6 +22,11 @@ Download only those files that don't already exist
 \details{
 Downloads only those files in \code{src} that are not already present in
 the directory specified by the \code{raw_dir} attribute of \code{obj}.
+}
+\examples{
+cars <- etl("mtcars")
+urls <- c("http://www.google.com", "http://www.nytimes.com")
+smart_download(cars, src = urls)
 }
 \author{
 idiom courtesy of Hadley Wickham
