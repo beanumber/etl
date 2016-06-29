@@ -173,6 +173,9 @@ valid_year_month <- function(years, months, begin = "1970-01-01", end = Sys.Date
 #' }
 
 match_files_by_year_months <- function(files, pattern, years = as.numeric(format(Sys.Date(), '%Y')), months = 1:12, ...) {
+  if (length(files) < 1) {
+    return(NULL)
+  }
   file_df <- data.frame(filename = files, file_date = extract_date_from_filename(files, pattern)) %>%
     mutate_(file_year = ~lubridate::year(file_date),
             file_month = ~lubridate::month(file_date))
