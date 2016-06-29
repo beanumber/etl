@@ -30,14 +30,18 @@ test_that("dplyr works", {
 })
 
 
-test_that("mysql works", {
-  db <- src_mysql(default.file = "~/.my.cnf", dbname = "mtcars",
-                  user = NULL, password = NULL)
-  cars <- etl("mtcars", db = db)
-  class(cars)
-  cars %>% etl_create()
-})
+# test_that("mysql works", {
+#   db <- src_mysql(default.file = "~/.my.cnf", dbname = "mtcars",
+#                   user = NULL, password = NULL)
+#   cars <- etl("mtcars", db = db)
+#   class(cars)
+#   cars %>% etl_create()
+# })
 
 test_that("valid_year_month works", {
   expect_equal(nrow(valid_year_month(years = 1999:2001, months = c(1:3, 7))), 12)
+})
+
+test_that("extract_date_fromo_filename works", {
+  expect_null(extract_date_from_filename(list.files("/cdrom"), pattern = "*"))
 })

@@ -193,6 +193,9 @@ match_files_by_year_months <- function(files, pattern, years = as.numeric(format
 #' @rdname match_files_by_year_months
 
 extract_date_from_filename <- function(files, pattern, ...) {
+  if (length(files) < 1) {
+    return(NULL)
+  }
   files %>%
     basename() %>%
     lubridate::fast_strptime(format = pattern, ...) %>%
