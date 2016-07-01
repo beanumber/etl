@@ -113,6 +113,7 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
 #' summary(cars)
 
 summary.etl <- function(object, ...) {
+  cat("files:\n")
   dplyr::bind_rows(summary_dir(attr(object, "raw_dir")),
                    summary_dir(attr(object, "load_dir"))) %>%
     print()
@@ -142,3 +143,20 @@ summary_dir <- function(dir) {
 
 is.etl <- function(object) inherits(object, "etl")
 
+#' @rdname etl
+#' @export
+#' @inheritParams base::print
+#' @importFrom tidyr extract_numeric
+#' @examples
+#' cars <- etl("mtcars") %>%
+#'   etl_create()
+#' cars
+
+print.etl <- function(x, ...) {
+  file_info <- dplyr::bind_rows(
+    summary_dir(attr(x, "raw_dir")),
+    summary_dir(attr(x, "load_dir"))) %>%
+    summarize_(N = ~sum(n), size = ~sum(tidyr::extract_numeric(size)))
+  cat("dir:  ", file_info$N, " files occupying ", file_info$size, " GB\n", sep = "")
+  NextMethod()
+}

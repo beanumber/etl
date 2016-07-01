@@ -2,21 +2,9 @@
 % Please edit documentation in R/utils.R
 \name{get_schema}
 \alias{get_schema}
-\alias{get_schema.default}
-\alias{get_schema.src_mysql}
-\alias{get_schema.src_postgres}
-\alias{get_schema.src_sqlite}
-\title{Retrieve a pre-defined schema}
+\title{Retrieve a pre-defined schema initialization script}
 \usage{
 get_schema(con, schema_name, pkg, ext = NULL, ...)
-
-\method{get_schema}{default}(con, schema_name, pkg, ext = NULL, ...)
-
-\method{get_schema}{src_sqlite}(con, schema_name, pkg, ext = NULL, ...)
-
-\method{get_schema}{src_mysql}(con, schema_name, pkg, ...)
-
-\method{get_schema}{src_postgres}(con, schema_name, pkg, ...)
 }
 \arguments{
 \item{con}{A database connection}
@@ -25,7 +13,9 @@ get_schema(con, schema_name, pkg, ext = NULL, ...)
 
 \item{pkg}{The package defining the schema}
 
-\item{ext}{The file extension used for the SQL schema file}
+\item{ext}{The file extension used for the SQL schema file. If NULL (the default) it
+be inferred from the \code{src_*} class of \code{con}. For example, if \code{con}
+has class \code{\link[dplyr]{src_sqlite}} then \code{ext} will be \code{sqlite}.}
 
 \item{...}{Currently ignored}
 }
@@ -38,5 +28,7 @@ will retrieve it.
 
 cars <- etl("mtcars")
 get_schema(cars, "mtcars", "etl")
+get_schema(cars, "my_crazy_schema", "etl")
+
 }
 

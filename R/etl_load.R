@@ -1,8 +1,8 @@
 #' @rdname etl_create
 #'
 #' @param schema Either a logical, a filename pointing to SQL schema file, or a character
-#' vector containing the schema itself. If \code{schema = TRUE}, then the built-in
-#' schema will be used. Note
+#' vector containing the schema itself. If \code{schema = TRUE}, then the appropriate built-in
+#' schema will be fetched by \code{\link{get_schema}}. Note
 #' that the flavor of SQL in this file must match the type of the source. That is,
 #' if your object is of type \code{\link[dplyr]{src_mysql}}, then make sure that
 #' the schema you specify here is written in MySQL (and not PostgreSQL). Please
@@ -55,7 +55,7 @@ etl_load.etl_mtcars <- function(obj, schema = FALSE, ...) {
     if (schema == TRUE) {
       schema <- get_schema(db, "mtcars", "etl")
     }
-    if (!missing(schema)) {
+    if (is.character(schema)) {
       dbRunScript(db$con, schema, ...)
     }
     if (DBI::dbWriteTable(db$con, "mtcars", value = data, row.names = FALSE, append = TRUE)) {

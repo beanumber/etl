@@ -4,6 +4,7 @@
 \alias{etl}
 \alias{etl.default}
 \alias{is.etl}
+\alias{print.etl}
 \alias{summary.etl}
 \title{Initialize an \code{etl} object}
 \usage{
@@ -14,6 +15,8 @@ etl(x, db = NULL, dir = tempdir(), ...)
 \method{summary}{etl}(object, ...)
 
 is.etl(object)
+
+\method{print}{etl}(x, ...)
 }
 \arguments{
 \item{x}{the name of the \code{etl} package that you wish to populate with data.
@@ -105,6 +108,9 @@ is.etl(cars)
 
 # returns FALSE
 is.etl("hello world")
+cars <- etl("mtcars") \%>\%
+  etl_create()
+cars
 }
 \seealso{
 \code{\link{etl_create}}

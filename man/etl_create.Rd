@@ -62,8 +62,8 @@ etl_transform(obj, ...)
 this matches filenames ending in \code{.csv} and \code{.zip}.}
 
 \item{schema}{Either a logical, a filename pointing to SQL schema file, or a character
-vector containing the schema itself. If \code{schema = TRUE}, then the built-in
-schema will be used. Note
+vector containing the schema itself. If \code{schema = TRUE}, then the appropriate built-in
+schema will be fetched by \code{\link{get_schema}}. Note
 that the flavor of SQL in this file must match the type of the source. That is,
 if your object is of type \code{\link[dplyr]{src_mysql}}, then make sure that
 the schema you specify here is written in MySQL (and not PostgreSQL). Please
