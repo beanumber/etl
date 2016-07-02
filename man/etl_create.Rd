@@ -8,6 +8,9 @@
 \alias{etl_extract}
 \alias{etl_extract.default}
 \alias{etl_extract.etl_mtcars}
+\alias{etl_init}
+\alias{etl_init.default}
+\alias{etl_init.etl_mtcars}
 \alias{etl_load}
 \alias{etl_load.default}
 \alias{etl_load.etl_mtcars}
@@ -37,11 +40,17 @@ etl_extract(obj, ...)
 
 \method{etl_extract}{etl_mtcars}(obj, ...)
 
-etl_load(obj, schema = FALSE, ...)
+etl_load(obj, ...)
 
-\method{etl_load}{default}(obj, schema = FALSE, ...)
+\method{etl_load}{default}(obj, ...)
 
-\method{etl_load}{etl_mtcars}(obj, schema = FALSE, ...)
+\method{etl_load}{etl_mtcars}(obj, ...)
+
+etl_init(obj, script = NULL, ...)
+
+\method{etl_init}{default}(obj, script = NULL, ...)
+
+\method{etl_init}{etl_mtcars}(obj, script = NULL, ...)
 
 etl_transform(obj, ...)
 
@@ -61,9 +70,10 @@ etl_transform(obj, ...)
 \item{pattern}{regular expression matching file names to be deleted. By default,
 this matches filenames ending in \code{.csv} and \code{.zip}.}
 
-\item{schema}{Either a logical, a filename pointing to SQL schema file, or a character
-vector containing the schema itself. If \code{schema = TRUE}, then the appropriate built-in
-schema will be fetched by \code{\link{get_schema}}. Note
+\item{script}{either a vector of SQL commands to be executed, or
+a file path as a character vector containing an SQL initialization script.
+If \code{NULL} (the default), then the appropriate built-in
+schema will be fetched by \code{\link{get_schema}}, if it exists. Note
 that the flavor of SQL in this file must match the type of the source. That is,
 if your object is of type \code{\link[dplyr]{src_mysql}}, then make sure that
 the schema you specify here is written in MySQL (and not PostgreSQL). Please
@@ -83,8 +93,9 @@ The purposes of these functions are to download data from a
 particular data source from the Internet, process it, and load it
 into a SQL database server.
 
-There are four primary functions:
+There are five primary functions:
 \describe{
+ \item{etl_init}{Initialize the database schema.}
  \item{etl_extract}{Download data from the Internet and store it locally in
  its raw form.}
  \item{etl_transform}{Manipulate the raw data such that it can be loaded
@@ -97,10 +108,11 @@ There are four primary functions:
 
 Additionally, two convenience functions chain these operations together:
 \describe{
- \item{etl_create}{Run all four functions in succession with \code{scema=TRUE}.
+ \item{etl_create}{Run all five functions in succession.
  This is useful when you want
  to create the database from scratch.}
- \item{etl_update}{Run all four functions in succession with \code{scema=FALSE}.
+ \item{etl_update}{Run the \code{etl_extract}-\code{etl_transform}-\code{etl_load} functions
+ in succession.
  This is useful
  when the database already exists, but you want to insert some new data. }
 }
@@ -123,7 +135,7 @@ cars \%>\%
  etl_transform() \%>\%
  etl_load() \%>\%
  etl_cleanup()
-summary(cars)
+cars
 
 cars \%>\%
  tbl(from = "mtcars") \%>\%
@@ -138,7 +150,6 @@ cars \%>\%
  cars <- etl("mtcars", dir = "~/dumps/mtcars/")
  str(cars)
  }
-
 cars <- etl("mtcars")
 # Do it step-by-step
 cars \%>\%
@@ -152,6 +163,17 @@ tbl(cars, "mtcars")
 # But you can also specify your own schema if you want
 schema <- system.file("sql/mtcars.sqlite3", package = "etl")
 etl_load(cars, schema)
+
+cars <- etl("mtcars")
+cars \%>\%
+  etl_init()
+cars \%>\%
+  etl_init(script = sql("CREATE TABLE IF NOT EXISTS mtcars_alt (id INTEGER);"))
+init_script <- get_schema(cars, "mtcars", "etl")
+cars \%>\%
+  etl_init(script = init_script, echo = TRUE)
+src_tbls(cars)
+
 }
 \seealso{
 \code{\link{etl}}

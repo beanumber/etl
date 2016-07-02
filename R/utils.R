@@ -29,7 +29,7 @@ verify_con <- function(x, dir = tempdir()) {
 #' you may wish to include a pre-defined table schema. This function
 #' will retrieve it.
 #'
-#' @param con A database connection
+#' @param obj An \code{\link{etl}} object
 #' @param schema_name The name of the schema
 #' @param pkg The package defining the schema
 #' @param ext The file extension used for the SQL schema file. If NULL (the default) it
@@ -46,9 +46,9 @@ verify_con <- function(x, dir = tempdir()) {
 #' get_schema(cars, "mtcars", "etl")
 #' get_schema(cars, "my_crazy_schema", "etl")
 #'
-get_schema <- function(con, schema_name, pkg, ext = NULL, ...) {
+get_schema <- function(obj, schema_name, pkg, ext = NULL, ...) {
   if (missing(ext)) {
-    ext <- stringr::str_extract(class(con), pattern = "src_.+[^src_sql$]") %>%
+    ext <- stringr::str_extract(class(obj), pattern = "src_.+[^src_sql$]") %>%
       stats::na.omit() %>%
       gsub(pattern = "src_", replacement = "", x = .) %>%
       utils::head(1)

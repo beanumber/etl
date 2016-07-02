@@ -10,8 +10,9 @@
 #' particular data source from the Internet, process it, and load it
 #' into a SQL database server.
 #'
-#' There are four primary functions:
+#' There are five primary functions:
 #' \describe{
+#'  \item{etl_init}{Initialize the database schema.}
 #'  \item{etl_extract}{Download data from the Internet and store it locally in
 #'  its raw form.}
 #'  \item{etl_transform}{Manipulate the raw data such that it can be loaded
@@ -24,10 +25,11 @@
 #'
 #' Additionally, two convenience functions chain these operations together:
 #' \describe{
-#'  \item{etl_create}{Run all four functions in succession with \code{scema=TRUE}.
+#'  \item{etl_create}{Run all five functions in succession.
 #'  This is useful when you want
 #'  to create the database from scratch.}
-#'  \item{etl_update}{Run all four functions in succession with \code{scema=FALSE}.
+#'  \item{etl_update}{Run the \code{etl_extract}-\code{etl_transform}-\code{etl_load} functions
+#'  in succession.
 #'  This is useful
 #'  when the database already exists, but you want to insert some new data. }
 #' }
@@ -51,7 +53,7 @@
 #'  etl_transform() %>%
 #'  etl_load() %>%
 #'  etl_cleanup()
-#' summary(cars)
+#' cars
 #'
 #' cars %>%
 #'  tbl(from = "mtcars") %>%
@@ -74,7 +76,11 @@ etl_create <- function(obj, ...) UseMethod("etl_create")
 #' @export
 
 etl_create.default <- function(obj, ...) {
-  etl_update(obj, schema = TRUE, ...)
+  obj <- obj %>%
+    etl_init(...) %>%
+    etl_update(...) %>%
+    etl_cleanup(...)
+  invisible(obj)
 }
 
 #' @rdname etl_create
@@ -90,7 +96,6 @@ etl_update.default <- function(obj, ...) {
   obj <- obj %>%
     etl_extract(...) %>%
     etl_transform(...) %>%
-    etl_load(...) %>%
-    etl_cleanup(...)
+    etl_load(...)
   invisible(obj)
 }

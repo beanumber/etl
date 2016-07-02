@@ -4,10 +4,10 @@
 \alias{get_schema}
 \title{Retrieve a pre-defined schema initialization script}
 \usage{
-get_schema(con, schema_name, pkg, ext = NULL, ...)
+get_schema(obj, schema_name, pkg, ext = NULL, ...)
 }
 \arguments{
-\item{con}{A database connection}
+\item{obj}{An \code{\link{etl}} object}
 
 \item{schema_name}{The name of the schema}
 
