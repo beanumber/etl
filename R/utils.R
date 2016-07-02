@@ -23,44 +23,6 @@ verify_con <- function(x, dir = tempdir()) {
 #   dat[is_df]
 # }
 
-#' Retrieve a pre-defined schema initialization script
-#'
-#' @description If the table definitions are at all non-trivial,
-#' you may wish to include a pre-defined table schema. This function
-#' will retrieve it.
-#'
-#' @param obj An \code{\link{etl}} object
-#' @param schema_name The name of the schema
-#' @param pkg The package defining the schema
-#' @param ext The file extension used for the SQL schema file. If NULL (the default) it
-#' be inferred from the \code{src_*} class of \code{con}. For example, if \code{con}
-#' has class \code{\link[dplyr]{src_sqlite}} then \code{ext} will be \code{sqlite}.
-#' @param ... Currently ignored
-#' @importFrom stats na.omit
-#' @importFrom utils head
-#' @importFrom stringr str_extract
-#' @export
-#' @examples
-#'
-#' cars <- etl("mtcars")
-#' find_schema(cars, "mtcars", "etl")
-#' find_schema(cars, "my_crazy_schema", "etl")
-#'
-find_schema <- function(obj, schema_name, pkg, ext = NULL, ...) {
-  if (missing(ext)) {
-    ext <- stringr::str_extract(class(obj), pattern = "src_.+[^src_sql$]") %>%
-      stats::na.omit() %>%
-      gsub(pattern = "src_", replacement = "", x = .) %>%
-      utils::head(1)
-  }
-  sql <- paste0("sql/", schema_name, ".", ext)
-  file <- system.file(sql, package = pkg, mustWork = FALSE)
-  if (!file.exists(file)) {
-    message("Could not find schema initialization script")
-    return(NULL)
-  }
-  return(file)
-}
 
 #' Download only those files that don't already exist
 #' @param obj an \code{\link{etl}} object
@@ -191,4 +153,17 @@ extract_date_from_filename <- function(files, pattern, ...) {
     lubridate::fast_strptime(format = pattern, ...) %>%
     # why does it always return the previous day?
     as.Date() + lubridate::days(1)
+}
+
+#' Wipe out all tables in a database
+#' @details Finds all tables within a database and removes them
+#' @inheritParams DBI::dbRemoveTable
+#' @importFrom DBI dbRemoveTable
+#' @export
+
+dbWipe <- function(conn, ...) {
+  x <- DBI::dbListTables(conn)
+  if (length(x) > 0) {
+    sapply(x, DBI::dbRemoveTable, conn = conn, ... = ...)
+  }
 }

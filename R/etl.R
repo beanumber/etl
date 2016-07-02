@@ -77,15 +77,18 @@ etl <- function(x, db = NULL, dir = tempdir(), ...) UseMethod("etl")
 
 etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
   if (x != "mtcars") {
+    pkg <- x
     if (!requireNamespace(x)) {
       stop(paste0("Please make sure that the '", x, "' package is installed"))
     }
+  } else {
+    pkg <- "etl"
   }
   if (!dir.exists(dir)) {
     dir.create(dir, recursive = TRUE)
   }
   db <- verify_con(db, dir)
-  obj <- structure(db, data = NULL, "pkg" = x, dir = normalizePath(dir),
+  obj <- structure(db, data = NULL, "pkg" = pkg, dir = normalizePath(dir),
               files = NULL, push = NULL, class = c(paste0("etl_", x), "etl", class(db)))
 
   # create subdirectories within dir

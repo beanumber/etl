@@ -8,9 +8,6 @@
 \alias{etl_extract}
 \alias{etl_extract.default}
 \alias{etl_extract.etl_mtcars}
-\alias{etl_init}
-\alias{etl_init.default}
-\alias{etl_init.etl_mtcars}
 \alias{etl_load}
 \alias{etl_load.default}
 \alias{etl_load.etl_mtcars}
@@ -46,12 +43,6 @@ etl_load(obj, ...)
 
 \method{etl_load}{etl_mtcars}(obj, ...)
 
-etl_init(obj, script = NULL, ...)
-
-\method{etl_init}{default}(obj, script = NULL, ...)
-
-\method{etl_init}{etl_mtcars}(obj, script = NULL, ...)
-
 etl_transform(obj, ...)
 
 \method{etl_transform}{default}(obj, ...)
@@ -69,16 +60,6 @@ etl_transform(obj, ...)
 
 \item{pattern}{regular expression matching file names to be deleted. By default,
 this matches filenames ending in \code{.csv} and \code{.zip}.}
-
-\item{script}{either a vector of SQL commands to be executed, or
-a file path as a character vector containing an SQL initialization script.
-If \code{NULL} (the default), then the appropriate built-in
-schema will be fetched by \code{\link{find_schema}}, if it exists. Note
-that the flavor of SQL in this file must match the type of the source. That is,
-if your object is of type \code{\link[dplyr]{src_mysql}}, then make sure that
-the schema you specify here is written in MySQL (and not PostgreSQL). Please
-note that SQL syntax is not, in general, completely portable. Use with caution, as this may
-clobber any existing data you have in an existing database.}
 }
 \value{
 Each one of these functions returns an \code{\link{etl}} object, invisibly.
@@ -95,7 +76,7 @@ into a SQL database server.
 
 There are five primary functions:
 \describe{
- \item{etl_init}{Initialize the database schema.}
+ \item{\code{\link{etl_init}}}{Initialize the database schema.}
  \item{etl_extract}{Download data from the Internet and store it locally in
  its raw form.}
  \item{etl_transform}{Manipulate the raw data such that it can be loaded
@@ -163,19 +144,8 @@ tbl(cars, "mtcars")
 # But you can also specify your own schema if you want
 schema <- system.file("sql/mtcars.sqlite3", package = "etl")
 etl_load(cars, schema)
-
-cars <- etl("mtcars")
-cars \%>\%
-  etl_init()
-cars \%>\%
-  etl_init(script = sql("CREATE TABLE IF NOT EXISTS mtcars_alt (id INTEGER);"))
-init_script <- find_schema(cars, "mtcars", "etl")
-cars \%>\%
-  etl_init(script = init_script, echo = TRUE)
-src_tbls(cars)
-
 }
 \seealso{
-\code{\link{etl}}
+\code{\link{etl}}, \code{\link{etl_init}}
 }
 

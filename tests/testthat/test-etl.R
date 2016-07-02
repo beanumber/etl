@@ -9,14 +9,14 @@ test_that("sqlite works", {
   expect_s3_class(cars_sqlite, "etl")
   expect_s3_class(cars_sqlite, "src_sqlite")
   expect_s3_class(cars_sqlite, "src_sql")
-  expect_true(file.exists(find_schema(cars_sqlite, "mtcars", "etl")))
+  expect_true(file.exists(find_schema(cars_sqlite)))
   expect_message(find_schema(cars, "my_crazy_schema", "etl"))
   expect_output(summary(cars_sqlite), "/tmp")
 })
 
 test_that("dplyr works", {
-  cars <- etl("mtcars") %>%
-    etl_create()
+  expect_message(cars <- etl("mtcars") %>%
+    etl_create(), regexp = "success")
   expect_gt(length(src_tbls(cars)), 0)
   tbl_cars <- cars %>%
      tbl("mtcars")
@@ -26,8 +26,9 @@ test_that("dplyr works", {
     collect()
   expect_equal(nrow(res), nrow(mtcars))
   # double up the data
-  cars %>%
-    etl_update()
+  expect_message(
+    cars %>%
+      etl_update(), regexp = "success")
   res2 <- tbl_cars %>%
     collect()
   expect_equal(nrow(res2), 2 * nrow(mtcars))

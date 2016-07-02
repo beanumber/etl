@@ -7,6 +7,8 @@
 * Added new functions for help with computing dates and matching filenames to dates
 * Added several tests
 * Added `new_filenames` argument to `smart_download`
+* Re-implemented `etl_init` (#7)
+* Renamed `get_schema` to `find_schema`
 
 # etl 0.3.1
 

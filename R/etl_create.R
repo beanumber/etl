@@ -12,7 +12,7 @@
 #'
 #' There are five primary functions:
 #' \describe{
-#'  \item{etl_init}{Initialize the database schema.}
+#'  \item{\code{\link{etl_init}}}{Initialize the database schema.}
 #'  \item{etl_extract}{Download data from the Internet and store it locally in
 #'  its raw form.}
 #'  \item{etl_transform}{Manipulate the raw data such that it can be loaded
@@ -34,7 +34,7 @@
 #'  when the database already exists, but you want to insert some new data. }
 #' }
 #' @return Each one of these functions returns an \code{\link{etl}} object, invisibly.
-#' @seealso \code{\link{etl}}
+#' @seealso \code{\link{etl}}, \code{\link{etl_init}}
 #' @examples
 #'
 #' \dontrun{

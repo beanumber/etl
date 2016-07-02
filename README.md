@@ -23,7 +23,7 @@ cars <- etl("mtcars")
 
     ## Not a valid src. Creating a src_sqlite for you at:
 
-    ## /tmp/RtmpfBYicI/file60d27783e4d0.sqlite3
+    ## /tmp/RtmpjA2zLQ/file7b654f607c84.sqlite3
 
 ``` r
 class(cars)
@@ -98,7 +98,7 @@ cars %>%
   etl_create()
 ```
 
-    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.3/etl/sql/mtcars.sqlite
+    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.3/etl/sql/init.sqlite
 
     ## Extracting raw data...
 
@@ -161,7 +161,7 @@ cars %>%
 ```
 
     ## Source:   query [?? x 3]
-    ## Database: sqlite 3.8.6 [/tmp/RtmpfBYicI/file60d27783e4d0.sqlite3]
+    ## Database: sqlite 3.8.6 [/tmp/RtmpjA2zLQ/file7b654f607c84.sqlite3]
     ## 
     ##      cyl     N mean_mpg
     ##    <int> <int>    <dbl>

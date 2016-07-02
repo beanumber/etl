@@ -46,7 +46,8 @@ etl_load.etl_mtcars <- function(obj, ...) {
   invisible(obj)
 }
 
-#' @rdname etl_create
+#' Initialize a database using a defined schema
+#'
 #' @param script either a vector of SQL commands to be executed, or
 #' a file path as a character vector containing an SQL initialization script.
 #' If \code{NULL} (the default), then the appropriate built-in
@@ -56,49 +57,82 @@ etl_load.etl_mtcars <- function(obj, ...) {
 #' the schema you specify here is written in MySQL (and not PostgreSQL). Please
 #' note that SQL syntax is not, in general, completely portable. Use with caution, as this may
 #' clobber any existing data you have in an existing database.
+#' @inheritParams find_schema
 #' @export
-etl_init <- function(obj, script = NULL, ...) UseMethod("etl_init")
+#' @examples
+#' cars <- etl("mtcars")
+#' cars %>%
+#'   etl_init()
+#' cars %>%
+#'   etl_init(script = sql("CREATE TABLE IF NOT EXISTS mtcars_alt (id INTEGER);"))
+#' cars %>%
+#'   etl_init(schema_name = "init")
+#' init_script <- find_schema(cars, schema_name = "init")
+#' cars %>%
+#'   etl_init(script = init_script, echo = TRUE)
+#' src_tbls(cars)
 
-#' @rdname etl_create
+etl_init <- function(obj, script = NULL, schema_name = "init", pkg = attr(obj, "pkg"), ext = NULL, ...) UseMethod("etl_init")
+
+#' @rdname etl_init
 #' @method etl_init default
 #' @export
-etl_init.default <- function(obj, script = NULL, ...) {
+etl_init.default <- function(obj, script = NULL, schema_name = "init", pkg = attr(obj, "pkg"), ext = NULL, ...) {
   obj <- verify_con(obj)
+
+  if (is.character(script)) {
+    schema <- script
+  } else {
+    schema <- find_schema(obj)
+    if (is.null(schema)) {
+      dbWipe(obj$con)
+      return(invisible(obj))
+    }
+  }
   if (methods::is(obj$con, "DBIConnection")) {
-    dbRunScript(obj$con, script, ...)
+    dbRunScript(obj$con, schema, ...)
   } else {
     stop("Invalid connection to database.")
   }
   invisible(obj)
 }
 
-#' @rdname etl_create
-#' @method etl_init etl_mtcars
-#' @importFrom DBI dbRemoveTable
+#' @rdname etl_init
+#'
+#' @details If the table definitions are at all non-trivial,
+#' you may wish to include a pre-defined table schema. This function
+#' will retrieve it.
+#'
+#' @param obj An \code{\link{etl}} object
+#' @param schema_name The name of the schema. Default is \code{init}.
+#' @param pkg The package defining the schema. Should be set in \code{\link{etl}}.
+#' @param ext The file extension used for the SQL schema file. If NULL (the default) it
+#' be inferred from the \code{src_*} class of \code{con}. For example, if \code{con}
+#' has class \code{\link[dplyr]{src_sqlite}} then \code{ext} will be \code{sqlite}.
+#' @param ... Currently ignored
+#' @importFrom stats na.omit
+#' @importFrom utils head
+#' @importFrom stringr str_extract
 #' @export
 #' @examples
 #'
 #' cars <- etl("mtcars")
-#' cars %>%
-#'   etl_init()
-#' cars %>%
-#'   etl_init(script = sql("CREATE TABLE IF NOT EXISTS mtcars_alt (id INTEGER);"))
-#' init_script <- find_schema(cars, "mtcars", "etl")
-#' cars %>%
-#'   etl_init(script = init_script, echo = TRUE)
-#' src_tbls(cars)
+#' find_schema(cars)
+#' find_schema(cars, "init", "etl")
+#' find_schema(cars, "my_crazy_schema", "etl")
 #'
-etl_init.etl_mtcars <- function(obj, script = NULL, ...) {
-  if (is.character(script)) {
-    schema <- script
-  } else {
-    schema <- find_schema(obj, "mtcars", "etl")
-    if (is.null(schema)) {
-      if ("mtcars" %in% src_tbls(obj)) {
-        DBI::dbRemoveTable(obj$con, "mtcars")
-      }
-      return(invisible(obj))
-    }
+find_schema <- function(obj, schema_name = "init", pkg = attr(obj, "pkg"), ext = NULL, ...) {
+  if (missing(ext)) {
+    ext <- stringr::str_extract(class(obj), pattern = "src_.+[^src_sql$]") %>%
+      stats::na.omit() %>%
+      gsub(pattern = "src_", replacement = "", x = .) %>%
+      utils::head(1)
   }
-  NextMethod(script = schema)
+  sql <- paste0("sql/", schema_name, ".", ext)
+  file <- system.file(sql, package = pkg, mustWork = FALSE)
+  if (!file.exists(file)) {
+    message("Could not find schema initialization script")
+    return(NULL)
+  }
+  return(file)
 }
