@@ -43,10 +43,10 @@ verify_con <- function(x, dir = tempdir()) {
 #' @examples
 #'
 #' cars <- etl("mtcars")
-#' get_schema(cars, "mtcars", "etl")
-#' get_schema(cars, "my_crazy_schema", "etl")
+#' find_schema(cars, "mtcars", "etl")
+#' find_schema(cars, "my_crazy_schema", "etl")
 #'
-get_schema <- function(obj, schema_name, pkg, ext = NULL, ...) {
+find_schema <- function(obj, schema_name, pkg, ext = NULL, ...) {
   if (missing(ext)) {
     ext <- stringr::str_extract(class(obj), pattern = "src_.+[^src_sql$]") %>%
       stats::na.omit() %>%
@@ -56,7 +56,7 @@ get_schema <- function(obj, schema_name, pkg, ext = NULL, ...) {
   sql <- paste0("sql/", schema_name, ".", ext)
   file <- system.file(sql, package = pkg, mustWork = FALSE)
   if (!file.exists(file)) {
-    warning("Could not find schema initialization script")
+    message("Could not find schema initialization script")
     return(NULL)
   }
   return(file)

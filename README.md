@@ -21,7 +21,9 @@ Instantiate an `etl` object using a string that determines the class of the resu
 cars <- etl("mtcars")
 ```
 
-    ## Not a valid src. Creating a src_sqlite for you at /tmp/RtmpXbCsO3/file69824c4ca498.sqlite3
+    ## Not a valid src. Creating a src_sqlite for you at:
+
+    ## /tmp/RtmpfBYicI/file60d27783e4d0.sqlite3
 
 ``` r
 class(cars)
@@ -96,13 +98,13 @@ cars %>%
   etl_create()
 ```
 
+    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.3/etl/sql/mtcars.sqlite
+
     ## Extracting raw data...
 
     ## Transforming raw data...
 
     ## Loading processed data...
-
-    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.3/etl/sql/mtcars.sqlite3
 
     ## Data was successfully written to database.
 
@@ -126,8 +128,7 @@ getS3method("etl_update", "default")
     ##   obj <- obj %>%
     ##     etl_extract(...) %>%
     ##     etl_transform(...) %>%
-    ##     etl_load(...) %>%
-    ##     etl_cleanup(...)
+    ##     etl_load(...)
     ##   invisible(obj)
     ## }
     ## <environment: namespace:etl>
@@ -139,7 +140,11 @@ getS3method("etl_create", "default")
 ```
 
     ## function(obj, ...) {
-    ##   etl_update(obj, schema = TRUE, ...)
+    ##   obj <- obj %>%
+    ##     etl_init(...) %>%
+    ##     etl_update(...) %>%
+    ##     etl_cleanup(...)
+    ##   invisible(obj)
     ## }
     ## <environment: namespace:etl>
 
@@ -155,11 +160,11 @@ cars %>%
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
-    ## Source: sqlite 3.8.6 [/tmp/RtmpXbCsO3/file69824c4ca498.sqlite3]
-    ## From: <derived table> [?? x 3]
+    ## Source:   query [?? x 3]
+    ## Database: sqlite 3.8.6 [/tmp/RtmpfBYicI/file60d27783e4d0.sqlite3]
     ## 
     ##      cyl     N mean_mpg
-    ##    (int) (int)    (dbl)
+    ##    <int> <int>    <dbl>
     ## 1      4    11 26.66364
     ## 2      6     7 19.74286
     ## 3      8    14 15.10000
@@ -193,4 +198,4 @@ Packages that use the `etl` framework:
 tools::dependsOnPkgs("etl")
 ```
 
-    ## [1] "macleish"
+    ## [1] "airlines" "fec"      "macleish" "nyc311"

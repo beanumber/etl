@@ -73,7 +73,7 @@ this matches filenames ending in \code{.csv} and \code{.zip}.}
 \item{script}{either a vector of SQL commands to be executed, or
 a file path as a character vector containing an SQL initialization script.
 If \code{NULL} (the default), then the appropriate built-in
-schema will be fetched by \code{\link{get_schema}}, if it exists. Note
+schema will be fetched by \code{\link{find_schema}}, if it exists. Note
 that the flavor of SQL in this file must match the type of the source. That is,
 if your object is of type \code{\link[dplyr]{src_mysql}}, then make sure that
 the schema you specify here is written in MySQL (and not PostgreSQL). Please
@@ -169,7 +169,7 @@ cars \%>\%
   etl_init()
 cars \%>\%
   etl_init(script = sql("CREATE TABLE IF NOT EXISTS mtcars_alt (id INTEGER);"))
-init_script <- get_schema(cars, "mtcars", "etl")
+init_script <- find_schema(cars, "mtcars", "etl")
 cars \%>\%
   etl_init(script = init_script, echo = TRUE)
 src_tbls(cars)
