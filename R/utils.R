@@ -125,7 +125,8 @@ match_files_by_year_months <- function(files, pattern, years = as.numeric(format
   if (length(files) < 1) {
     return(NULL)
   }
-  file_df <- data.frame(filename = files, file_date = extract_date_from_filename(files, pattern)) %>%
+  file_df <- data.frame(filename = files,
+                        file_date = extract_date_from_filename(files, pattern)) %>%
     mutate_(file_year = ~lubridate::year(file_date),
             file_month = ~lubridate::month(file_date))
   valid <- valid_year_month(years, months)
