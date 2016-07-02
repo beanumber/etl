@@ -9,6 +9,9 @@ test_that("sqlite works", {
   expect_true(file.exists(find_schema(cars_sqlite)))
   expect_message(find_schema(cars, "my_crazy_schema", "etl"))
   expect_output(summary(cars_sqlite), "/tmp")
+  expect_message(cars_sqlite %>% etl_create(), "success")
+  expect_message(cars_sqlite %>% etl_init(), "Loading SQL script")
+  expect_message(cars_sqlite %>% etl_cleanup(delete_raw = TRUE, delete_load = TRUE), "Deleting files")
 })
 
 test_that("dplyr works", {
