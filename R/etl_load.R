@@ -83,7 +83,7 @@ etl_init.default <- function(obj, script = NULL, schema_name = "init", pkg = att
   if (is.character(script)) {
     schema <- script
   } else {
-    schema <- find_schema(obj)
+    schema <- find_schema(obj, schema_name, pkg, ext)
     if (is.null(schema)) {
       dbWipe(obj$con)
       return(invisible(obj))
@@ -122,8 +122,8 @@ etl_init.default <- function(obj, script = NULL, schema_name = "init", pkg = att
 #' find_schema(cars, "my_crazy_schema", "etl")
 #'
 find_schema <- function(obj, schema_name = "init", pkg = attr(obj, "pkg"), ext = NULL, ...) {
-  if (missing(ext)) {
-    ext <- stringr::str_extract(class(obj), pattern = "src_.+[^src_sql$]") %>%
+  if (is.null(ext)) {
+    ext <- stringr::str_extract(class(obj), pattern = "src_.+") %>%
       stats::na.omit() %>%
       gsub(pattern = "src_", replacement = "", x = .) %>%
       utils::head(1)

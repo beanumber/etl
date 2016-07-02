@@ -5,10 +5,7 @@ context("etl")
 
 test_that("sqlite works", {
   cars_sqlite <- etl("mtcars")
-  expect_s3_class(cars_sqlite, "etl_mtcars")
-  expect_s3_class(cars_sqlite, "etl")
-  expect_s3_class(cars_sqlite, "src_sqlite")
-  expect_s3_class(cars_sqlite, "src_sql")
+  expect_s3_class(cars_sqlite, c("etl_mtcars", "etl", "src_sqlite", "src_sql"))
   expect_true(file.exists(find_schema(cars_sqlite)))
   expect_message(find_schema(cars, "my_crazy_schema", "etl"))
   expect_output(summary(cars_sqlite), "/tmp")
@@ -35,14 +32,18 @@ test_that("dplyr works", {
 })
 
 
-# test_that("mysql works", {
-#   db <- src_mysql(default.file = "~/.my.cnf", dbname = "mtcars",
-#                   user = NULL, password = NULL)
-#   cars <- etl("mtcars", db = db)
-#   class(cars)
-#   expect_true(file.exists(find_schema(cars, "mtcars", "etl")))
-#   cars %>% etl_create()
-# })
+test_that("mysql works", {
+  if (require(RMySQL) & mysqlHasDefault()) {
+    db <- src_mysql(default.file = "~/.my.cnf",
+                    groups = "rs-dbi", dbname = "test",
+                    user = NULL, password = NULL)
+    cars_mysql <- etl("mtcars", db = db)
+    expect_s3_class(cars_mysql, c("etl_mtcars", "etl", "src_mysql", "src_sql"))
+    expect_true(file.exists(find_schema(cars_mysql)))
+    expect_message(find_schema(cars, "my_crazy_schema", "etl"))
+    expect_output(summary(cars_mysql), "/tmp")
+  }
+})
 
 test_that("MonetDBLite works", {
   if (require(MonetDBLite)) {
