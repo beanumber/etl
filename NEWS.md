@@ -8,7 +8,7 @@
 * Added several tests
 * Added `new_filenames` argument to `smart_download`
 * Re-implemented `etl_init` (#7)
-* Renamed `get_schema` to `find_schema`
+* Renamed `get_schema` to `find_schema` (1c0a4e3)
 
 # etl 0.3.1
 

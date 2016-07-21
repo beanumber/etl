@@ -66,6 +66,14 @@ test_that("MonetDBLite works", {
 
 test_that("valid_year_month works", {
   expect_equal(nrow(valid_year_month(years = 1999:2001, months = c(1:3, 7))), 12)
+  test_dir <- "~/dumps/airlines"
+  # if (require(airlines) & require(etl) & dir.exists(test_dir)) {
+  #   airlines <- etl("airlines", dir = test_dir) %>%
+  #     etl_extract(year = 1987)
+  #   expect_length(match_files_by_year_months(list.files(attr(airlines, "raw_dir")),
+  #                              pattern = "On_Time_On_Time_Performance_%Y_%m.zip",
+  #                              year = 1987), 3)
+  #  }
 })
 
 test_that("extract_date_from_filename works", {
@@ -73,4 +81,11 @@ test_that("extract_date_from_filename works", {
     mutate(filename = paste0("myfile_", year, "_", month, ".ext"))
   expect_is(extract_date_from_filename(test$filename, pattern = "myfile_%Y_%m.ext"), "Date")
   expect_null(extract_date_from_filename(list.files("/cdrom"), pattern = "*"))
+})
+
+test_that("etl works", {
+  expect_error(etl("willywonka"), "Please make sure that")
+  expect_message(etl("mtcars", dir = paste0(tempdir(), "/etltest")), "/etltest/")
+  expect_true(is.etl(etl("mtcars")))
+  expect_output(print(etl("mtcars")), "sqlite")
 })
