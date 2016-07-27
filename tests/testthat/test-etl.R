@@ -85,7 +85,7 @@ test_that("extract_date_from_filename works", {
 
 test_that("etl works", {
   expect_error(etl("willywonka"), "Please make sure that")
-  expect_message(etl("mtcars", dir = paste0(tempdir(), "/etltest")), "/etltest/")
+  expect_message(etl("mtcars", dir = file.path(tempdir(), "etltest")), "etltest")
   expect_true(is.etl(etl("mtcars")))
   expect_output(print(etl("mtcars")), "sqlite")
 })

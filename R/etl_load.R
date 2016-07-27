@@ -72,12 +72,14 @@ etl_load.etl_mtcars <- function(obj, ...) {
 #'   etl_init(script = init_script, echo = TRUE)
 #' src_tbls(cars)
 
-etl_init <- function(obj, script = NULL, schema_name = "init", pkg = attr(obj, "pkg"), ext = NULL, ...) UseMethod("etl_init")
+etl_init <- function(obj, script = NULL, schema_name = "init",
+                     pkg = attr(obj, "pkg"), ext = NULL, ...) UseMethod("etl_init")
 
 #' @rdname etl_init
 #' @method etl_init default
 #' @export
-etl_init.default <- function(obj, script = NULL, schema_name = "init", pkg = attr(obj, "pkg"), ext = NULL, ...) {
+etl_init.default <- function(obj, script = NULL, schema_name = "init",
+                             pkg = attr(obj, "pkg"), ext = NULL, ...) {
   obj <- verify_con(obj)
 
   if (is.character(script)) {
