@@ -8,7 +8,7 @@ test_that("sqlite works", {
   expect_s3_class(cars_sqlite, c("etl_mtcars", "etl", "src_sqlite", "src_sql"))
   expect_true(file.exists(find_schema(cars_sqlite)))
   expect_message(find_schema(cars, "my_crazy_schema", "etl"))
-  expect_output(summary(cars_sqlite), "/tmp")
+  expect_output(summary(cars_sqlite), "files")
   expect_message(cars_sqlite %>% etl_create(), "success")
   expect_message(cars_sqlite %>% etl_init(), "Loading SQL script")
   expect_message(cars_sqlite %>% etl_cleanup(delete_raw = TRUE, delete_load = TRUE), "Deleting files")
