@@ -168,3 +168,15 @@ dbWipe <- function(conn, ...) {
     sapply(x, DBI::dbRemoveTable, conn = conn, ... = ...)
   }
 }
+
+#' Connect to local MySQL Server using ~/.my.cnf
+#' @importFrom dplyr src_mysql
+#' @export
+src_mysql_local <- function(dbname, ...) {
+  if (!file.exists("~/.my.cnf")) {
+    stop("No MySQL config file found.")
+  }
+  dplyr::src_mysql(default.file = "~/.my.cnf",
+            groups = "rs-dbi", dbname = dbname,
+            user = NULL, password = NULL)
+}

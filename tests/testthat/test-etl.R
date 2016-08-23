@@ -36,7 +36,11 @@ test_that("dplyr works", {
 
 
 test_that("mysql works", {
-  if (require(RMySQL) & mysqlHasDefault()) {
+  if (require(RMySQL) && mysqlHasDefault()) {
+    db <- src_mysql_local("test")
+    expect_s3_class(db, "src_mysql")
+  }
+  if (require(RMySQL) && mysqlHasDefault()) {
     db <- src_mysql(default.file = "~/.my.cnf",
                     groups = "rs-dbi", dbname = "test",
                     user = NULL, password = NULL)
