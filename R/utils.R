@@ -170,13 +170,28 @@ dbWipe <- function(conn, ...) {
 }
 
 #' Connect to local MySQL Server using ~/.my.cnf
+#' @param dbname name of the local database you wish to connect to. Default is
+#' \code{test}, as in \code{\link[RMySQL]{mysqlHasDefault}}.
+#' @param groups section of \code{~/.my.cnf} file. Default is \code{rs-dbi} as in
+#' \code{\link[RMySQL]{mysqlHasDefault}}
+#' @param ... arguments passed to \code{\link[dplyr]{src_mysql}}
 #' @importFrom dplyr src_mysql
 #' @export
-src_mysql_local <- function(dbname, ...) {
+#' @seealso \code{\link[dplyr]{src_mysql}}, \code{\link[RMySQL]{mysqlHasDefault}}
+#' @examples
+#' if (require(RMySQL) && mysqlHasDefault()) {
+#'   # connect to test database using rs-dbi
+#'   db <- src_mysql_cnf()
+#'   class(db)
+#'   db
+#'   # connect to another server using the 'client' group
+#'   src_mysql_cnf(groups = "client")
+#' }
+src_mysql_cnf <- function(dbname = "test", groups = "rs-dbi", ...) {
   if (!file.exists("~/.my.cnf")) {
     stop("No MySQL config file found.")
   }
   dplyr::src_mysql(default.file = "~/.my.cnf",
-            groups = "rs-dbi", dbname = dbname,
-            user = NULL, password = NULL)
+            groups = groups, dbname = dbname,
+            user = NULL, password = NULL, ...)
 }

@@ -1,3 +1,7 @@
+# etl 0.3.4
+
+* Added `src_mysql_cnf` as shorthand for connecting to MySQL
+
 # etl 0.3.3
 
 * Moved `is.etl` to main documentation for `etl` (30dee378)

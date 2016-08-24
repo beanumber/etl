@@ -37,13 +37,8 @@ test_that("dplyr works", {
 
 test_that("mysql works", {
   if (require(RMySQL) && mysqlHasDefault()) {
-    db <- src_mysql_local("test")
+    db <- src_mysql_cnf()
     expect_s3_class(db, "src_mysql")
-  }
-  if (require(RMySQL) && mysqlHasDefault()) {
-    db <- src_mysql(default.file = "~/.my.cnf",
-                    groups = "rs-dbi", dbname = "test",
-                    user = NULL, password = NULL)
     cars_mysql <- etl("mtcars", db = db)
     expect_s3_class(cars_mysql, c("etl_mtcars", "etl", "src_mysql", "src_sql"))
     expect_true(file.exists(find_schema(cars_mysql)))
