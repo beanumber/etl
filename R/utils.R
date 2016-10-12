@@ -43,7 +43,7 @@ smart_download <- function(obj, src, new_filenames = basename(src), ...) {
   if (length(src) != length(new_filenames)) {
     stop("src and new_filenames must be of the same length")
   }
-  lcl <- paste0(attr(obj, "raw_dir"), "/", new_filenames)
+  lcl <- file.path(attr(obj, "raw_dir"), new_filenames)
   missing <- !file.exists(lcl)
   mapply(utils::download.file, src[missing], lcl[missing], ... = ...)
 }
@@ -188,10 +188,10 @@ dbWipe <- function(conn, ...) {
 #'   src_mysql_cnf(groups = "client")
 #' }
 src_mysql_cnf <- function(dbname = "test", groups = "rs-dbi", ...) {
-  if (!file.exists("~/.my.cnf")) {
+  if (!file.exists(file.path("~", ".my.cnf"))) {
     stop("No MySQL config file found.")
   }
-  dplyr::src_mysql(default.file = "~/.my.cnf",
+  dplyr::src_mysql(default.file = file.path("~", ".my.cnf"),
             groups = groups, dbname = dbname,
             user = NULL, password = NULL, ...)
 }

@@ -142,7 +142,7 @@ cars \%>\%
 tbl(cars, "mtcars")
 
 # But you can also specify your own schema if you want
-schema <- system.file("sql/mtcars.sqlite3", package = "etl")
+schema <- system.file("sql", "init.sqlite", package = "etl")
 etl_load(cars, schema)
 }
 \seealso{

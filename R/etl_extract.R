@@ -20,7 +20,7 @@ etl_extract.default <- function(obj, ...) {
 
 etl_extract.etl_mtcars <- function(obj, ...) {
   message("Extracting raw data...")
-  raw_filename <- paste0(attr(obj, "raw_dir"), "/mtcars.csv")
+  raw_filename <- file.path(attr(obj, "raw_dir"), "mtcars.csv")
   utils::write.csv(datasets::mtcars, file = raw_filename)
   invisible(obj)
 }

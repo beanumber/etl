@@ -18,12 +18,12 @@ etl_cleanup.default <- function(obj, delete_raw = FALSE, delete_load = FALSE, pa
   if (delete_raw) {
     message(paste0("Deleting files from ", raw))
     raw_files <- list.files(raw)
-    unlink(paste0(raw, "/", raw_files[grepl(pattern, raw_files, ...)]))
+    unlink(file.path(raw, raw_files[grepl(pattern, raw_files, ...)]))
   }
   if (delete_load) {
     message(paste0("Deleting files from ", load))
     load_files <- list.files(load)
-    unlink(paste0(load, "/", load_files[grepl(pattern, load_files, ...)]))
+    unlink(file.path(load, load_files[grepl(pattern, load_files, ...)]))
   }
   # run VACCUUM ANALYZE, etc.
   invisible(obj)

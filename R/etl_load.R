@@ -12,7 +12,7 @@
 #' tbl(cars, "mtcars")
 #'
 #' # But you can also specify your own schema if you want
-#' schema <- system.file("sql/mtcars.sqlite3", package = "etl")
+#' schema <- system.file("sql", "init.sqlite", package = "etl")
 #' etl_load(cars, schema)
 
 etl_load <- function(obj, ...) UseMethod("etl_load")
@@ -37,7 +37,7 @@ etl_load.default <- function(obj, ...) {
 
 etl_load.etl_mtcars <- function(obj, ...) {
   message("Loading processed data...")
-  data <- utils::read.csv(paste0(attr(obj, "load_dir"), "/mtcars.csv"))
+  data <- utils::read.csv(file.path(attr(obj, "load_dir"), "mtcars.csv"))
 
   obj <- verify_con(obj)
   if (DBI::dbWriteTable(obj$con, "mtcars", value = data, row.names = FALSE, append = TRUE)) {
@@ -130,7 +130,7 @@ find_schema <- function(obj, schema_name = "init", pkg = attr(obj, "pkg"), ext =
       gsub(pattern = "src_", replacement = "", x = .) %>%
       utils::head(1)
   }
-  sql <- paste0("sql/", schema_name, ".", ext)
+  sql <- file.path("sql", paste0(schema_name, ".", ext))
   file <- system.file(sql, package = pkg, mustWork = FALSE)
   if (!file.exists(file)) {
     message("Could not find schema initialization script")

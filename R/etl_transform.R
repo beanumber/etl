@@ -20,11 +20,11 @@ etl_transform.default <- function(obj, ...) {
 
 etl_transform.etl_mtcars <- function(obj, ...) {
   message("Transforming raw data...")
-  src <- paste0(attr(obj, "raw_dir"), "/mtcars.csv")
+  src <- file.path(attr(obj, "raw_dir"), "mtcars.csv")
   data <- utils::read.csv(src)
   data <- data %>%
     rename_(makeModel = ~X)
-  lcl <- paste0(attr(obj, "load_dir"), "/mtcars.csv")
+  lcl <- file.path(attr(obj, "load_dir"), "mtcars.csv")
   utils::write.csv(data, file = lcl, row.names = FALSE)
   invisible(obj)
 }

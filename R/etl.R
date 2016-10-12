@@ -92,11 +92,11 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
               files = NULL, push = NULL, class = c(paste0("etl_", x), "etl", class(db)))
 
   # create subdirectories within dir
-  raw_dir <- paste0(attr(obj, "dir"), "/raw")
+  raw_dir <- file.path(attr(obj, "dir"), "raw")
   if (!dir.exists(raw_dir)) {
     dir.create(raw_dir)
   }
-  load_dir <- paste0(attr(obj, "dir"), "/load")
+  load_dir <- file.path(attr(obj, "dir"), "load")
   if (!dir.exists(load_dir)) {
     dir.create(load_dir)
   }

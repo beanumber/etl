@@ -1,6 +1,7 @@
 # etl 0.3.4
 
 * Added `src_mysql_cnf` as shorthand for connecting to MySQL
+* Fixed CRAN failures on Solaris (thanks Brian Ripley)
 
 # etl 0.3.3
 
