@@ -11,7 +11,9 @@ test_that("sqlite works", {
   expect_output(summary(cars_sqlite), "files")
   expect_message(cars_sqlite %>% etl_create(), "success")
   expect_message(cars_sqlite %>% etl_init(), "Loading SQL script")
-  expect_message(cars_sqlite %>% etl_cleanup(delete_raw = TRUE, delete_load = TRUE), "Deleting files")
+  expect_message(
+    cars_sqlite %>% etl_cleanup(delete_raw = TRUE, delete_load = TRUE),
+    "Deleting files")
 })
 
 test_that("dplyr works", {
@@ -64,27 +66,32 @@ test_that("MonetDBLite works", {
 })
 
 test_that("valid_year_month works", {
-  expect_equal(nrow(valid_year_month(years = 1999:2001, months = c(1:3, 7))), 12)
+  expect_equal(
+    nrow(valid_year_month(years = 1999:2001, months = c(1:3, 7))), 12)
   test_dir <- "~/dumps/airlines"
   # if (require(airlines) & require(etl) & dir.exists(test_dir)) {
   #   airlines <- etl("airlines", dir = test_dir) %>%
   #     etl_extract(year = 1987)
-  #   expect_length(match_files_by_year_months(list.files(attr(airlines, "raw_dir")),
-  #                              pattern = "On_Time_On_Time_Performance_%Y_%m.zip",
-  #                              year = 1987), 3)
+  #   expect_length(match_files_by_year_months(
+  #     list.files(attr(airlines, "raw_dir")),
+  #     pattern = "On_Time_On_Time_Performance_%Y_%m.zip",
+  #     year = 1987), 3)
   #  }
 })
 
 test_that("extract_date_from_filename works", {
   test <- expand.grid(year = 1999:2001, month = c(1:6, 9)) %>%
     mutate(filename = paste0("myfile_", year, "_", month, ".ext"))
-  expect_is(extract_date_from_filename(test$filename, pattern = "myfile_%Y_%m.ext"), "Date")
+  expect_is(
+    extract_date_from_filename(test$filename, pattern = "myfile_%Y_%m.ext"),
+    "Date")
   expect_null(extract_date_from_filename(list.files("/cdrom"), pattern = "*"))
 })
 
 test_that("etl works", {
   expect_error(etl("willywonka"), "Please make sure that")
-  expect_message(etl("mtcars", dir = file.path(tempdir(), "etltest")), "etltest")
+  expect_message(
+    etl("mtcars", dir = file.path(tempdir(), "etltest")), "etltest")
   expect_true(is.etl(etl("mtcars")))
   expect_output(print(etl("mtcars")), "sqlite")
 })

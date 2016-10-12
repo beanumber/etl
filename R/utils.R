@@ -82,7 +82,8 @@ smart_download <- function(obj, src, new_filenames = basename(src), ...) {
 #'     begin = clinton$start, end = clinton$end)
 #' }
 #'
-valid_year_month <- function(years, months, begin = "1970-01-01", end = Sys.Date()) {
+valid_year_month <- function(years, months,
+                             begin = "1970-01-01", end = Sys.Date()) {
   years <- as.numeric(years)
   months <- as.numeric(months)
   begin <- as.Date(begin)
@@ -90,7 +91,8 @@ valid_year_month <- function(years, months, begin = "1970-01-01", end = Sys.Date
 
   valid_months <- data.frame(expand.grid(years, months)) %>%
     rename_(year = ~Var1, month = ~Var2) %>%
-    mutate_(month_begin = ~lubridate::ymd(paste(year, month, "01", sep = "/"))) %>%
+    mutate_(month_begin = ~lubridate::ymd(paste(year, month,
+                                                "01", sep = "/"))) %>%
     mutate_(month_end = ~lubridate::ymd(
       ifelse(month == 12, paste(year + 1, "01/01", sep = "/"),
                           paste(year, month + 1, "01", sep = "/"))) - 1) %>%
@@ -121,12 +123,16 @@ valid_year_month <- function(years, months, begin = "1970-01-01", end = Sys.Date
 #' }
 #' }
 
-match_files_by_year_months <- function(files, pattern, years = as.numeric(format(Sys.Date(), '%Y')), months = 1:12, ...) {
+match_files_by_year_months <- function(files, pattern,
+                                       years = as.numeric(
+                                         format(Sys.Date(), '%Y')),
+                                       months = 1:12, ...) {
   if (length(files) < 1) {
     return(NULL)
   }
   file_df <- data.frame(filename = files,
-                        file_date = extract_date_from_filename(files, pattern)) %>%
+                        file_date = extract_date_from_filename(files,
+                                                               pattern)) %>%
     mutate_(file_year = ~lubridate::year(file_date),
             file_month = ~lubridate::month(file_date))
   valid <- valid_year_month(years, months)
@@ -165,7 +171,7 @@ extract_date_from_filename <- function(files, pattern, ...) {
 dbWipe <- function(conn, ...) {
   x <- DBI::dbListTables(conn)
   if (length(x) > 0) {
-    sapply(x, DBI::dbRemoveTable, conn = conn, ... = ...)
+    lapply(x, DBI::dbRemoveTable, conn = conn, ... = ...)
   }
 }
 

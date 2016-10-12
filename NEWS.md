@@ -1,10 +1,14 @@
 # etl 0.3.4
 
+### MINOR IMPROVEMENTS
+
 * Added `src_mysql_cnf` as shorthand for connecting to MySQL
 * Fixed CRAN failures on Solaris (thanks Brian Ripley)
 * Moved to `file.path` uniformly (#7)
 
-# etl 0.3.3
+# etl 0.3.3 (2016-07-27)
+
+### MINOR IMPROVEMENTS
 
 * Moved `is.etl` to main documentation for `etl` (30dee378)
 * Fixed typo in DESCRIPTION (4e77fba2)
@@ -16,8 +20,11 @@
 * Re-implemented `etl_init` (#7)
 * Renamed `get_schema` to `find_schema` (1c0a4e3)
 
-# etl 0.3.1
+# etl 0.3.1 (2016-06-07)
 
+### NEW FEATURES
+
+* released to CRAN
 * Added a `NEWS.md` file to track changes to the package.
 
 

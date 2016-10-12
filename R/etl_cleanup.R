@@ -11,7 +11,10 @@ etl_cleanup <- function(obj, ...) UseMethod("etl_cleanup")
 #' this matches filenames ending in \code{.csv} and \code{.zip}.
 #' @export
 
-etl_cleanup.default <- function(obj, delete_raw = FALSE, delete_load = FALSE, pattern = "\\.(csv|zip)$", ...) {
+etl_cleanup.default <- function(obj,
+                                delete_raw = FALSE,
+                                delete_load = FALSE,
+                                pattern = "\\.(csv|zip)$", ...) {
   # delete files
   raw <- attr(obj, "raw_dir")
   load <- attr(obj, "load_dir")

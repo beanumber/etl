@@ -89,7 +89,8 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
   }
   db <- verify_con(db, dir)
   obj <- structure(db, data = NULL, "pkg" = pkg, dir = normalizePath(dir),
-              files = NULL, push = NULL, class = c(paste0("etl_", x), "etl", class(db)))
+                   files = NULL, push = NULL,
+                   class = c(paste0("etl_", x), "etl", class(db)))
 
   # create subdirectories within dir
   raw_dir <- file.path(attr(obj, "dir"), "raw")
@@ -160,6 +161,7 @@ print.etl <- function(x, ...) {
     summary_dir(attr(x, "raw_dir")),
     summary_dir(attr(x, "load_dir"))) %>%
     summarize_(N = ~sum(n), size = ~sum(tidyr::extract_numeric(size)))
-  cat("dir:  ", file_info$N, " files occupying ", file_info$size, " GB\n", sep = "")
+  cat("dir:  ", file_info$N, " files occupying ",
+      file_info$size, " GB\n", sep = "")
   NextMethod()
 }
