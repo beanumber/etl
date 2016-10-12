@@ -78,7 +78,7 @@ etl <- function(x, db = NULL, dir = tempdir(), ...) UseMethod("etl")
 etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
   if (x != "mtcars") {
     pkg <- x
-    if (!requireNamespace(x)) {
+    if (!requireNamespace(x, quietly = TRUE)) {
       stop(paste0("Please make sure that the '", x, "' package is installed"))
     }
   } else {
