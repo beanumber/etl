@@ -5,6 +5,7 @@
 * Added `src_mysql_cnf` as shorthand for connecting to MySQL
 * Fixed CRAN failures on Solaris (thanks Brian Ripley)
 * Moved to `file.path` uniformly (#7)
+* Moved `smart_download` to `downloader` for HTTPS
 
 # etl 0.3.3 (2016-07-27)
 

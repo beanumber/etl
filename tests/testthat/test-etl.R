@@ -95,3 +95,9 @@ test_that("etl works", {
   expect_true(is.etl(etl("mtcars")))
   expect_output(print(etl("mtcars")), "sqlite")
 })
+
+test_that("smart_download works", {
+  cars <- etl("mtcars")
+  urls <- c("http://www.google.com", "http://www.nytimes.com")
+  expect_length(smart_download(cars, src = urls), 2)
+})

@@ -27,12 +27,13 @@ verify_con <- function(x, dir = tempdir()) {
 #' Download only those files that don't already exist
 #' @param obj an \code{\link{etl}} object
 #' @param src a character vector of URLs that you want to download
-#' @param new_filenames an optional character vector of filenames for the new (local) files. Defaults to
-#' having the same filenames as those in \code{src}.
-#' @param ... arguments passed to \code{\link[utils]{download.file}}
+#' @param new_filenames an optional character vector of filenames for the new
+#'  (local) files. Defaults to having the same filenames as those in \code{src}.
+#' @param ... arguments passed to \code{\link[downloader]{download}}
 #' @details Downloads only those files in \code{src} that are not already present in
 #' the directory specified by the \code{raw_dir} attribute of \code{obj}.
 #' @author idiom courtesy of Hadley Wickham
+#' @importFrom downloader download
 #' @export
 #'
 #' @examples
@@ -45,7 +46,7 @@ smart_download <- function(obj, src, new_filenames = basename(src), ...) {
   }
   lcl <- file.path(attr(obj, "raw_dir"), new_filenames)
   missing <- !file.exists(lcl)
-  mapply(utils::download.file, src[missing], lcl[missing], ... = ...)
+  mapply(downloader::download, src[missing], lcl[missing], ... = ...)
 }
 
 #' Ensure that years and months are within a certain time span
