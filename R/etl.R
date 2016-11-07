@@ -150,7 +150,7 @@ is.etl <- function(object) inherits(object, "etl")
 #' @rdname etl
 #' @export
 #' @inheritParams base::print
-#' @importFrom readr parse_numeric
+#' @importFrom readr parse_number
 #' @examples
 #' cars <- etl("mtcars") %>%
 #'   etl_create()
@@ -160,7 +160,7 @@ print.etl <- function(x, ...) {
   file_info <- dplyr::bind_rows(
     summary_dir(attr(x, "raw_dir")),
     summary_dir(attr(x, "load_dir"))) %>%
-    summarize_(N = ~sum(n), size = ~sum(readr::parse_numeric(size)))
+    summarize_(N = ~sum(n), size = ~sum(readr::parse_number(size)))
   cat("dir:  ", file_info$N, " files occupying ",
       file_info$size, " GB\n", sep = "")
   NextMethod()

@@ -92,8 +92,9 @@ test_that("etl works", {
   expect_error(etl("willywonka"), "Please make sure that")
   expect_message(
     etl("mtcars", dir = file.path(tempdir(), "etltest")), "etltest")
-  expect_true(is.etl(etl("mtcars")))
-  expect_output(print(etl("mtcars")), "sqlite")
+  cars <- etl("mtcars")
+  expect_true(is.etl(cars))
+  expect_output(print(cars), "sqlite")
 })
 
 test_that("smart_download works", {
