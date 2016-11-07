@@ -13,7 +13,7 @@
 
 ## Reverse dependencies
 
-`macleish` is the only reverse dependency, and it has been checked. 
+`macleish` and `mdsr` have both been checked.
 
 --
 
