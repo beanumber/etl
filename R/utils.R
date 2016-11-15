@@ -40,13 +40,13 @@ verify_con <- function(x, dir = tempdir()) {
 #' cars <- etl("mtcars")
 #' urls <- c("http://www.google.com", "http://www.nytimes.com")
 #' smart_download(cars, src = urls)
-smart_download <- function(obj, src, new_filenames = basename(src), ...) {
+smart_download <- function(obj, src, new_filenames = basename(src), type = downloader::download,  ...) {
   if (length(src) != length(new_filenames)) {
     stop("src and new_filenames must be of the same length")
   }
   lcl <- file.path(attr(obj, "raw_dir"), new_filenames)
   missing <- !file.exists(lcl)
-  mapply(downloader::download, src[missing], lcl[missing], ... = ...)
+  mapply(type, src[missing], lcl[missing], ... = ...)
 }
 
 #' Ensure that years and months are within a certain time span
