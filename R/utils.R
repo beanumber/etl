@@ -30,6 +30,7 @@ verify_con <- function(x, dir = tempdir()) {
 #' @param new_filenames an optional character vector of filenames for the new
 #'  (local) files. Defaults to having the same filenames as those in \code{src}.
 #' @param ... arguments passed to \code{\link[downloader]{download}}
+#' @param type the type of funtion you want to use
 #' @details Downloads only those files in \code{src} that are not already present in
 #' the directory specified by the \code{raw_dir} attribute of \code{obj}.
 #' @author idiom courtesy of Hadley Wickham
@@ -40,7 +41,7 @@ verify_con <- function(x, dir = tempdir()) {
 #' cars <- etl("mtcars")
 #' urls <- c("http://www.google.com", "http://www.nytimes.com")
 #' smart_download(cars, src = urls)
-smart_download <- function(obj, src, new_filenames = basename(src), type = downloader::download,  ...) {
+smart_download <- function(obj, src, new_filenames = basename(src), type = downloader::download,...) {
   if (length(src) != length(new_filenames)) {
     stop("src and new_filenames must be of the same length")
   }
