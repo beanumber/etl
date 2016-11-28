@@ -1,4 +1,10 @@
-# etl 0.3.4
+# etl 0.3.5 (2016-11-28)
+
+### MINOR IMPROVEMENTS
+
+* Fixed CRAN failures on Solaris (thanks Brian Ripley)
+
+# etl 0.3.4 (2016-11-07)
 
 ### MINOR IMPROVEMENTS
 

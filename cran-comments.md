@@ -9,7 +9,7 @@
 0 errors | 0 warnings | 0 notes
 
 * Code coverage is 85%.
-* I am aware of (https://github.com/beanumber/etl/issues/27) and am investigating
+* I believe this will fix the error reported here (https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-clang/etl-00check.html)
 
 ## Reverse dependencies
 

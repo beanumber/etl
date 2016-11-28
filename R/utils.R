@@ -195,10 +195,19 @@ dbWipe <- function(conn, ...) {
 #'   src_mysql_cnf(groups = "client")
 #' }
 src_mysql_cnf <- function(dbname = "test", groups = "rs-dbi", ...) {
-  if (!file.exists(file.path("~", ".my.cnf"))) {
-    stop("No MySQL config file found.")
+  config_file_path <- file.path("~", ".my.cnf")
+  if (!file.exists(config_file_path)) {
+    warning("No MySQL config file found...trying anyway...")
+    tryCatch({
+      dplyr::src_mysql(groups = groups, dbname = dbname,
+                       user = NULL, password = NULL, ...)
+    }, error = function(...) {
+        message("Could not connect to mysql source.")
+        return(FALSE)
+    })
+  } else {
+    dplyr::src_mysql(default.file = config_file_path,
+              groups = groups, dbname = dbname,
+              user = NULL, password = NULL, ...)
   }
-  dplyr::src_mysql(default.file = file.path("~", ".my.cnf"),
-            groups = groups, dbname = dbname,
-            user = NULL, password = NULL, ...)
 }
