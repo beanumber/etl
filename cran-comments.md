@@ -9,7 +9,8 @@
 0 errors | 0 warnings | 0 notes
 
 * Code coverage is 85%.
-* I believe this will fix the error reported here (https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-clang/etl-00check.html)
+* I believe this will fix the error reported here (https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-clang/etl-00check.html). I checked this
+with r-hub on Fedora and found no errors. 
 
 ## Reverse dependencies
 
