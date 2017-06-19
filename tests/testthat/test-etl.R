@@ -5,7 +5,7 @@ context("etl")
 
 test_that("sqlite works", {
   cars_sqlite <- etl("mtcars")
-  expect_s3_class(cars_sqlite, c("etl_mtcars", "etl", "src_sqlite", "src_sql"))
+  expect_s3_class(cars_sqlite, c("etl_mtcars", "etl", "src_sqlite", "src_dbi"))
   expect_true(file.exists(find_schema(cars_sqlite)))
   expect_message(find_schema(cars, "my_crazy_schema", "etl"))
   expect_output(summary(cars_sqlite), "files")
@@ -22,7 +22,7 @@ test_that("dplyr works", {
   expect_gt(length(src_tbls(cars)), 0)
   tbl_cars <- cars %>%
      tbl("mtcars")
-  expect_s3_class(tbl_cars, "tbl_sqlite")
+  expect_s3_class(tbl_cars, "tbl_dbi")
   expect_s3_class(tbl_cars, "tbl_sql")
   res <- tbl_cars %>%
     collect()
@@ -42,28 +42,13 @@ test_that("mysql works", {
     db <- src_mysql_cnf()
     expect_s3_class(db, "src_mysql")
     cars_mysql <- etl("mtcars", db = db)
-    expect_s3_class(cars_mysql, c("etl_mtcars", "etl", "src_mysql", "src_sql"))
+    expect_s3_class(cars_mysql, c("etl_mtcars", "etl", "src_dbi", "src_dbi"))
     expect_true(file.exists(find_schema(cars_mysql)))
     expect_message(find_schema(cars, "my_crazy_schema", "etl"))
     expect_output(summary(cars_mysql), "/tmp")
   }
 })
 
-test_that("MonetDBLite works", {
-  if (require(MonetDBLite)) {
-    db <- MonetDBLite::src_monetdblite()
-    cars_monet <- etl("mtcars", db = db)
-    expect_message(
-      cars_monet %>%
-        etl_create()
-    )
-    tbl_cars <- cars_monet %>%
-      tbl("mtcars")
-    expect_equal(nrow(tbl_cars %>% collect()), 32)
-    expect_s3_class(cars_monet, "src_monetdb")
-    expect_s3_class(tbl_cars, "tbl_monetdb")
-  }
-})
 
 test_that("valid_year_month works", {
   expect_equal(
@@ -101,4 +86,21 @@ test_that("smart_download works", {
   cars <- etl("mtcars")
   urls <- c("http://www.google.com", "http://www.nytimes.com")
   expect_length(smart_download(cars, src = urls), 2)
+})
+
+
+test_that("MonetDBLite works", {
+  if (require(MonetDBLite)) {
+    db <- MonetDBLite::src_monetdblite()
+    cars_monet <- etl("mtcars", db = db)
+    expect_message(
+      cars_monet %>%
+        etl_create()
+    )
+    tbl_cars <- cars_monet %>%
+      tbl("mtcars")
+    expect_equal(nrow(tbl_cars %>% collect()), 32)
+    expect_s3_class(cars_monet, "src_monetdb")
+    expect_s3_class(tbl_cars, "tbl_monetdb")
+  }
 })

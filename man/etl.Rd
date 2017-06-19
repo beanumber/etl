@@ -24,7 +24,7 @@ This determines the class of the resulting \code{\link{etl}} object, which
 determines method dispatch of \code{etl_*()} functions. There is no default,
 but you can use \code{mtcars} as an test example.}
 
-\item{db}{a database connection that inherits from \code{\link[dplyr]{src_sql}}. It is
+\item{db}{a database connection that inherits from \code{\link[dplyr]{src_dbi}}. It is
 NULL by default, which results in a \code{\link[dplyr]{src_sqlite}} connection
 being created in \code{dir}.}
 
@@ -37,7 +37,7 @@ being created in \code{dir}.}
 \value{
 For \code{\link{etl}}, an object of class \code{etl_x} and
 \code{\link{etl}} that inherits
-from \code{\link[dplyr]{src_sql}}
+from \code{\link[dplyr]{src_dbi}}
 
 For \code{\link{is.etl}}, \code{TRUE} or \code{FALSE},
 depending on whether \code{x} has class \code{\link{etl}}
@@ -47,7 +47,7 @@ Initialize an \code{etl} object
 }
 \details{
 A constructor function that instantiates an \code{\link{etl}} object.
-An \code{\link{etl}} object extends a \code{\link[dplyr]{src_sql}} object.
+An \code{\link{etl}} object extends a \code{\link[dplyr]{src_dbi}} object.
 It also has attributes for:
 \describe{
  \item{pkg}{the name of the \code{\link{etl}} package corresponding to the data source}
@@ -55,7 +55,7 @@ It also has attributes for:
  \item{raw_dir}{the directory where the raw data files are stored}
  \item{load_dir}{the directory where the processed data files are stored}
  }
-Just like any \code{\link[dplyr]{src_sql}} object, an \code{\link{etl}} object
+Just like any \code{\link[dplyr]{src_dbi}} object, an \code{\link{etl}} object
 is a data source backed by an SQL database. However, an \code{\link{etl}} object
 has additional functionality based on the presumption that the SQL database
 will be populated from data files stored on the local hard disk. The ETL functions
