@@ -31,4 +31,3 @@ if (require(RMySQL) && mysqlHasDefault()) {
 \seealso{
 \code{\link[dplyr]{src_mysql}}, \code{\link[RMySQL]{mysqlHasDefault}}
 }
-

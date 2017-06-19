@@ -129,9 +129,9 @@ etl_init.default <- function(obj, script = NULL, schema_name = "init",
 find_schema <- function(obj, schema_name = "init",
                         pkg = attr(obj, "pkg"), ext = NULL, ...) {
   if (is.null(ext)) {
-    ext <- stringr::str_extract(class(obj), pattern = "src_.+") %>%
-      stats::na.omit() %>%
-      gsub(pattern = "src_", replacement = "", x = .) %>%
+    ext <- class(obj$con) %>%
+      gsub(pattern = "Connection", replacement = "", x = .) %>%
+      tolower() %>%
       utils::head(1)
   }
   sql <- file.path("sql", paste0(schema_name, ".", ext))

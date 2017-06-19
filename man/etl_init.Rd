@@ -65,4 +65,3 @@ find_schema(cars, "init", "etl")
 find_schema(cars, "my_crazy_schema", "etl")
 
 }
-

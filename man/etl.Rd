@@ -3,9 +3,9 @@
 \name{etl}
 \alias{etl}
 \alias{etl.default}
+\alias{summary.etl}
 \alias{is.etl}
 \alias{print.etl}
-\alias{summary.etl}
 \title{Initialize an \code{etl} object}
 \usage{
 etl(x, db = NULL, dir = tempdir(), ...)
@@ -115,4 +115,3 @@ cars
 \seealso{
 \code{\link{etl_create}}
 }
-

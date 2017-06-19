@@ -31,4 +31,3 @@ smart_download(cars, src = urls)
 \author{
 idiom courtesy of Hadley Wickham
 }
-

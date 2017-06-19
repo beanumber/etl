@@ -36,4 +36,4 @@ Suggests:
     testthat
 URL: http://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/etl/issues
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

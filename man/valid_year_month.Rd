@@ -50,4 +50,3 @@ if (require(ggplot2)) {
 }
 
 }
-
