@@ -40,7 +40,7 @@ test_that("dplyr works", {
 test_that("mysql works", {
   if (require(RMySQL) && mysqlHasDefault()) {
     db <- src_mysql_cnf()
-    expect_s3_class(db, "src_mysql")
+    expect_s3_class(db, "src_dbi")
     cars_mysql <- etl("mtcars", db = db)
     expect_s3_class(cars_mysql, c("etl_mtcars", "etl", "src_dbi", "src_dbi"))
     expect_true(file.exists(find_schema(cars_mysql)))
@@ -84,23 +84,28 @@ test_that("etl works", {
 
 test_that("smart_download works", {
   cars <- etl("mtcars")
+  # first download some files
   urls <- c("http://www.google.com", "http://www.nytimes.com")
   expect_length(smart_download(cars, src = urls), 2)
+  # then try to download them again
+  expect_length(list.files(attr(cars, "raw_dir")), 3)
+  expect_length(smart_download(cars, src = urls), 0)
+  expect_message(etl_cleanup(cars, pattern = "com", delete_raw = TRUE), "Deleting")
 })
 
 
 test_that("MonetDBLite works", {
   if (require(MonetDBLite)) {
-    db <- MonetDBLite::src_monetdblite()
-    cars_monet <- etl("mtcars", db = db)
-    expect_message(
-      cars_monet %>%
-        etl_create()
-    )
-    tbl_cars <- cars_monet %>%
-      tbl("mtcars")
-    expect_equal(nrow(tbl_cars %>% collect()), 32)
-    expect_s3_class(cars_monet, "src_monetdb")
-    expect_s3_class(tbl_cars, "tbl_monetdb")
+    # db <- MonetDBLite::src_monetdblite()
+    # cars_monet <- etl("mtcars", db = db)
+    # expect_message(
+    #   cars_monet %>%
+    #     etl_create()
+    # )
+    # tbl_cars <- cars_monet %>%
+    #   tbl("mtcars")
+    # expect_equal(nrow(tbl_cars %>% collect()), 32)
+    # expect_s3_class(cars_monet, "src_monetdb")
+    # expect_s3_class(tbl_cars, "tbl_monetdb")
   }
 })
