@@ -1,3 +1,9 @@
+# etl 0.3.6 (2017-07-01)
+
+### MINOR IMPROVEMENTS
+
+* Added `clobber` option to `smart_download`
+
 # etl 0.3.5 (2016-11-28)
 
 ### MINOR IMPROVEMENTS

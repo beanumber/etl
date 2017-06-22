@@ -29,6 +29,7 @@ verify_con <- function(x, dir = tempdir()) {
 #' @param src a character vector of URLs that you want to download
 #' @param new_filenames an optional character vector of filenames for the new
 #'  (local) files. Defaults to having the same filenames as those in \code{src}.
+#' @param clobber do you want to clobber any existing files?
 #' @param ... arguments passed to \code{\link[downloader]{download}}
 #' @details Downloads only those files in \code{src} that are not already present in
 #' the directory specified by the \code{raw_dir} attribute of \code{obj}.
@@ -40,12 +41,20 @@ verify_con <- function(x, dir = tempdir()) {
 #' cars <- etl("mtcars")
 #' urls <- c("http://www.google.com", "http://www.nytimes.com")
 #' smart_download(cars, src = urls)
-smart_download <- function(obj, src, new_filenames = basename(src), ...) {
+#' # won't download again if the files are already there
+#' smart_download(cars, src = urls)
+#' # use clobber to overwrite
+#' smart_download(cars, src = urls, clobber = TRUE)
+smart_download <- function(obj, src, new_filenames = basename(src), clobber = FALSE, ...) {
   if (length(src) != length(new_filenames)) {
     stop("src and new_filenames must be of the same length")
   }
   lcl <- file.path(attr(obj, "raw_dir"), new_filenames)
-  missing <- !file.exists(lcl)
+  if (!clobber) {
+    missing <- !file.exists(lcl)
+  } else {
+    missing <- new_filenames == new_filenames
+  }
   mapply(downloader::download, src[missing], lcl[missing], ... = ...)
 }
 
@@ -182,7 +191,6 @@ dbWipe <- function(conn, ...) {
 #' @param groups section of \code{~/.my.cnf} file. Default is \code{rs-dbi} as in
 #' \code{\link[RMySQL]{mysqlHasDefault}}
 #' @param ... arguments passed to \code{\link[dplyr]{src_mysql}}
-#' @importFrom dplyr src_mysql
 #' @export
 #' @seealso \code{\link[dplyr]{src_mysql}}, \code{\link[RMySQL]{mysqlHasDefault}}
 #' @examples

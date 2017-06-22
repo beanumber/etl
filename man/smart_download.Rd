@@ -4,7 +4,8 @@
 \alias{smart_download}
 \title{Download only those files that don't already exist}
 \usage{
-smart_download(obj, src, new_filenames = basename(src), ...)
+smart_download(obj, src, new_filenames = basename(src), clobber = FALSE,
+  ...)
 }
 \arguments{
 \item{obj}{an \code{\link{etl}} object}
@@ -13,6 +14,8 @@ smart_download(obj, src, new_filenames = basename(src), ...)
 
 \item{new_filenames}{an optional character vector of filenames for the new
 (local) files. Defaults to having the same filenames as those in \code{src}.}
+
+\item{clobber}{do you want to clobber any existing files?}
 
 \item{...}{arguments passed to \code{\link[downloader]{download}}}
 }
@@ -27,6 +30,10 @@ the directory specified by the \code{raw_dir} attribute of \code{obj}.
 cars <- etl("mtcars")
 urls <- c("http://www.google.com", "http://www.nytimes.com")
 smart_download(cars, src = urls)
+# won't download again if the files are already there
+smart_download(cars, src = urls)
+# use clobber to overwrite
+smart_download(cars, src = urls, clobber = TRUE)
 }
 \author{
 idiom courtesy of Hadley Wickham
