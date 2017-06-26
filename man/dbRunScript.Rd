@@ -14,19 +14,17 @@ a character vector of length 1 containing SQL.}
 
 \item{echo}{print the SQL commands to the output?}
 
-\item{...}{arguments passed to \code{\link[DBI]{dbGetQuery}}}
+\item{...}{arguments passed to \code{\link[DBI]{dbExecute}}}
 }
 \value{
-a list of results from \code{dbGetQuery} for each of the individual
+a list of results from \code{dbExecute} for each of the individual
 SQL statements in \code{script}.
 }
 \description{
 Execute an SQL script
 }
 \details{
-The SQL script file must be \code{;} delimited. This will function will
-be superseded by \code{dbExecute} in the next release of \pkg{DBI}.
-See \url{https://github.com/rstats-db/DBI/pull/109}.
+The SQL script file must be \code{;} delimited.
 }
 \examples{
 sql <- "SHOW TABLES; SELECT 1+1 as Two;"
