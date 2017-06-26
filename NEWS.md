@@ -3,6 +3,7 @@
 ### MINOR IMPROVEMENTS
 
 * Added `clobber` option to `smart_download`
+* Added `db_type` for easy typing of connection objects
 
 # etl 0.3.5 (2016-11-28)
 

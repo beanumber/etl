@@ -116,7 +116,6 @@ etl_init.default <- function(obj, script = NULL, schema_name = "init",
 #' has class \code{\link[dplyr]{src_sqlite}} then \code{ext} will be \code{sqlite}.
 #' @param ... Currently ignored
 #' @importFrom stats na.omit
-#' @importFrom utils head
 #' @importFrom stringr str_extract
 #' @export
 #' @examples
@@ -129,10 +128,7 @@ etl_init.default <- function(obj, script = NULL, schema_name = "init",
 find_schema <- function(obj, schema_name = "init",
                         pkg = attr(obj, "pkg"), ext = NULL, ...) {
   if (is.null(ext)) {
-    ext <- class(obj$con) %>%
-      gsub(pattern = "Connection", replacement = "", x = .) %>%
-      tolower() %>%
-      utils::head(1)
+    ext <- db_type(obj)
   }
   sql <- file.path("sql", paste0(schema_name, ".", ext))
   file <- system.file(sql, package = pkg, mustWork = FALSE)

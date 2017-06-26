@@ -219,3 +219,41 @@ src_mysql_cnf <- function(dbname = "test", groups = "rs-dbi", ...) {
               user = NULL, password = NULL, ...)
   }
 }
+
+#' Return the datbaase type for an ETL or DBI connection
+#' @param obj and \code{\link{etl}} or \code{\link[DBI]{DBIConnection-class}} object
+#' @param ... currently ignored
+#' @export
+#' @examples
+#' if (require(RMySQL) && mysqlHasDefault()) {
+#'   # connect to test database using rs-dbi
+#'   db <- src_mysql_cnf()
+#'   class(db)
+#'   db
+#'   # connect to another server using the 'client' group
+#'   db_type(db)
+#'   db_type(db$con)
+#' }
+
+db_type <- function(obj, ...) UseMethod("db_type")
+
+#' @rdname db_type
+#' @method db_type src_dbi
+#' @export
+
+db_type.src_dbi <- function(obj, ...) {
+  db_type(obj$con)
+}
+
+#' @rdname db_type
+#' @importFrom utils head
+#' @method db_type DBIConnection
+#' @export
+
+db_type.DBIConnection <- function(obj, ...) {
+  class(obj) %>%
+    gsub(pattern = "Connection", replacement = "", x = .) %>%
+    tolower() %>%
+    utils::head(1)
+}
+
