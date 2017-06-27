@@ -27,3 +27,40 @@ etl_extract.etl_mtcars <- function(obj, ...) {
 }
 
 
+#' Download only those files that don't already exist
+#' @param obj an \code{\link{etl}} object
+#' @param src a character vector of URLs that you want to download
+#' @param new_filenames an optional character vector of filenames for the new
+#'  (local) files. Defaults to having the same filenames as those in \code{src}.
+#' @param clobber do you want to clobber any existing files?
+#' @param ... arguments passed to \code{\link[downloader]{download}}
+#' @details Downloads only those files in \code{src} that are not already present in
+#' the directory specified by the \code{raw_dir} attribute of \code{obj}.
+#' @author idiom courtesy of Hadley Wickham
+#' @importFrom downloader download
+#' @export
+#'
+#' @examples
+#' cars <- etl("mtcars")
+#' urls <- c("http://www.google.com", "http://www.nytimes.com")
+#' smart_download(cars, src = urls)
+#' # won't download again if the files are already there
+#' smart_download(cars, src = urls)
+#' # use clobber to overwrite
+#' smart_download(cars, src = urls, clobber = TRUE)
+smart_download <- function(obj, src, new_filenames = basename(src), clobber = FALSE, ...) {
+  if (length(src) != length(new_filenames)) {
+    stop("src and new_filenames must be of the same length")
+  }
+  lcl <- file.path(attr(obj, "raw_dir"), new_filenames)
+  if (!clobber) {
+    missing <- !file.exists(lcl)
+  } else {
+    missing <- new_filenames == new_filenames
+  }
+  message(paste("Downloading", sum(missing), "new files. ",
+                sum(!missing), "untouched."))
+  mapply(downloader::download, src[missing], lcl[missing], ... = ...)
+}
+
+

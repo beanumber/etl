@@ -4,6 +4,7 @@
 
 * Added `clobber` option to `smart_download`
 * Added `db_type` for easy typing of connection objects
+* Added `smart_upload` for pushing files to database
 
 # etl 0.3.5 (2016-11-28)
 
