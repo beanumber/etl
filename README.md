@@ -23,18 +23,18 @@ cars <- etl("mtcars")
 
     ## Not a valid src. Creating a src_sqlite for you at:
 
-    ## /tmp/RtmpjA2zLQ/file7b654f607c84.sqlite3
+    ## /tmp/Rtmp9uullQ/file735a32cac3de.sqlite3
 
 ``` r
 class(cars)
 ```
 
-    ## [1] "etl_mtcars" "etl"        "src_sqlite" "src_sql"    "src"
+    ## [1] "etl_mtcars" "etl"        "src_dbi"    "src_sql"    "src"
 
 Connect to a local or remote database
 -------------------------------------
 
-`etl` works with a local or remote database to store your data. Every `etl` object extends a `dplyr::src_sql` object. If, as in the example above, you do not specify a SQL source, a local `RSQLite` database will be created for you. However, you can also specify any source that inherits from `dplyr::src_sql`.
+`etl` works with a local or remote database to store your data. Every `etl` object extends a `dplyr::src_dbi` object. If, as in the example above, you do not specify a SQL source, a local `RSQLite` database will be created for you. However, you can also specify any source that inherits from `dplyr::src_dbi`.
 
 > Note: If you want to use a database other than a local RSQLite, you must create the `mtcars` database and have permission to write to it first!
 
@@ -84,9 +84,7 @@ cars %>%
   etl_load()
 ```
 
-    ## Loading processed data...
-
-    ## Data was successfully written to database.
+    ## Uploading 1 file(s) to the database...
 
 Do it all at once
 -----------------
@@ -98,15 +96,13 @@ cars %>%
   etl_create()
 ```
 
-    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.3/etl/sql/init.sqlite
+    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.2/etl/sql/init.sqlite
 
     ## Extracting raw data...
 
     ## Transforming raw data...
 
-    ## Loading processed data...
-
-    ## Data was successfully written to database.
+    ## Uploading 1 file(s) to the database...
 
 You can also update an existing database without re-initializing, but watch out for primary key collisions.
 
@@ -160,15 +156,13 @@ cars %>%
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
-    ## Source:   query [?? x 3]
-    ## Database: sqlite 3.8.6 [/tmp/RtmpjA2zLQ/file7b654f607c84.sqlite3]
-    ## 
-    ##      cyl     N mean_mpg
-    ##    <int> <int>    <dbl>
-    ## 1      4    11 26.66364
-    ## 2      6     7 19.74286
-    ## 3      8    14 15.10000
-    ## ..   ...   ...      ...
+    ## # Source:   lazy query [?? x 3]
+    ## # Database: sqlite 3.19.3 [/tmp/Rtmp9uullQ/file735a32cac3de.sqlite3]
+    ##     cyl     N mean_mpg
+    ##   <int> <int>    <dbl>
+    ## 1     4    11 26.66364
+    ## 2     6     7 19.74286
+    ## 3     8    14 15.10000
 
 Create your own ETL packages
 ----------------------------
@@ -198,4 +192,4 @@ Packages that use the `etl` framework:
 tools::dependsOnPkgs("etl")
 ```
 
-    ## [1] "airlines" "fec"      "macleish" "nyc311"
+    ## [1] "airlines" "imdb"     "macleish" "nyc311"   "nyctaxi"

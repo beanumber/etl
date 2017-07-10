@@ -23,14 +23,14 @@ library(etl)
 
 Instantiate an `etl` object using a string that determines the class of the resulting object, and the package that provides access to that data. The trivial `mtcars` database is built into `etl`.
 
-```{r}
+```{r, warning=FALSE}
 cars <- etl("mtcars")
 class(cars)
 ```
 
 ## Connect to a local or remote database
 
-`etl` works with a local or remote database to store your data. Every `etl` object extends a `dplyr::src_sql` object. If, as in the example above, you do not specify a SQL source, a local `RSQLite` database will be created for you. However, you can also specify any source that inherits from `dplyr::src_sql`.
+`etl` works with a local or remote database to store your data. Every `etl` object extends a `dplyr::src_dbi` object. If, as in the example above, you do not specify a SQL source, a local `RSQLite` database will be created for you. However, you can also specify any source that inherits from `dplyr::src_dbi`.
 
 > Note: If you want to use a database other than a local RSQLite, you must create the `mtcars` database and have permission to write to it first!
 

@@ -1,10 +1,12 @@
-# etl 0.3.6 (2017-07-01)
+# etl 0.3.6 (2017-07-10)
 
 ### MINOR IMPROVEMENTS
 
 * Added `clobber` option to `smart_download`
 * Added `db_type` for easy typing of connection objects
 * Added `smart_upload` for pushing files to database
+* Added `dbplyr` to Suggests
+* Fixed broken link to `dplyr::src_sql` in documentation
 
 # etl 0.3.5 (2016-11-28)
 
