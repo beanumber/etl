@@ -85,12 +85,14 @@ test_that("etl works", {
 test_that("smart_download works", {
   cars <- etl("mtcars")
   # first download some files
-  urls <- c("http://www.google.com", "http://www.reddit.com/robots.txt")
-  expect_length(smart_download(cars, src = urls), 2)
-  # then try to download them again
-  expect_length(list.files(attr(cars, "raw_dir")), 3)
-  expect_length(smart_download(cars, src = urls), 0)
-  expect_message(etl_cleanup(cars, pattern = "com", delete_raw = TRUE), "Deleting")
+#  if (!.Platform$OS.type == "windows") {
+    urls <- c("http://www.google.com", "http://www.reddit.com/robots.txt")
+    expect_length(smart_download(cars, src = urls), 2)
+    # then try to download them again
+    expect_length(list.files(attr(cars, "raw_dir")), 3)
+    expect_length(smart_download(cars, src = urls), 0)
+    expect_message(etl_cleanup(cars, pattern = "com", delete_raw = TRUE), "Deleting")
+#  }
 })
 
 
