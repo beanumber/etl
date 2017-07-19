@@ -86,7 +86,8 @@ test_that("smart_download works", {
   cars <- etl("mtcars")
   # first download some files
 #  if (!.Platform$OS.type == "windows") {
-    urls <- c("https://raw.githubusercontent.com/beanumber/etl/master/etl.Rproj", "http://www.reddit.com/robots.txt")
+    urls <- c("https://raw.githubusercontent.com/beanumber/etl/master/etl.Rproj",
+              "https://www.reddit.com/robots.txt")
     expect_length(smart_download(cars, src = urls), 2)
     # then try to download them again
     expect_length(list.files(attr(cars, "raw_dir")), 3)

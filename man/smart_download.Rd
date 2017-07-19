@@ -29,7 +29,7 @@ the directory specified by the \code{raw_dir} attribute of \code{obj}.
 \examples{
 cars <- etl("mtcars")
 urls <- c("https://raw.githubusercontent.com/beanumber/etl/master/etl.Rproj",
-"http://www.reddit.com/robots.txt")
+"https://www.reddit.com/robots.txt")
 smart_download(cars, src = urls)
 # won't download again if the files are already there
 smart_download(cars, src = urls)
