@@ -19,7 +19,6 @@ notifications:
 
 # System dependencies for HTTP calling
 r_binary_packages:
- - dplyr
  - DBI
  - RSQLite
  - RMySQL
