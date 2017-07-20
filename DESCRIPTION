@@ -10,7 +10,7 @@ Authors@R: c(
 Maintainer: Ben Baumer <ben.baumer@gmail.com>
 Description: A framework for loading medium-sized data from
     the Internet to a local or remote relational database management system.
-    This package itself doesn't do much more than provide a toy example and set up
+    This package itself does not do much more than provide a toy example and set up
     the method structure. Packages that depend on this package will facilitate the
     construction and maintenance of their respective databases.
 License: CC0

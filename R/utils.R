@@ -84,7 +84,7 @@ valid_year_month <- function(years, months,
 #' @description Match year and month vectors to filenames
 #' @inheritParams extract_date_from_filename
 #' @param years a numeric vector of years
-#' @param months a numberic vector of months
+#' @param months a numeric vector of months
 #' @return a character vector of \code{files} that match the \code{pattern}, \code{year}, and \code{month} arguments
 #' @importFrom lubridate year month
 #' @export
@@ -186,7 +186,7 @@ src_mysql_cnf <- function(dbname = "test", groups = "rs-dbi", ...) {
   }
 }
 
-#' Return the datbaase type for an ETL or DBI connection
+#' Return the database type for an ETL or DBI connection
 #' @param obj and \code{\link{etl}} or \code{\link[DBI]{DBIConnection-class}} object
 #' @param ... currently ignored
 #' @export
