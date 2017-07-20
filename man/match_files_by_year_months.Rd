@@ -17,7 +17,7 @@ extract_date_from_filename(files, pattern, ...)
 
 \item{years}{a numeric vector of years}
 
-\item{months}{a numberic vector of months}
+\item{months}{a numeric vector of months}
 
 \item{...}{arguments passed to \code{\link[lubridate]{fast_strptime}}}
 }

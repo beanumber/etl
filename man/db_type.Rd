@@ -4,7 +4,7 @@
 \alias{db_type}
 \alias{db_type.src_dbi}
 \alias{db_type.DBIConnection}
-\title{Return the datbaase type for an ETL or DBI connection}
+\title{Return the database type for an ETL or DBI connection}
 \usage{
 db_type(obj, ...)
 
@@ -18,7 +18,7 @@ db_type(obj, ...)
 \item{...}{currently ignored}
 }
 \description{
-Return the datbaase type for an ETL or DBI connection
+Return the database type for an ETL or DBI connection
 }
 \examples{
 if (require(RMySQL) && mysqlHasDefault()) {

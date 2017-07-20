@@ -59,7 +59,7 @@ Just like any \code{\link[dplyr]{src_dbi}} object, an \code{\link{etl}} object
 is a data source backed by an SQL database. However, an \code{\link{etl}} object
 has additional functionality based on the presumption that the SQL database
 will be populated from data files stored on the local hard disk. The ETL functions
-documented in \code{\link{etl_create}} provide the necessary funcitonality
+documented in \code{\link{etl_create}} provide the necessary functionality
 for \strong{extract}ing data from the Internet to \code{raw_dir},
 \strong{transform}ing those data
 and placing the cleaned up data (usually in CSV format) into \code{load_dir},
