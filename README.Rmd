@@ -140,3 +140,9 @@ Packages that use the `etl` framework:
 ```{r}
 tools::dependsOnPkgs("etl")
 ```
+
+## Cite
+
+```{r}
+citation("etl")
+```

@@ -23,7 +23,7 @@ cars <- etl("mtcars")
 
     ## Not a valid src. Creating a src_sqlite for you at:
 
-    ## /tmp/Rtmp9uullQ/file735a32cac3de.sqlite3
+    ## /tmp/RtmpjOKggS/file1d1c42bdad5b.sqlite3
 
 ``` r
 class(cars)
@@ -96,7 +96,7 @@ cars %>%
   etl_create()
 ```
 
-    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.2/etl/sql/init.sqlite
+    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.4/etl/sql/init.sqlite
 
     ## Extracting raw data...
 
@@ -157,7 +157,7 @@ cars %>%
 ```
 
     ## # Source:   lazy query [?? x 3]
-    ## # Database: sqlite 3.19.3 [/tmp/Rtmp9uullQ/file735a32cac3de.sqlite3]
+    ## # Database: sqlite 3.19.3 [/tmp/RtmpjOKggS/file1d1c42bdad5b.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
     ## 1     4    11 26.66364
@@ -192,4 +192,28 @@ Packages that use the `etl` framework:
 tools::dependsOnPkgs("etl")
 ```
 
-    ## [1] "airlines" "imdb"     "macleish" "nyc311"   "nyctaxi"
+    ## [1] "macleish"
+
+Cite
+----
+
+``` r
+citation("etl")
+```
+
+    ## 
+    ## To cite package 'etl' in publications use:
+    ## 
+    ##   Ben Baumer (2017). etl: Extract-Transform-Load Framework for
+    ##   Medium Data. R package version 0.3.6.
+    ##   http://github.com/beanumber/etl
+    ## 
+    ## A BibTeX entry for LaTeX users is
+    ## 
+    ##   @Manual{,
+    ##     title = {etl: Extract-Transform-Load Framework for Medium Data},
+    ##     author = {Ben Baumer},
+    ##     year = {2017},
+    ##     note = {R package version 0.3.6},
+    ##     url = {http://github.com/beanumber/etl},
+    ##   }
