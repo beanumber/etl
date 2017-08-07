@@ -2,7 +2,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^.*\.html$
-^.*\.Rmd$
+^.*README\.Rmd$
 ^.*ignore\.R$
 ^.*\.Rignore$
 ^cran-comments\.md$
