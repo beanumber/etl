@@ -5,7 +5,7 @@ ETL
 
 `etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations for **medium data**. The end result is generally a populated SQL database, but the user interaction takes place solely within R.
 
-`etl` is now on CRAN, so you can install it in the usual way, then load it.
+`etl` is on CRAN, so you can install it in the usual way, then load it.
 
 ``` r
 install.packages("etl")
@@ -23,7 +23,7 @@ cars <- etl("mtcars")
 
     ## Not a valid src. Creating a src_sqlite for you at:
 
-    ## /tmp/RtmpjOKggS/file1d1c42bdad5b.sqlite3
+    ## /tmp/RtmpseCQ0j/file333e30f13cce.sqlite3
 
 ``` r
 class(cars)
@@ -39,8 +39,11 @@ Connect to a local or remote database
 > Note: If you want to use a database other than a local RSQLite, you must create the `mtcars` database and have permission to write to it first!
 
 ``` r
+# For PostgreSQL
 library(RPostgreSQL)
 db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
+
+# Alternatively, for MySQL
 library(RMySQL)
 db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
 cars <- etl("mtcars", db)
@@ -111,39 +114,6 @@ cars %>%
   etl_update()
 ```
 
-Step-by-step
-------------
-
-Under the hood, there are four functions that `etl_update` chains together:
-
-``` r
-getS3method("etl_update", "default")
-```
-
-    ## function(obj, ...) {
-    ##   obj <- obj %>%
-    ##     etl_extract(...) %>%
-    ##     etl_transform(...) %>%
-    ##     etl_load(...)
-    ##   invisible(obj)
-    ## }
-    ## <environment: namespace:etl>
-
-`etl_create` is simply a call to `etl_update` that forces the SQL database to be written from scratch.
-
-``` r
-getS3method("etl_create", "default")
-```
-
-    ## function(obj, ...) {
-    ##   obj <- obj %>%
-    ##     etl_init(...) %>%
-    ##     etl_update(...) %>%
-    ##     etl_cleanup(...)
-    ##   invisible(obj)
-    ## }
-    ## <environment: namespace:etl>
-
 Do Your Analysis
 ----------------
 
@@ -157,7 +127,7 @@ cars %>%
 ```
 
     ## # Source:   lazy query [?? x 3]
-    ## # Database: sqlite 3.19.3 [/tmp/RtmpjOKggS/file1d1c42bdad5b.sqlite3]
+    ## # Database: sqlite 3.19.3 [/tmp/RtmpseCQ0j/file333e30f13cce.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
     ## 1     4    11 26.66364
@@ -174,25 +144,17 @@ etl_extract.etl_pkgname()
 etl_load.etl_pkgname()
 ```
 
-You may also wish to write
-
-``` r
-etl_transform.etl_pkgname()
-etl_cleanup.etl_pkgname()
-```
-
-All of these functions must take and return an object of class `etl_pkgname` that inherits from `etl`. Please see the packages listed below for examples.
+Please see the "[Extending etl](https://github.com/beanumber/etl/blob/master/vignettes/extending_etl.Rmd)" vignette for more information.
 
 Use other ETL packages
 ----------------------
 
-Packages that use the `etl` framework:
-
-``` r
-tools::dependsOnPkgs("etl")
-```
-
-    ## [1] "macleish"
+-   [macleish](https://github.com/beanumber/etl): [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/macleish)](https://cran.r-project.org/package=macleish) Weather and spatial data from the MacLeish Field Station in Whately, MA.
+-   [airlines](https://github.com/beanumber/airlines): On-time flight arrival data from the Bureau of Transportation Statistics
+-   [citibike](https://github.com/beanumber/citibike): Municipal bike-sharing system in New York City
+-   [nyc311](https://github.com/beanumber/nyc311): Phone calls to New York City's feedback hotline
+-   [fec](https://github.com/beanumber/fec): Campaign contribution data from the Federal Election Commission
+-   [imdb](https://github.com/beanumber/imdb): Mirror of the Internet Movie Database
 
 Cite
 ----
