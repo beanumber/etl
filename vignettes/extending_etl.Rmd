@@ -1,0 +1,100 @@
+---
+title: "Extending etl"
+author: "Ben Baumer"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Extending etl}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The `etl` package provides a framework for working with **medium data**. These data are typically:
+
+- downloadable via publicly-accessible URLs
+- larger than what would comfortably fit in a laptop's memory (e.g. several gigabytes)
+- ideally stored in a SQL-based relational database management system
+
+The `etl` package provides a series of S3 generics and convenience functions that facilitate consistent development of `etl`-style packages. Current examples include:
+
+- [macleish](https://github.com/beanumber/etl): [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/macleish)](https://cran.r-project.org/package=macleish)
+ Weather and spatial data from the MacLeish Field Station in Whately, MA. 
+- [airlines](https://github.com/beanumber/airlines): On-time flight arrival data from the Bureau of Transportation Statistics
+- [citibike](https://github.com/beanumber/citibike): Municipal bike-sharing system in New York City
+- [nyc311](https://github.com/beanumber/nyc311): Phone calls to New York City's feedback hotline
+- [fec](https://github.com/beanumber/fec): Campaign contribution data from the Federal Election Commission
+- [imdb](https://github.com/beanumber/imdb): Mirror of the Internet Movie Database
+
+Please see these packages for examples of how to develop an `etl`-dependent package. This vignette documents how these extensions can be crafted. 
+
+## The basics
+
+Suppose that you want to write the `etl`-dependent package `foo`. In order for `foo` to work, it must implement two methods:
+
+1. `etl_extract.etl_foo()` - downloads data from Internet
+2. `etl_load.etl_foo()` - imports data into SQL database
+
+Usually, `foo` would also implement
+
+3. `etl_transform.etl_foo()` - takes downloaded data and puts it into CSV format suitable for import to SQL
+
+That's basically it. The rest of the machinery should be taken care of for you. Note that you don't have to write an `etl` method to handle `foo`. You do, however, have to have the `foo` package installed in order for the `etl` instantiation function to work. 
+
+```{r, error=TRUE, message=FALSE}
+library(etl)
+foo <- etl("foo")
+```
+
+## The details
+
+### Main `etl` methods
+
+Each of the three main `etl` methods must take an `etl_foo` object as it's first argument, and (should invisibly) return an `etl_foo` object. These methods are *pipeable* and *predictable*, but not *pure*, since they by design have side-effects (i.e. downloading files, etc.) Your major task in writing the `foo` package will be to write these functions. How you write them is entirely up to you, and the particular implementation will of course depend on what the purpose of `foo` is.  
+
+All three of the main `etl` methods should take the same set or arguments. Most commonly these define the span of time for the files that you want to extract, transform, or load. For example, in the `airlines` package, these functions take optional `year` and `month` arguments.
+
+```{r}
+library(airlines)
+airlines:::etl_extract.etl_airlines %>% args()
+airlines:::etl_transform.etl_airlines %>% args()
+airlines:::etl_load.etl_airlines %>% args()
+```
+
+### Other `etl` methods
+
+There are four additional functions in the `etl` toolchain:
+
+1. `etl_init()` - initialize the database
+2. `etl_cleanup()` - delete unnecessary files
+3. `etl_update()` - run `etl_extract`, `etl_transform()` and `etl_load()` in succession with the same arguments
+4. `etl_create()` - run `etl_init()`, `etl_update()`, and `etl_cleanup()` in succession
+
+These functions can generally be used without modification and thus are *not* commonly extended by `foo`. 
+
+The `etl_init()` function will initialize the SQL database. 
+
+If you want to contribute your own hard-coded SQL initalization script, it must be placed in `inst/sql/`. The `etl_init()` function will look there, and find files whose file extensions match the database type. For example, scripts written for MySQL should have the `.mysql` file extension, while scripts written for PostgreSQL should have the `.postgresql` file extension. 
+
+If no such file exists, all of the tables and views in the database will be deleted, and new tables schemas will be created on-the-fly by `dplyr`. 
+
+### `etl_foo` object attributes
+
+Every `etl_foo` object has a directory where it can store files and a `DBIConnection` where it can write to a database. By default, these come from `tempdir()` and `RSQLite::SQLite()`, but the user can alternatively specify other locations. 
+
+```{r}
+airlines <- etl("airlines")
+str(airlines)
+```
+
+Note that an `etl_foo` object is also a `src_dbi` object and a `src_sql` object. Please see the [`dbplyr` vignette](https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html) for more information about these database connections. 
+
+## References
+
+- Wickham, Hadley, [*R Packages*](http://r-pkgs.had.co.nz/)
+- Wickham, Hadley, [*Advanced R*](http://adv-r.had.co.nz/)
+
+```{r}
+citation("etl")
+citation("dplyr")
+citation("dbplyr")
+```
