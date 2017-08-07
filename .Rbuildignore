@@ -1,7 +1,6 @@
 ^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^.*\.html$
 ^.*README\.Rmd$
 ^.*ignore\.R$
 ^.*\.Rignore$

@@ -8,11 +8,12 @@ Authors@R: c(
       role = c("aut", "cre")),
     person("Carson", "Sievert", email = "cpsievert1@gmail.com", role = "ctb"))
 Maintainer: Ben Baumer <ben.baumer@gmail.com>
-Description: A framework for loading medium-sized data from
-    the Internet to a local or remote relational database management system.
-    This package itself does not do much more than provide a toy example and set up
-    the method structure. Packages that depend on this package will facilitate the
-    construction and maintenance of their respective databases.
+Description: A predictable and pipeable framework for performing ETL 
+    (extract-transform-load) operations on publicly-accessible medium-sized data 
+    set. This package sets up the method structure and implements generic 
+    functions. Packages that depend on this package download specific data sets 
+    from the Internet, clean them up, and import them into a local or remote 
+    relational database management system.
 License: CC0
 LazyData: TRUE
 Imports:
