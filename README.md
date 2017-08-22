@@ -23,7 +23,7 @@ cars <- etl("mtcars")
 
     ## Not a valid src. Creating a src_sqlite for you at:
 
-    ## /tmp/RtmpseCQ0j/file333e30f13cce.sqlite3
+    ## /tmp/RtmpDxu52x/file222a424b80d4.sqlite3
 
 ``` r
 class(cars)
@@ -127,7 +127,7 @@ cars %>%
 ```
 
     ## # Source:   lazy query [?? x 3]
-    ## # Database: sqlite 3.19.3 [/tmp/RtmpseCQ0j/file333e30f13cce.sqlite3]
+    ## # Database: sqlite 3.19.3 [/tmp/RtmpDxu52x/file222a424b80d4.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
     ## 1     4    11 26.66364
@@ -149,12 +149,12 @@ Please see the "[Extending etl](https://github.com/beanumber/etl/blob/master/vig
 Use other ETL packages
 ----------------------
 
--   [macleish](https://github.com/beanumber/etl): [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/macleish)](https://cran.r-project.org/package=macleish) Weather and spatial data from the MacLeish Field Station in Whately, MA.
--   [airlines](https://github.com/beanumber/airlines): On-time flight arrival data from the Bureau of Transportation Statistics
--   [citibike](https://github.com/beanumber/citibike): Municipal bike-sharing system in New York City
--   [nyc311](https://github.com/beanumber/nyc311): Phone calls to New York City's feedback hotline
--   [fec](https://github.com/beanumber/fec): Campaign contribution data from the Federal Election Commission
--   [imdb](https://github.com/beanumber/imdb): Mirror of the Internet Movie Database
+-   [macleish](https://github.com/beanumber/etl) [![Travis-CI Build Status](https://travis-ci.org/beanumber/macleish.svg?branch=master)](https://travis-ci.org/beanumber/macleish) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/macleish)](https://cran.r-project.org/package=macleish) : Weather and spatial data from the MacLeish Field Station in Whately, MA.
+-   [airlines](https://github.com/beanumber/airlines) [![Travis-CI Build Status](https://travis-ci.org/beanumber/airlines.svg?branch=master)](https://travis-ci.org/beanumber/airlines) : On-time flight arrival data from the Bureau of Transportation Statistics
+-   [citibike](https://github.com/beanumber/citibike) [![Travis-CI Build Status](https://travis-ci.org/beanumber/citibike.svg?branch=master)](https://travis-ci.org/beanumber/citibike) : Municipal bike-sharing system in New York City
+-   [nyc311](https://github.com/beanumber/nyc311) [![Travis-CI Build Status](https://travis-ci.org/beanumber/nyc311.svg?branch=master)](https://travis-ci.org/beanumber/nyc311) : Phone calls to New York City's feedback hotline
+-   [fec](https://github.com/beanumber/fec) [![Travis-CI Build Status](https://travis-ci.org/beanumber/fec.svg?branch=master)](https://travis-ci.org/beanumber/fec) : Campaign contribution data from the Federal Election Commission
+-   [imdb](https://github.com/beanumber/imdb) [![Travis-CI Build Status](https://travis-ci.org/beanumber/imdb.svg?branch=master)](https://travis-ci.org/beanumber/imdb) : Mirror of the Internet Movie Database
 
 Cite
 ----
