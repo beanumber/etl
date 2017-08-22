@@ -71,7 +71,7 @@ smart_upload <- function(obj, src = NULL, tablenames = NULL, ...) {
   if (length(src) != length(tablenames)) {
     stop("src and tablenames must be of the same length")
   }
-  message(paste("Uploading", length(src), "file(s) to the database..."))
+  message(paste("Loading", length(src), "file(s) into the database..."))
 
   # write the tables directly to the DB
   mapply(DBI::dbWriteTable, name = tablenames, value = src,
