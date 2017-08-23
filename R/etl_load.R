@@ -22,10 +22,7 @@ etl_load <- function(obj, ...) UseMethod("etl_load")
 #' @export
 
 etl_load.default <- function(obj, ...) {
-  obj <- verify_con(obj)
-  # insert data from somewhere
-  warning(paste0("No available methods. Did you write the method etl_load.",
-                 class(obj)[1]), "()?")
+  smart_upload(obj)
   invisible(obj)
 }
 

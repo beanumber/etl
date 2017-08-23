@@ -9,16 +9,26 @@ test_that("sqlite works", {
   expect_true(file.exists(find_schema(cars_sqlite)))
   expect_message(find_schema(cars_sqlite, "my_crazy_schema", "etl"))
   expect_output(summary(cars_sqlite), "files")
-  expect_message(cars_sqlite %>% etl_create(), "Uploading")
-  expect_message(cars_sqlite %>% etl_init(), "Loading SQL script")
+  expect_message(cars_sqlite %>% etl_create(), "Loading")
+  expect_message(cars_sqlite %>% etl_init(), "Running SQL script")
   expect_message(
     cars_sqlite %>% etl_cleanup(delete_raw = TRUE, delete_load = TRUE),
     "Deleting files")
 })
 
+test_that("default works", {
+  dplyr_sqlite <- etl("dplyr")
+  expect_s3_class(dplyr_sqlite, c("etl_dplyr", "etl", "src_sqlite", "src_dbi"))
+  expect_output(summary(dplyr_sqlite), "files")
+  expect_message(dplyr_sqlite %>% etl_update(), "Loading")
+  expect_message(
+    dplyr_sqlite %>% etl_cleanup(delete_raw = TRUE, delete_load = TRUE),
+    "Deleting files")
+})
+
 test_that("dplyr works", {
   expect_message(cars <- etl("mtcars") %>%
-    etl_create(), regexp = "Uploading")
+    etl_create(), regexp = "Loading")
   expect_gt(length(src_tbls(cars)), 0)
   tbl_cars <- cars %>%
      tbl("mtcars")
@@ -30,7 +40,7 @@ test_that("dplyr works", {
   # double up the data
   expect_message(
     cars %>%
-      etl_update(), regexp = "Uploading")
+      etl_update(), regexp = "Loading")
   res2 <- tbl_cars %>%
     collect()
   expect_equal(nrow(res2), 2 * nrow(mtcars))

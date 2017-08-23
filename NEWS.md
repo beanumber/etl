@@ -1,3 +1,9 @@
+# etl 0.3.7 (2017-08-31)
+
+### MINOR IMPROVEMENTS
+
+* Added `default` methods for any package
+
 # etl 0.3.6 (2017-07-20)
 
 ### MINOR IMPROVEMENTS

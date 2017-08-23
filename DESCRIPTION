@@ -24,6 +24,7 @@ Imports:
     methods,
     stringr,
     readr,
+    rlang,
     utils
 Depends:
     R (>= 2.10),

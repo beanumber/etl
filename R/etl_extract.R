@@ -5,14 +5,42 @@ etl_extract <- function(obj, ...) UseMethod("etl_extract")
 
 #' @rdname etl_create
 #' @method etl_extract default
+#' @importFrom readr write_csv
+#' @importFrom utils data
 #' @export
 
 etl_extract.default <- function(obj, ...) {
-  # download the data from the Internet
-  warning(paste0("No available methods. Did you write the method etl_extract.",
-                 class(obj)[1]), "()?")
+  pkg <- attr(obj, "pkg")
+  data_sets <- utils::data(package = pkg)$results %>%
+    dplyr::as_data_frame() %>%
+    dplyr::mutate_(data_path = ~paste0(Package, "::", Item),
+                   file_path = ~file.path(attr(obj, "raw_dir"),
+                                          paste0(Item, ".csv")))
+
+  # load the data.frames into a list
+  data_list <- lapply(data_sets$data_path, get_data)
+  # check to see which ones are data.frames
+  is_df <- lapply(data_list, is.data.frame) %>%
+    unlist()
+
+  # check to see if list-columns exist
+  is_rectangular <- sapply(data_list,
+                           function(x) { unlist(!any(sapply(x, class) == "list")); })
+
+  good <- is_df + is_rectangular == 2
+  # write the data.frames as CSVs
+  mapply(FUN = readr::write_csv, data_list[good], data_sets$file_path[good])
+
   invisible(obj)
 }
+
+#' @importFrom rlang parse_expr
+
+get_data <- function(x) {
+  # https://stackoverflow.com/questions/30951204/load-dataset-from-r-package-using-data-assign-it-directly-to-a-variable
+  eval(rlang::parse_expr(x))
+}
+
 
 #' @rdname etl_create
 #' @method etl_extract etl_mtcars

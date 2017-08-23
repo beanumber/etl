@@ -9,8 +9,9 @@ etl_transform <- function(obj, ...) UseMethod("etl_transform")
 
 etl_transform.default <- function(obj, ...) {
   # load the data and process it if necessary
-  message(paste0("No available methods. Did you write the method
-                 etl_transform.", class(obj)[1]), "()?")
+  src <- list.files(attr(obj, "raw_dir"), "\\.csv", full.names = TRUE)
+  lcl <- file.path(attr(obj, "load_dir"), basename(src))
+  file.copy(from = src, to = lcl)
   invisible(obj)
 }
 
