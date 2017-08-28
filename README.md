@@ -21,9 +21,9 @@ Instantiate an `etl` object using a string that determines the class of the resu
 cars <- etl("mtcars")
 ```
 
-    ## Not a valid src. Creating a src_sqlite for you at:
+    ## No database was specified so I created one for you at:
 
-    ## /tmp/RtmpDxu52x/file222a424b80d4.sqlite3
+    ## /tmp/RtmpJgMhZN/file5068471239ee.sqlite3
 
 ``` r
 class(cars)
@@ -87,7 +87,7 @@ cars %>%
   etl_load()
 ```
 
-    ## Uploading 1 file(s) to the database...
+    ## Loading 1 file(s) into the database...
 
 Do it all at once
 -----------------
@@ -99,13 +99,13 @@ cars %>%
   etl_create()
 ```
 
-    ## Loading SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.4/etl/sql/init.sqlite
+    ## Running SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.4/etl/sql/init.sqlite
 
     ## Extracting raw data...
 
     ## Transforming raw data...
 
-    ## Uploading 1 file(s) to the database...
+    ## Loading 1 file(s) into the database...
 
 You can also update an existing database without re-initializing, but watch out for primary key collisions.
 
@@ -127,7 +127,7 @@ cars %>%
 ```
 
     ## # Source:   lazy query [?? x 3]
-    ## # Database: sqlite 3.19.3 [/tmp/RtmpDxu52x/file222a424b80d4.sqlite3]
+    ## # Database: sqlite 3.19.3 [/tmp/RtmpJgMhZN/file5068471239ee.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
     ## 1     4    11 26.66364
@@ -159,23 +159,28 @@ Use other ETL packages
 Cite
 ----
 
+Please see [the full manuscript](https://arxiv.org/abs/1708.07073) for additional details.
+
 ``` r
 citation("etl")
 ```
 
     ## 
-    ## To cite package 'etl' in publications use:
+    ## To cite etl in publications use:
     ## 
-    ##   Ben Baumer (2017). etl: Extract-Transform-Load Framework for
-    ##   Medium Data. R package version 0.3.6.
-    ##   http://github.com/beanumber/etl
+    ##   Benjamin S. Baumer (2017). A Grammar for Reproducible and
+    ##   Painless Extract-Transform-Load Operations on Medium Data.
+    ##   arXiv, 8(23), 1-24. URL https://arxiv.org/abs/1708.07073.
     ## 
     ## A BibTeX entry for LaTeX users is
     ## 
-    ##   @Manual{,
-    ##     title = {etl: Extract-Transform-Load Framework for Medium Data},
-    ##     author = {Ben Baumer},
+    ##   @Article{,
+    ##     title = {A Grammar for Reproducible and Painless Extract-Transform-Load Operations on Medium Data},
+    ##     author = {Benjamin S. Baumer},
+    ##     journal = {arXiv},
     ##     year = {2017},
-    ##     note = {R package version 0.3.6},
-    ##     url = {http://github.com/beanumber/etl},
+    ##     volume = {8},
+    ##     number = {23},
+    ##     pages = {1--24},
+    ##     url = {https://arxiv.org/abs/1708.07073},
     ##   }

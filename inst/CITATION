@@ -1,0 +1,18 @@
+citHeader("To cite etl in publications use:")
+
+citEntry(entry = "Article",
+  title        = "A Grammar for Reproducible and Painless Extract-Transform-Load Operations on Medium Data",
+  author       = personList(as.person("Benjamin S. Baumer")),
+  journal      = "arXiv",
+  year         = "2017",
+  volume       = "8",
+  number       = "23",
+  pages        = "1--24",
+  url          = "https://arxiv.org/abs/1708.07073",
+
+  textVersion  =
+  paste("Benjamin S. Baumer (2017).",
+        "A Grammar for Reproducible and Painless Extract-Transform-Load Operations on Medium Data.",
+        "arXiv, 8(23), 1-24.",
+        "URL https://arxiv.org/abs/1708.07073.")
+)

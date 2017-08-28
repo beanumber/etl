@@ -125,6 +125,8 @@ Please see the "[Extending etl](https://github.com/beanumber/etl/blob/master/vig
 
 ## Cite
 
+Please see [the full manuscript](https://arxiv.org/abs/1708.07073) for additional details.
+
 ```{r}
 citation("etl")
 ```
