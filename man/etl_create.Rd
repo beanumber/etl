@@ -11,12 +11,13 @@
 \alias{etl_extract}
 \alias{etl_extract.default}
 \alias{etl_extract.etl_mtcars}
+\alias{etl_extract.etl_cities}
 \alias{etl_load}
 \alias{etl_load.default}
-\alias{etl_load.etl_mtcars}
 \alias{etl_transform}
 \alias{etl_transform.default}
 \alias{etl_transform.etl_mtcars}
+\alias{etl_transform.etl_cities}
 \title{ETL functions for working with medium sized data}
 \usage{
 etl_cleanup(obj, ...)
@@ -38,17 +39,19 @@ etl_extract(obj, ...)
 
 \method{etl_extract}{etl_mtcars}(obj, ...)
 
+\method{etl_extract}{etl_cities}(obj, ...)
+
 etl_load(obj, ...)
 
 \method{etl_load}{default}(obj, ...)
-
-\method{etl_load}{etl_mtcars}(obj, ...)
 
 etl_transform(obj, ...)
 
 \method{etl_transform}{default}(obj, ...)
 
 \method{etl_transform}{etl_mtcars}(obj, ...)
+
+\method{etl_transform}{etl_cities}(obj, ...)
 }
 \arguments{
 \item{obj}{an \code{\link{etl}} object}

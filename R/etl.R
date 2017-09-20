@@ -76,7 +76,7 @@ etl <- function(x, db = NULL, dir = tempdir(), ...) UseMethod("etl")
 #' @export
 
 etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
-  if (x != "mtcars") {
+  if (!x %in% c("mtcars", "cities")) {
     pkg <- x
     if (!requireNamespace(x, quietly = TRUE)) {
       stop(paste0("Please make sure that the '", x, "' package is installed"))

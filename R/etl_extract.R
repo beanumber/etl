@@ -54,6 +54,17 @@ etl_extract.etl_mtcars <- function(obj, ...) {
   invisible(obj)
 }
 
+#' @rdname etl_create
+#' @method etl_extract etl_cities
+#' @export
+
+etl_extract.etl_cities <- function(obj, ...) {
+  src <- c("https://en.wikipedia.org/wiki/List_of_largest_cities",
+           "https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population")
+  smart_download(obj, src, new_filenames = paste0(basename(src), ".html"), ...)
+  invisible(obj)
+}
+
 
 #' Download only those files that don't already exist
 #' @param obj an \code{\link{etl}} object

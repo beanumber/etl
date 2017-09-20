@@ -23,7 +23,7 @@ cars <- etl("mtcars")
 
     ## No database was specified so I created one for you at:
 
-    ## /tmp/RtmpJgMhZN/file5068471239ee.sqlite3
+    ## /tmp/RtmpIMUIel/file68b36216d2b2.sqlite3
 
 ``` r
 class(cars)
@@ -127,7 +127,7 @@ cars %>%
 ```
 
     ## # Source:   lazy query [?? x 3]
-    ## # Database: sqlite 3.19.3 [/tmp/RtmpJgMhZN/file5068471239ee.sqlite3]
+    ## # Database: sqlite 3.9.1 [/tmp/RtmpIMUIel/file68b36216d2b2.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
     ## 1     4    11 26.66364
@@ -166,21 +166,18 @@ citation("etl")
 ```
 
     ## 
-    ## To cite etl in publications use:
+    ## To cite package 'etl' in publications use:
     ## 
-    ##   Benjamin S. Baumer (2017). A Grammar for Reproducible and
-    ##   Painless Extract-Transform-Load Operations on Medium Data.
-    ##   arXiv, 8(23), 1-24. URL https://arxiv.org/abs/1708.07073.
+    ##   Ben Baumer (2017). etl: Extract-Transform-Load Framework for
+    ##   Medium Data. R package version 0.3.6.9000.
+    ##   http://github.com/beanumber/etl
     ## 
     ## A BibTeX entry for LaTeX users is
     ## 
-    ##   @Article{,
-    ##     title = {A Grammar for Reproducible and Painless Extract-Transform-Load Operations on Medium Data},
-    ##     author = {Benjamin S. Baumer},
-    ##     journal = {arXiv},
+    ##   @Manual{,
+    ##     title = {etl: Extract-Transform-Load Framework for Medium Data},
+    ##     author = {Ben Baumer},
     ##     year = {2017},
-    ##     volume = {8},
-    ##     number = {23},
-    ##     pages = {1--24},
-    ##     url = {https://arxiv.org/abs/1708.07073},
+    ##     note = {R package version 0.3.6.9000},
+    ##     url = {http://github.com/beanumber/etl},
     ##   }

@@ -2,6 +2,7 @@
 
 ### MINOR IMPROVEMENTS
 
+* Added `etl_cities` methods
 * Added `default` methods for any package
 
 # etl 0.3.6 (2017-07-20)

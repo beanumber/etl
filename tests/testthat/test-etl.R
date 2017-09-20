@@ -26,6 +26,7 @@ test_that("default works", {
     "Deleting files")
 })
 
+
 test_that("dplyr works", {
   expect_message(cars <- etl("mtcars") %>%
     etl_create(), regexp = "Loading")
@@ -63,7 +64,7 @@ test_that("mysql works", {
 test_that("valid_year_month works", {
   expect_equal(
     nrow(valid_year_month(years = 1999:2001, months = c(1:3, 7))), 12)
-  test_dir <- "~/dumps/airlines"
+#  test_dir <- "~/dumps/airlines"
   # if (require(airlines) & require(etl) & dir.exists(test_dir)) {
   #   airlines <- etl("airlines", dir = test_dir) %>%
   #     etl_extract(year = 1987)
@@ -96,16 +97,24 @@ test_that("smart_download works", {
   cars <- etl("mtcars")
   # first download some files
 #  if (!.Platform$OS.type == "windows") {
+    expect_message(etl_cleanup(cars, pattern = ".", delete_raw = TRUE, delete_load = TRUE), "Deleting")
     urls <- c("https://raw.githubusercontent.com/beanumber/etl/master/etl.Rproj",
               "https://www.reddit.com/robots.txt")
     expect_length(smart_download(cars, src = urls), 2)
     # then try to download them again
-    expect_length(list.files(attr(cars, "raw_dir")), 3)
     expect_length(smart_download(cars, src = urls), 0)
-    expect_message(etl_cleanup(cars, pattern = "com", delete_raw = TRUE), "Deleting")
+    expect_message(etl_cleanup(cars, pattern = ".", delete_raw = TRUE, delete_load = TRUE), "Deleting")
 #  }
 })
 
+
+test_that("cities works", {
+  cities_sqlite <- etl("cities")
+  expect_message(cities_sqlite %>% etl_create(), "Loading")
+  expect_message(
+    cities_sqlite %>% etl_cleanup(delete_raw = TRUE, delete_load = TRUE),
+    "Deleting files")
+})
 
 test_that("MonetDBLite works", {
   if (require(MonetDBLite)) {

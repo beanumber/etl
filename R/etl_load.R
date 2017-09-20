@@ -26,18 +26,6 @@ etl_load.default <- function(obj, ...) {
   invisible(obj)
 }
 
-#' @rdname etl_create
-#' @method etl_load etl_mtcars
-#' @importFrom DBI dbWriteTable
-#' @importFrom utils read.csv
-#' @importFrom methods is
-#' @export
-
-etl_load.etl_mtcars <- function(obj, ...) {
-  smart_upload(obj)
-  invisible(obj)
-}
-
 #' Upload a list of files to the DB
 #' @param obj An \code{\link{etl}} object
 #' @param src a list of CSV files to upload. If \code{NULL}, will return all
@@ -66,7 +54,7 @@ smart_upload <- function(obj, src = NULL, tablenames = NULL, ...) {
       gsub("\\.csv", "", x = .)
   }
   if (length(src) != length(tablenames)) {
-    stop("src and tablenames must be of the same length")
+    warning("src and tablenames must be of the same length")
   }
   message(paste("Loading", length(src), "file(s) into the database..."))
 
