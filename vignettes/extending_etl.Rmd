@@ -54,6 +54,7 @@ Each of the three main `etl` methods must take an `etl_foo` object as it's first
 All three of the main `etl` methods should take the same set or arguments. Most commonly these define the span of time for the files that you want to extract, transform, or load. For example, in the `airlines` package, these functions take optional `year` and `month` arguments.
 
 ```{r}
+devtools::install_github("beanumber/airlines")
 library(airlines)
 airlines:::etl_extract.etl_airlines %>% args()
 airlines:::etl_transform.etl_airlines %>% args()
