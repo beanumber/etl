@@ -18,10 +18,10 @@ notifications:
     on_failure: change
 
 # System dependencies for HTTP calling
-r_binary_packages:
- - RSQLite
- - RMySQL
- - RPostgreSQL
+#r_binary_packages:
+# - RSQLite
+# - RMySQL
+# - RPostgreSQL
 
 # Install the bleeding edge version of a package from github (eg to pick
 # up a not-yet-released bugfix)
