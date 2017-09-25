@@ -50,6 +50,7 @@ etl_transform.etl_cities <- function(obj, ...) {
     x[[which.max(nrows)]]
   }
 
+  suppressWarnings(
   world_cities <- get_longest_table(tables[[1]]) %>%
     tibble::set_tidy_names() %>%
     filter_(~City != "") %>%
@@ -61,7 +62,7 @@ etl_transform.etl_cities <- function(obj, ...) {
       Country = ~gsub(",", "_", `Country`)
     ) %>%
     select_(~City, ~Country, ~city_pop, ~metro_pop, ~urban_pop)
-
+  )
   us_cities <- get_longest_table(tables[[2]]) %>%
     tibble::set_tidy_names() %>%
     mutate_(
