@@ -54,11 +54,20 @@ Each of the three main `etl` methods must take an `etl_foo` object as it's first
 All three of the main `etl` methods should take the same set or arguments. Most commonly these define the span of time for the files that you want to extract, transform, or load. For example, in the `airlines` package, these functions take optional `year` and `month` arguments.
 
 ```{r}
-devtools::install_github("beanumber/airlines")
-library(airlines)
-airlines:::etl_extract.etl_airlines %>% args()
-airlines:::etl_transform.etl_airlines %>% args()
-airlines:::etl_load.etl_airlines %>% args()
+if (!require(airlines)) {
+  if (require(devtools)) {
+    devtools::install_github("beanumber/airlines")
+  } else {
+    warning("Examples require the airlines package")
+  }
+}
+
+if (require(airlines)) {
+  airlines:::etl_extract.etl_airlines %>% args()
+  airlines:::etl_transform.etl_airlines %>% args()
+  airlines:::etl_load.etl_airlines %>% args()
+}
+
 ```
 
 ### Other `etl` methods
@@ -83,11 +92,13 @@ If no such file exists, all of the tables and views in the database will be dele
 Every `etl_foo` object has a directory where it can store files and a `DBIConnection` where it can write to a database. By default, these come from `tempdir()` and `RSQLite::SQLite()`, but the user can alternatively specify other locations. 
 
 ```{r}
-airlines <- etl("airlines")
-str(airlines)
+if (require(airlines)) {
+  airlines <- etl("airlines")
+  str(airlines)
+}
 ```
 
-Note that an `etl_foo` object is also a `src_dbi` object and a `src_sql` object. Please see the [`dbplyr` vignette](https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html) for more information about these database connections. 
+Note that an `etl_foo` object is also a `src_dbi` object and a `src_sql` object. Please see the [`dbplyr` vignette](https://cran.r-project.org/web/packages/dbplyr/index.html) for more information about these database connections. 
 
 ## References
 

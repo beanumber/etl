@@ -4,6 +4,7 @@
 
 * Added `etl_cities` methods
 * Added `default` methods for any package
+* Added "Extending ETL" vignette
 
 # etl 0.3.6 (2017-07-20)
 

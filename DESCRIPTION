@@ -44,6 +44,7 @@ Suggests:
     ggplot2,
     testthat,
     rmarkdown
+Additional_repositories: http://github.com/beanumber/airlines
 URL: http://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/etl/issues
 RoxygenNote: 6.0.1
