@@ -98,7 +98,7 @@ if (require(airlines)) {
 }
 ```
 
-Note that an `etl_foo` object is also a `src_dbi` object and a `src_sql` object. Please see the [`dbplyr` vignette](https://cran.r-project.org/web/packages/dbplyr/index.html) for more information about these database connections. 
+Note that an `etl_foo` object is also a `src_dbi` object and a `src_sql` object. Please see the [`dbplyr` vignette](https://CRAN.R-project.org/package=dbplyr) for more information about these database connections. 
 
 ## References
 
