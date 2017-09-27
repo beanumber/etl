@@ -64,15 +64,6 @@ test_that("mysql works", {
 test_that("valid_year_month works", {
   expect_equal(
     nrow(valid_year_month(years = 1999:2001, months = c(1:3, 7))), 12)
-#  test_dir <- "~/dumps/airlines"
-  # if (require(airlines) & require(etl) & dir.exists(test_dir)) {
-  #   airlines <- etl("airlines", dir = test_dir) %>%
-  #     etl_extract(year = 1987)
-  #   expect_length(match_files_by_year_months(
-  #     list.files(attr(airlines, "raw_dir")),
-  #     pattern = "On_Time_On_Time_Performance_%Y_%m.zip",
-  #     year = 1987), 3)
-  #  }
 })
 
 test_that("extract_date_from_filename works", {

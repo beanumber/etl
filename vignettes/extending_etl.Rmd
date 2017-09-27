@@ -29,20 +29,31 @@ Please see these packages for examples of how to develop an `etl`-dependent pack
 
 ## The basics
 
-Suppose that you want to write the `etl`-dependent package `foo`. In order for `foo` to work, it must implement two methods:
+Suppose that you want to write the `etl`-dependent package `foo`. In order for `foo` to work, it should implement at least one of these methods (and usually all three):
 
 1. `etl_extract.etl_foo()` - downloads data from Internet
-2. `etl_load.etl_foo()` - imports data into SQL database
+2. `etl_transform.etl_foo()` - takes downloaded data and puts it into CSV format suitable for import to SQL
+3. `etl_load.etl_foo()` - imports data into a SQL database
 
-Usually, `foo` would also implement
+That's basically it. The rest of the machinery should be taken care of for you. In particular, `etl_extract()`, `etl_transform()`, and `etl_load()` are all generic functions that have sensible default methods. 
 
-3. `etl_transform.etl_foo()` - takes downloaded data and puts it into CSV format suitable for import to SQL
+1. `etl_extract.default()` - pulls all of the `data.frame`s available through the `data()` function for `foo`, and writes them as CSVs
+2. `etl_extract.default()`- simply copies all of the CSVs to the load directory. 
+3. `etl_load.default()` - imports all of those CSVs into a SQL database
 
-That's basically it. The rest of the machinery should be taken care of for you. Note that you don't have to write an `etl` method to handle `foo`. You do, however, have to have the `foo` package installed in order for the `etl` instantiation function to work. 
+Note that you don't have to write an `etl` method to handle `foo`. You do, however, have to have the `foo` package installed in order for the `etl` instantiation function to work. 
 
 ```{r, error=TRUE, message=FALSE}
 library(etl)
 foo <- etl("foo")
+```
+
+To see the default methods in action, pick a package with some data and import it. 
+
+```{r}
+ggplots <- etl("ggplot2") %>%
+  etl_update()
+src_tbls(ggplots)
 ```
 
 ## The details
@@ -51,23 +62,16 @@ foo <- etl("foo")
 
 Each of the three main `etl` methods must take an `etl_foo` object as it's first argument, and (should invisibly) return an `etl_foo` object. These methods are *pipeable* and *predictable*, but not *pure*, since they by design have side-effects (i.e. downloading files, etc.) Your major task in writing the `foo` package will be to write these functions. How you write them is entirely up to you, and the particular implementation will of course depend on what the purpose of `foo` is.  
 
-All three of the main `etl` methods should take the same set or arguments. Most commonly these define the span of time for the files that you want to extract, transform, or load. For example, in the `airlines` package, these functions take optional `year` and `month` arguments.
+All three of the main `etl` methods should take the same set or arguments. Most commonly these define the span of time for the files that you want to extract, transform, or load. For example, in the `airlines` package, these functions take optional `year` and `month` arguments. 
 
-```{r}
-if (!require(airlines)) {
-  if (require(devtools)) {
-    devtools::install_github("beanumber/airlines")
-  } else {
-    warning("Examples require the airlines package")
-  }
+Since `airlines` is not on CRAN we we illustrate with `macleish`, which unfortunately takes only `...`. Also, `macleish` uses `etl_load.default()`, so there is no `macleish:::etl_load.etl_macleish()` method. 
+
+```{r, error=TRUE}
+if (require(macleish)) {
+  macleish:::etl_extract.etl_macleish %>% args()
+  macleish:::etl_transform.etl_macleish %>% args()
+  macleish:::etl_load.etl_macleish %>% args()
 }
-
-if (require(airlines)) {
-  airlines:::etl_extract.etl_airlines %>% args()
-  airlines:::etl_transform.etl_airlines %>% args()
-  airlines:::etl_load.etl_airlines %>% args()
-}
-
 ```
 
 ### Other `etl` methods
@@ -92,9 +96,9 @@ If no such file exists, all of the tables and views in the database will be dele
 Every `etl_foo` object has a directory where it can store files and a `DBIConnection` where it can write to a database. By default, these come from `tempdir()` and `RSQLite::SQLite()`, but the user can alternatively specify other locations. 
 
 ```{r}
-if (require(airlines)) {
-  airlines <- etl("airlines")
-  str(airlines)
+if (require(macleish)) {
+  macleish <- etl("macleish")
+  str(macleish)
 }
 ```
 
