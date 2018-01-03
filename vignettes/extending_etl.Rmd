@@ -19,6 +19,8 @@ The `etl` package provides a series of S3 generics and convenience functions tha
 
 - [macleish](https://github.com/beanumber/etl): [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/macleish)](https://cran.r-project.org/package=macleish)
  Weather and spatial data from the MacLeish Field Station in Whately, MA. 
+- [nyctaxi](https://github.com/beanumber/nyctaxi): [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/nyctaxi)](https://cran.r-project.org/package=nyctaxi)
+ Trip data from the New York City Taxi and Limousine Commission 
 - [airlines](https://github.com/beanumber/airlines): On-time flight arrival data from the Bureau of Transportation Statistics
 - [citibike](https://github.com/beanumber/citibike): Municipal bike-sharing system in New York City
 - [nyc311](https://github.com/beanumber/nyc311): Phone calls to New York City's feedback hotline

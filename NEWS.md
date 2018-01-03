@@ -1,3 +1,9 @@
+# etl 0.3.8 (2018-02-01)
+
+### MINOR IMPROVEMENTS
+
+* Added `create_etl_package` function for rapid prototyping
+
 # etl 0.3.7 (2017-09-25)
 
 ### MINOR IMPROVEMENTS

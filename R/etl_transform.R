@@ -50,7 +50,6 @@ etl_transform.etl_cities <- function(obj, ...) {
     x[[which.max(nrows)]]
   }
 
-  suppressWarnings(
   world_cities <- get_longest_table(tables[[1]]) %>%
     tibble::set_tidy_names() %>%
     filter_(~City != "") %>%
@@ -59,10 +58,10 @@ etl_transform.etl_cities <- function(obj, ...) {
       metro_pop = ~readr::parse_number(`Population..5`),
       urban_pop = ~readr::parse_number(`Population..6`),
       # strip commas to avoid breaking SQLite import
-      Country = ~gsub(",", "_", `Country`)
+      Nation = ~gsub(",", "_", `Nation`)
     ) %>%
-    select_(~City, ~Country, ~city_pop, ~metro_pop, ~urban_pop)
-  )
+    select_(~City, ~Nation, ~city_pop, ~metro_pop, ~urban_pop)
+
   us_cities <- get_longest_table(tables[[2]]) %>%
     tibble::set_tidy_names() %>%
     mutate_(

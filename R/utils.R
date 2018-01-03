@@ -223,3 +223,35 @@ db_type.DBIConnection <- function(obj, ...) {
     utils::head(1)
 }
 
+#' Create an ETL package skeleton
+#' @importFrom devtools create use_package
+#' @param ... arguments passed to \code{\link[devtools]{create}}
+#' @export
+#' @details Extends \code{\link[devtools]{create}} and places a template source file in
+#' the R subdirectory of the new package. The file has a working stub of \code{etl_extract}.
+#' The new package can be built immediately and run.
+#'
+#' New S3 methods for \code{\link{etl_transform}} and \code{\link{etl_load}} can be added if
+#' necessary, but the default methods may suffice.
+#' @seealso \code{\link{etl_extract}}, \code{\link{etl_transform}}, \code{\link{etl_load}}
+#' @examples
+#' path <- file.path(tempdir(), "scorecard")
+#' create_etl_package(path)
+#'
+#' # Now switch projects, and "Install and Restart"
+
+create_etl_package <- function(...) {
+  devtools::create(...)
+  path <- list(...)[[1]]
+  # pkg <- devtools:::extract_package_name(path)
+  pkg <- basename(normalizePath(path, mustWork = FALSE))
+  src <- system.file(package = "etl", "src", "etl_template.R")
+  dest <- file.path(path, "R", "etl.R")
+  if (file.copy(src, dest)) {
+    message("* Creating R/etl.R template source file...")
+    readLines(dest) %>%
+      gsub("foo", pkg, x = .) %>%
+      writeLines(con = dest)
+  }
+  devtools::use_package("etl", "Depends", pkg = path)
+}

@@ -3,6 +3,8 @@ context("etl")
 ## TODO: Rename context
 ## TODO: Add more tests
 
+
+
 test_that("sqlite works", {
   cars_sqlite <- etl("mtcars")
   expect_s3_class(cars_sqlite, c("etl_mtcars", "etl", "src_sqlite", "src_dbi"))
@@ -108,6 +110,7 @@ test_that("cities works", {
     "Deleting files")
 })
 
+
 test_that("MonetDBLite works", {
   if (require(MonetDBLite)) {
     # db <- MonetDBLite::src_monetdblite()
@@ -123,3 +126,10 @@ test_that("MonetDBLite works", {
     # expect_s3_class(tbl_cars, "tbl_monetdb")
   }
 })
+
+test_that("create ETL works", {
+  path <- file.path(tempdir(), "scorecard")
+  expect_message(create_etl_package(path), "scorecard")
+})
+
+

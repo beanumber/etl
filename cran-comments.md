@@ -1,7 +1,8 @@
 ## Test environments
+
 * local OS X install, R 3.3.1
-* local Ubuntu 16.04.2, R 3.4.1
-* Ubuntu 14.04.5 (on travis-ci), R 3.3.3, 3.4.1, 3.5.0
+* local Ubuntu 16.04.2, R 3.4.3
+* Ubuntu 14.04.5 (on travis-ci), oldrel, release, devel
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -20,5 +21,5 @@
 
 `macleish` and `mdsr` have both been checked.
 
---
+---
 
