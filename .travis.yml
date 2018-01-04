@@ -23,7 +23,10 @@ notifications:
 # - RMySQL
 # - RPostgreSQL
 
+r_packages:
+  - devtools
+
 # Install the bleeding edge version of a package from github (eg to pick
 # up a not-yet-released bugfix)
 r_github_packages:
- - beanumber/airlines
+  - beanumber/airlines
