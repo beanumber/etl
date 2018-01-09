@@ -34,7 +34,7 @@
 
 dbRunScript <- function(conn, script, echo = FALSE, ...) {
   if (file.exists(script)) {
-    message(paste0("Running SQL script at ", script))
+    message(paste0("Initializing DB using SQL script ", basename(script)))
     sql <- readChar(script, file.info(script)$size, useBytes = TRUE)
   } else {
     sql <- script

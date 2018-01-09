@@ -12,7 +12,7 @@ test_that("sqlite works", {
   expect_message(find_schema(cars_sqlite, "my_crazy_schema", "etl"))
   expect_output(summary(cars_sqlite), "files")
   expect_message(cars_sqlite %>% etl_create(), "Loading")
-  expect_message(cars_sqlite %>% etl_init(), "Running SQL script")
+  expect_message(cars_sqlite %>% etl_init(), "SQL script")
   expect_message(
     cars_sqlite %>% etl_cleanup(delete_raw = TRUE, delete_load = TRUE),
     "Deleting files")

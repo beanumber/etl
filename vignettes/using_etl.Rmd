@@ -21,6 +21,8 @@ cars <- etl("mtcars")
 class(cars)
 ```
 
+Pay careful attention to where the SQLite database is stored. The default location is a temporary directory, but you will want to move this to a more secure location if you want this storage to be persistent. See `file.copy()` for examples on how to move a file. 
+
 ### Connect to a local or remote database
 
 `etl` works with a local or remote database to store your data. Every `etl` object extends a `dplyr::src_dbi` object. If, as in the example above, you do not specify a SQL source, a local `RSQLite` database will be created for you. However, you can also specify any source that inherits from `dplyr::src_dbi`.
@@ -115,18 +117,17 @@ cars %>%
 
 ### Create your own ETL packages
 
-Suppose you want to create your own ETL package called `pkgname`. All you have to do is write a package that requires `etl`, and then you have to write **two S3 methods**:
+Suppose you want to create your own ETL package called `pkgname`. All you have to do is write a package that requires `etl`, and then you have to write **one S3 methods**:
 
 ```{r, eval=FALSE}
 etl_extract.etl_pkgname()
-etl_load.etl_pkgname()
 ```
 
 You may also wish to write
 
 ```{r, eval=FALSE}
 etl_transform.etl_pkgname()
-etl_cleanup.etl_pkgname()
+etl_load.etl_pkgname()
 ```
 
 All of these functions must take and return an object of class `etl_pkgname` that inherits from `etl`. Please see the "[Extending etl](extending_etl.html)" vignette for more information. 

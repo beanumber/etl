@@ -31,7 +31,7 @@ Please see these packages for examples of how to develop an `etl`-dependent pack
 
 ## The basics
 
-Suppose that you want to write the `etl`-dependent package `foo`. In order for `foo` to work, it should implement at least one of these methods (and usually all three):
+Suppose that you want to write the `etl`-dependent package `foo`. In order for `foo` to work, it should implement at least one of these methods (and somtimes all three):
 
 1. `etl_extract.etl_foo()` - downloads data from Internet
 2. `etl_transform.etl_foo()` - takes downloaded data and puts it into CSV format suitable for import to SQL
