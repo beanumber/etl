@@ -22,7 +22,7 @@ etl_load <- function(obj, ...) UseMethod("etl_load")
 #' @export
 
 etl_load.default <- function(obj, ...) {
-  smart_upload(obj)
+  smart_upload(obj, ...)
   invisible(obj)
 }
 
