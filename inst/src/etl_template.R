@@ -12,7 +12,7 @@
 
 etl_extract.etl_foo <- function(obj, ...) {
   # Specify the URLs that you want to download
-  src <- c("http://samplecsvs.s3.amazonaws.com/Sacramentorealestatetransactions.csv")
+  src <- c("http://www.stat.tamu.edu/~sheather/book/docs/datasets/HoustonChronicle.csv")
 
   # Use the smart_download() function for convenience
   etl::smart_download(obj, src, ...)
