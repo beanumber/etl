@@ -132,4 +132,22 @@ test_that("create ETL works", {
   expect_message(create_etl_package(path), "scorecard")
 })
 
+test_that("dbRunScript works", {
+  sql <- "SHOW TABLES; SELECT 1+1 as Two;"
+
+  if (require(RSQLite)) {
+     con <- dbConnect(RSQLite::SQLite())
+     expect_equal(0, sum(unlist(dbRunScript(con, "SELECT 1+1 as Two; VACUUM; ANALYZE;"))))
+     init_sqlite <- system.file("sql", "init.sqlite", package = "etl")
+     expect_equal(0, sum(unlist(dbRunScript(con, script = init_sqlite))))
+  }
+  if (require(RMySQL) && mysqlHasDefault()) {
+    db <- src_mysql_cnf()
+    expect_equal(-2, sum(unlist(dbRunScript(db$con, script = sql))))
+    init_mysql <- system.file("sql", "init.mysql", package = "etl")
+    expect_equal(0, sum(unlist(dbRunScript(db$con, script = init_mysql))))
+    expect_true("mtcars" %in% DBI::dbListTables(db$con))
+    dbDisconnect(db$con)
+  }
+})
 

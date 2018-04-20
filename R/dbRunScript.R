@@ -40,12 +40,17 @@ dbRunScript <- function(conn, script, echo = FALSE, ...) {
     sql <- script
   }
 
-  sql <- gsub("\n", " ", sql, fixed = TRUE)
-  sql <- unlist(strsplit(sql, ";"))
-
+  sql_lines <- unlist(strsplit(sql, "\n"))
   # strip out any blank lines -- these will produce an error
-  good <- sql[grepl("\\w+", sql)]
-  good <- DBI::SQL(good)
+  sql_lines <- sql_lines[grepl("[A-Za-z0-9);]+", sql_lines)]
+  # filter out comments
+  sql_lines <- sql_lines[!grepl("^--", sql_lines)]
+  sql_lines <- sql_lines[!grepl("^/\\*", sql_lines)]
+
+  sql_rebuild <- paste(sql_lines, collapse = " ")
+  sql_cmds <- unlist(strsplit(sql_rebuild, ";"))
+
+  good <- DBI::SQL(sql_cmds)
   if (echo) {
     print(good)
   }

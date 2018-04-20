@@ -148,7 +148,9 @@ tbl(cars, "mtcars")
 
 # But you can also specify your own schema if you want
 schema <- system.file("sql", "init.sqlite", package = "etl")
-etl_load(cars, schema)
+cars \%>\%
+  etl_init(schema) \%>\%
+  etl_load()
 }
 \seealso{
 \code{\link{etl}}, \code{\link{etl_init}}

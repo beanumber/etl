@@ -13,7 +13,9 @@
 #'
 #' # But you can also specify your own schema if you want
 #' schema <- system.file("sql", "init.sqlite", package = "etl")
-#' etl_load(cars, schema)
+#' cars %>%
+#'   etl_init(schema) %>%
+#'   etl_load()
 
 etl_load <- function(obj, ...) UseMethod("etl_load")
 
