@@ -59,7 +59,7 @@ verify_con <- function(x, dir = tempdir()) {
 #' }
 #'
 valid_year_month <- function(years, months,
-                             begin = "1970-01-01", end = Sys.Date()) {
+                             begin = "1870-01-01", end = Sys.Date()) {
   years <- as.numeric(years)
   months <- as.numeric(months)
   begin <- as.Date(begin)

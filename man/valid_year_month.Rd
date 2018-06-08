@@ -4,7 +4,7 @@
 \alias{valid_year_month}
 \title{Ensure that years and months are within a certain time span}
 \usage{
-valid_year_month(years, months, begin = "1970-01-01", end = Sys.Date())
+valid_year_month(years, months, begin = "1870-01-01", end = Sys.Date())
 }
 \arguments{
 \item{years}{a numeric vector of years}
