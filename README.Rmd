@@ -1,9 +1,8 @@
 ---
-title: "ETL"
-output:
-  github_document:
-    html_preview: true
+output: github_document
 ---
+
+# etl <img src="inst/png/etl_hex.png" align="right" height=140/>
 
 [![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/etl)](https://cran.r-project.org/package=etl)

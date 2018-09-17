@@ -6,3 +6,4 @@
 ^.*\.Rignore$
 ^cran-comments\.md$
 ^revdep$
+^data-raw$

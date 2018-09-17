@@ -1,5 +1,6 @@
-ETL
-================
+
+etl <img src="inst/png/etl_hex.png" align="right" height=140/>
+==============================================================
 
 [![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/etl)](https://cran.r-project.org/package=etl) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/etl)](http://www.r-pkg.org/pkg/etl)
 
@@ -23,7 +24,7 @@ cars <- etl("mtcars")
 
     ## No database was specified so I created one for you at:
 
-    ## /tmp/RtmpIMUIel/file68b36216d2b2.sqlite3
+    ## /tmp/Rtmpw1T0Oo/file44856c2958c2.sqlite3
 
 ``` r
 class(cars)
@@ -99,7 +100,7 @@ cars %>%
   etl_create()
 ```
 
-    ## Running SQL script at /home/bbaumer/R/x86_64-pc-linux-gnu-library/3.4/etl/sql/init.sqlite
+    ## Initializing DB using SQL script init.sqlite
 
     ## Extracting raw data...
 
@@ -126,13 +127,16 @@ cars %>%
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
+    ## Warning: Missing values are always removed in SQL.
+    ## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
     ## # Source:   lazy query [?? x 3]
-    ## # Database: sqlite 3.9.1 [/tmp/RtmpIMUIel/file68b36216d2b2.sqlite3]
+    ## # Database: sqlite 3.22.0 [/tmp/Rtmpw1T0Oo/file44856c2958c2.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
-    ## 1     4    11 26.66364
-    ## 2     6     7 19.74286
-    ## 3     8    14 15.10000
+    ## 1     4    11     26.7
+    ## 2     6     7     19.7
+    ## 3     8    14     15.1
 
 Create your own ETL packages
 ----------------------------
@@ -166,18 +170,21 @@ citation("etl")
 ```
 
     ## 
-    ## To cite package 'etl' in publications use:
+    ## To cite etl in publications use:
     ## 
-    ##   Ben Baumer (2017). etl: Extract-Transform-Load Framework for
-    ##   Medium Data. R package version 0.3.6.9000.
-    ##   http://github.com/beanumber/etl
+    ##   Benjamin S. Baumer (2017). A Grammar for Reproducible and
+    ##   Painless Extract-Transform-Load Operations on Medium Data.
+    ##   arXiv, 8(23), 1-24. URL https://arxiv.org/abs/1708.07073.
     ## 
     ## A BibTeX entry for LaTeX users is
     ## 
-    ##   @Manual{,
-    ##     title = {etl: Extract-Transform-Load Framework for Medium Data},
-    ##     author = {Ben Baumer},
+    ##   @Article{,
+    ##     title = {A Grammar for Reproducible and Painless Extract-Transform-Load Operations on Medium Data},
+    ##     author = {Benjamin S. Baumer},
+    ##     journal = {arXiv},
     ##     year = {2017},
-    ##     note = {R package version 0.3.6.9000},
-    ##     url = {http://github.com/beanumber/etl},
+    ##     volume = {8},
+    ##     number = {23},
+    ##     pages = {1--24},
+    ##     url = {https://arxiv.org/abs/1708.07073},
     ##   }
