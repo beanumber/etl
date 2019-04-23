@@ -46,5 +46,5 @@ Suggests:
     rmarkdown
 URL: http://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/etl/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr, rmarkdown, etl, macleish, ggplot2, dplyr, dbplyr

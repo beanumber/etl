@@ -100,7 +100,9 @@ smart_download <- function(obj, src, new_filenames = basename(src), clobber = FA
   }
   message(paste("Downloading", sum(missing), "new files. ",
                 sum(!missing), "untouched."))
-  mapply(downloader::download, src[missing], lcl[missing], ... = ...)
+  if (any(missing)) {
+    mapply(downloader::download, src[missing], lcl[missing], ... = ...)
+  }
 }
 
 

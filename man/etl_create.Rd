@@ -22,8 +22,8 @@
 \usage{
 etl_cleanup(obj, ...)
 
-\method{etl_cleanup}{default}(obj, delete_raw = FALSE, delete_load = FALSE,
-  pattern = "\\\\.(csv|zip)$", ...)
+\method{etl_cleanup}{default}(obj, delete_raw = FALSE,
+  delete_load = FALSE, pattern = "\\\\.(csv|zip)$", ...)
 
 etl_create(obj, ...)
 
