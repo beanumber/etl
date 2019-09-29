@@ -1,8 +1,7 @@
 Package: etl
 Type: Package
 Title: Extract-Transform-Load Framework for Medium Data
-Version: 0.3.7.9001
-Date: 2017-09-25
+Version: 0.3.7.9002
 Authors@R: c(
     person("Ben", "Baumer", email = "ben.baumer@gmail.com",
       role = c("aut", "cre")),
@@ -19,7 +18,6 @@ LazyData: TRUE
 Imports:
     DBI,
     datasets,
-    devtools,
     downloader,
     lubridate,
     methods,
@@ -28,6 +26,7 @@ Imports:
     rlang,
     rvest,
     tibble,
+    usethis,
     utils,
     xml2
 Depends:

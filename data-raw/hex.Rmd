@@ -9,8 +9,8 @@ output: html_document
 ```{r}
 library(hexSticker)
 sticker("inst/png/etl_logo.png",
-        package = "etl", p_size = 0, s_x = 1.1, s_y = 1,
+        package = "etl", p_size = 0, s_x = 1, s_y = 1,
         s_width = .6, s_height = .6,
-        h_fill = "black", h_color = "red",
+        h_fill = "black", h_color = "#d81f26",
         filename = "inst/png/etl_hex.png")
 ```

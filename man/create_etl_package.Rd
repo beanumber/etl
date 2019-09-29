@@ -7,13 +7,13 @@
 create_etl_package(...)
 }
 \arguments{
-\item{...}{arguments passed to \code{\link[devtools]{create}}}
+\item{...}{arguments passed to \code{\link[usethis]{create_package}}}
 }
 \description{
 Create an ETL package skeleton
 }
 \details{
-Extends \code{\link[devtools]{create}} and places a template source file in
+Extends \code{\link[usethis]{create_package}} and places a template source file in
 the R subdirectory of the new package. The file has a working stub of \code{etl_extract}.
 The new package can be built immediately and run.
 
@@ -21,9 +21,10 @@ New S3 methods for \code{\link{etl_transform}} and \code{\link{etl_load}} can be
 necessary, but the default methods may suffice.
 }
 \examples{
+\dontrun{
 path <- file.path(tempdir(), "scorecard")
 create_etl_package(path)
-
+}
 # Now switch projects, and "Install and Restart"
 }
 \seealso{

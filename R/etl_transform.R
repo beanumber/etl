@@ -25,7 +25,7 @@ etl_transform.etl_mtcars <- function(obj, ...) {
   src <- file.path(attr(obj, "raw_dir"), "mtcars.csv")
   data <- utils::read.csv(src)
   data <- data %>%
-    rename_(makeModel = ~X)
+    rename(makeModel = X)
   lcl <- file.path(attr(obj, "load_dir"), "mtcars.csv")
   utils::write.csv(data, file = lcl, row.names = FALSE)
   invisible(obj)
@@ -52,30 +52,30 @@ etl_transform.etl_cities <- function(obj, ...) {
 
   world_cities <- get_longest_table(tables[[1]]) %>%
     tibble::set_tidy_names() %>%
-    filter_(~City != "") %>%
-    mutate_(
-      city_pop = ~readr::parse_number(`Population..4`),
-      metro_pop = ~readr::parse_number(`Population..5`),
-      urban_pop = ~readr::parse_number(`Population..6`),
+    filter(City != "") %>%
+    mutate(
+      city_pop = readr::parse_number(`Population..4`),
+      metro_pop = readr::parse_number(`Population..5`),
+      urban_pop = readr::parse_number(`Population..6`),
       # strip commas to avoid breaking SQLite import
-      Nation = ~gsub(",", "_", `Nation`)
+      Nation = gsub(",", "_", `Nation`)
     ) %>%
-    select_(~City, ~Nation, ~city_pop, ~metro_pop, ~urban_pop)
+    select(City, Nation, city_pop, metro_pop, urban_pop)
 
   us_cities <- get_longest_table(tables[[2]]) %>%
     tibble::set_tidy_names() %>%
-    mutate_(
-      City = ~gsub("\\[[0-9]+\\]", "", City),
-      pop_2016 = ~readr::parse_number(`2016\nestimate`),
-      pop_2010 = ~readr::parse_number(`2010\nCensus`),
-      pop_density_2016 = ~readr::parse_number(`2016 population density..9`),
-      pop_density_2010 = ~readr::parse_number(`2016 population density..10`),
+    mutate(
+      City = gsub("\\[[0-9]+\\]", "", City),
+      pop_2016 = readr::parse_number(`2016\nestimate`),
+      pop_2010 = readr::parse_number(`2010\nCensus`),
+      pop_density_2016 = readr::parse_number(`2016 population density..9`),
+      pop_density_2010 = readr::parse_number(`2016 population density..10`),
       # strip commas to avoid breaking SQLite import
       Location = ~gsub(",", "_", Location)
     ) %>%
-    rename_(State = ~`State[5]`) %>%
-    select_(~City, ~State, ~pop_2016, ~pop_2010,
-            ~pop_density_2016, ~pop_density_2010, ~Location)
+    rename(State = `State[5]`) %>%
+    select(City, State, pop_2016, pop_2010,
+            pop_density_2016, pop_density_2010, Location)
 
   lcl <- file.path(attr(obj, "load_dir"), c("world_cities.csv", "us_cities.csv"))
 

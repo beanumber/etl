@@ -129,7 +129,7 @@ test_that("MonetDBLite works", {
 
 test_that("create ETL works", {
   path <- file.path(tempdir(), "scorecard")
-  expect_message(create_etl_package(path), "scorecard")
+  expect_output(create_etl_package(path, open = FALSE), "active project")
 })
 
 test_that("dbRunScript works", {

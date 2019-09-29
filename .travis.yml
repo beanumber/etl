@@ -31,7 +31,6 @@ apt_packages:
   - libgdal-dev
 
 r_packages:
-  - devtools
   - Rcpp
 
 # Install the bleeding edge version of a package from github (eg to pick
