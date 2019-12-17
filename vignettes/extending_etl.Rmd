@@ -31,7 +31,7 @@ Please see these packages for examples of how to develop an `etl`-dependent pack
 
 ## The basics
 
-Suppose that you want to write the `etl`-dependent package `foo`. In order for `foo` to work, it should implement at least one of these methods (and somtimes all three):
+Suppose that you want to write the `etl`-dependent package `foo`. In order for `foo` to work, it should implement at least one of these methods (and sometimes all three):
 
 1. `etl_extract.etl_foo()` - downloads data from Internet
 2. `etl_transform.etl_foo()` - takes downloaded data and puts it into CSV format suitable for import to SQL
@@ -89,7 +89,7 @@ These functions can generally be used without modification and thus are *not* co
 
 The `etl_init()` function will initialize the SQL database. 
 
-If you want to contribute your own hard-coded SQL initalization script, it must be placed in `inst/sql/`. The `etl_init()` function will look there, and find files whose file extensions match the database type. For example, scripts written for MySQL should have the `.mysql` file extension, while scripts written for PostgreSQL should have the `.postgresql` file extension. 
+If you want to contribute your own hard-coded SQL initialization script, it must be placed in `inst/sql/`. The `etl_init()` function will look there, and find files whose file extensions match the database type. For example, scripts written for MySQL should have the `.mysql` file extension, while scripts written for PostgreSQL should have the `.postgresql` file extension. 
 
 If no such file exists, all of the tables and views in the database will be deleted, and new tables schemas will be created on-the-fly by `dplyr`. 
 
