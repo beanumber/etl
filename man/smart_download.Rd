@@ -4,8 +4,7 @@
 \alias{smart_download}
 \title{Download only those files that don't already exist}
 \usage{
-smart_download(obj, src, new_filenames = basename(src),
-  clobber = FALSE, ...)
+smart_download(obj, src, new_filenames = basename(src), clobber = FALSE, ...)
 }
 \arguments{
 \item{obj}{an \code{\link{etl}} object}

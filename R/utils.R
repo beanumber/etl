@@ -82,7 +82,6 @@ valid_year_month <- function(years, months,
 
 #' Match year and month vectors to filenames
 #' @description Match year and month vectors to filenames
-#' @inheritParams extract_date_from_filename
 #' @param years a numeric vector of years
 #' @param months a numeric vector of months
 #' @return a character vector of \code{files} that match the \code{pattern}, \code{year}, and \code{month} arguments
@@ -225,7 +224,6 @@ db_type.DBIConnection <- function(obj, ...) {
 
 #' Create an ETL package skeleton
 #' @importFrom usethis create_package use_package
-#' @inheritParams usethis::create_package
 #' @param ... arguments passed to \code{\link[usethis]{create_package}}
 #' @export
 #' @details Extends \code{\link[usethis]{create_package}} and places a template source file in

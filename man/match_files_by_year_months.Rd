@@ -5,8 +5,13 @@
 \alias{extract_date_from_filename}
 \title{Match year and month vectors to filenames}
 \usage{
-match_files_by_year_months(files, pattern,
-  years = as.numeric(format(Sys.Date(), "\%Y")), months = 1:12, ...)
+match_files_by_year_months(
+  files,
+  pattern,
+  years = as.numeric(format(Sys.Date(), "\%Y")),
+  months = 1:12,
+  ...
+)
 
 extract_date_from_filename(files, pattern, ...)
 }

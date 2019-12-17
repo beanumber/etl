@@ -6,14 +6,25 @@
 \alias{find_schema}
 \title{Initialize a database using a defined schema}
 \usage{
-etl_init(obj, script = NULL, schema_name = "init", pkg = attr(obj,
-  "pkg"), ext = NULL, ...)
+etl_init(
+  obj,
+  script = NULL,
+  schema_name = "init",
+  pkg = attr(obj, "pkg"),
+  ext = NULL,
+  ...
+)
 
-\method{etl_init}{default}(obj, script = NULL, schema_name = "init",
-  pkg = attr(obj, "pkg"), ext = NULL, ...)
+\method{etl_init}{default}(
+  obj,
+  script = NULL,
+  schema_name = "init",
+  pkg = attr(obj, "pkg"),
+  ext = NULL,
+  ...
+)
 
-find_schema(obj, schema_name = "init", pkg = attr(obj, "pkg"),
-  ext = NULL, ...)
+find_schema(obj, schema_name = "init", pkg = attr(obj, "pkg"), ext = NULL, ...)
 }
 \arguments{
 \item{obj}{An \code{\link{etl}} object}
