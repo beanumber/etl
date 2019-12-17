@@ -1,8 +1,7 @@
 ## Test environments
 
-* local OS X install, R 3.3.1
-* local Ubuntu 16.04.2, R 3.4.3
-* Ubuntu 14.04.5 (on travis-ci), oldrel, release, devel
+* local Ubuntu 18.04.3, R 3.6.1
+* Ubuntu 16.04.6 (on travis-ci), oldrel, release, devel
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -15,7 +14,8 @@
 
   These words are not mis-spelled.
 
-* Code coverage is 79%.
+* Internet downloads are disabled for CRAN checks
+
 
 ## Reverse dependencies
 

@@ -51,31 +51,31 @@ etl_transform.etl_cities <- function(obj, ...) {
   }
 
   world_cities <- get_longest_table(tables[[1]]) %>%
-    tibble::set_tidy_names() %>%
-    filter(City != "") %>%
+    janitor::clean_names() %>%
+    filter(city != "City") %>%
     mutate(
-      city_pop = readr::parse_number(`Population..4`),
-      metro_pop = readr::parse_number(`Population..5`),
-      urban_pop = readr::parse_number(`Population..6`),
+      city_pop = readr::parse_number(population),
+      metro_pop = readr::parse_number(population_2),
+      urban_pop = readr::parse_number(population_3),
       # strip commas to avoid breaking SQLite import
-      Nation = gsub(",", "_", `Nation`)
+      Nation = gsub(",", "_", nation)
     ) %>%
-    select(City, Nation, city_pop, metro_pop, urban_pop)
+    select(city, nation, contains("_pop"))
 
   us_cities <- get_longest_table(tables[[2]]) %>%
-    tibble::set_tidy_names() %>%
+    janitor::clean_names() %>%
     mutate(
-      City = gsub("\\[[0-9]+\\]", "", City),
-      pop_2016 = readr::parse_number(`2016\nestimate`),
-      pop_2010 = readr::parse_number(`2010\nCensus`),
-      pop_density_2016 = readr::parse_number(`2016 population density..9`),
-      pop_density_2010 = readr::parse_number(`2016 population density..10`),
+      city = gsub("\\[[a-z0-9]+\\]", "", city),
+      pop_2018 = readr::parse_number(`x2018estimate`),
+      pop_2010 = readr::parse_number(`x2010census`),
+      pop_density_2016 = readr::parse_number(`x2016_population_density`),
+      pop_density_2010 = readr::parse_number(`x2016_population_density_2`),
       # strip commas to avoid breaking SQLite import
-      Location = ~gsub(",", "_", Location)
+      location = gsub(",", "_", location)
     ) %>%
-    rename(State = `State[5]`) %>%
-    select(City, State, pop_2016, pop_2010,
-            pop_density_2016, pop_density_2010, Location)
+    rename(state = `state_c`) %>%
+    select(city, state, pop_2018, pop_2010,
+           pop_density_2016, pop_density_2010, location)
 
   lcl <- file.path(attr(obj, "load_dir"), c("world_cities.csv", "us_cities.csv"))
 
@@ -83,4 +83,10 @@ etl_transform.etl_cities <- function(obj, ...) {
   invisible(obj)
 }
 
-
+globalVariables(
+  c("x2010census", "x2018estimate", "population" , "Var1", "Var2", "X",
+    "city", "file_date", "month_begin", "nation", "pop_2010", "pop_2018",
+    "pop_density_2010", "pop_density_2016", "population_2", "population_3",
+    "size", "state", "state_c", "x2016_population_density",
+    "x2016_population_density_2")
+)
