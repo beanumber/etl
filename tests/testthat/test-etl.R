@@ -111,21 +111,6 @@ test_that("cities works", {
 })
 
 
-test_that("MonetDBLite works", {
-  if (require(MonetDBLite)) {
-    # db <- MonetDBLite::src_monetdblite()
-    # cars_monet <- etl("mtcars", db = db)
-    # expect_message(
-    #   cars_monet %>%
-    #     etl_create()
-    # )
-    # tbl_cars <- cars_monet %>%
-    #   tbl("mtcars")
-    # expect_equal(nrow(tbl_cars %>% collect()), 32)
-    # expect_s3_class(cars_monet, "src_monetdb")
-    # expect_s3_class(tbl_cars, "tbl_monetdb")
-  }
-})
 
 test_that("create ETL works", {
   path <- file.path(tempdir(), "scorecard")
