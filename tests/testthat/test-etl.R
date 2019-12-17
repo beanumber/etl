@@ -1,10 +1,5 @@
 context("etl")
 
-## TODO: Rename context
-## TODO: Add more tests
-
-
-
 test_that("sqlite works", {
   cars_sqlite <- etl("mtcars")
   expect_s3_class(cars_sqlite, c("etl_mtcars", "etl", "src_sqlite", "src_dbi"))
@@ -87,6 +82,7 @@ test_that("etl works", {
 })
 
 test_that("smart_download works", {
+  skip_on_cran()
   cars <- etl("mtcars")
   # first download some files
 #  if (!.Platform$OS.type == "windows") {
@@ -102,6 +98,7 @@ test_that("smart_download works", {
 
 
 test_that("cities works", {
+  skip_on_cran()
   cities_sqlite <- etl("cities")
   # fails on check() but not on test()?? issue #37
 #   expect_message(cities_sqlite %>% etl_create(), "Loading")
