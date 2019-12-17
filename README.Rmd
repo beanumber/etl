@@ -5,8 +5,8 @@ output: github_document
 # etl <img src="inst/png/etl_hex.png" align="right" height=140/>
 
 [![Travis-CI Build Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/etl)](https://cran.r-project.org/package=etl)
-[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/etl)](http://www.r-pkg.org/pkg/etl)
+[![CRAN status](https://www.r-pkg.org/badges/version/etl)](https://CRAN.R-project.org/package=etl)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/etl)](https://www.r-pkg.org:443/pkg/etl)
 
 `etl` is an R package to facilitate [Extract - Transform - Load (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load) operations for **medium data**. The end result is generally a populated SQL database, but the user interaction takes place solely within R.
 
