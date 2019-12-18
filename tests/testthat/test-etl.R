@@ -86,6 +86,7 @@ test_that("smart_download works", {
   cars <- etl("mtcars")
   # first download some files
 #  if (!.Platform$OS.type == "windows") {
+  skip_on_cran()
     expect_message(etl_cleanup(cars, pattern = ".", delete_raw = TRUE, delete_load = TRUE), "Deleting")
     urls <- c("https://raw.githubusercontent.com/beanumber/etl/master/etl.Rproj",
               "https://www.reddit.com/robots.txt")
