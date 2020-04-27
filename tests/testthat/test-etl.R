@@ -111,7 +111,7 @@ test_that("cities works", {
 
 test_that("create ETL works", {
   path <- file.path(tempdir(), "scorecard")
-  expect_output(create_etl_package(path, open = FALSE), "active project")
+  expect_output(create_etl_package(path, open = FALSE), "Package:")
 })
 
 test_that("dbRunScript works", {
