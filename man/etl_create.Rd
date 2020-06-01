@@ -16,7 +16,6 @@
 \alias{etl_load.default}
 \alias{etl_transform}
 \alias{etl_transform.default}
-\alias{etl_transform.etl_mtcars}
 \alias{etl_transform.etl_cities}
 \title{ETL functions for working with medium sized data}
 \usage{
@@ -53,8 +52,6 @@ etl_load(obj, ...)
 etl_transform(obj, ...)
 
 \method{etl_transform}{default}(obj, ...)
-
-\method{etl_transform}{etl_mtcars}(obj, ...)
 
 \method{etl_transform}{etl_cities}(obj, ...)
 }

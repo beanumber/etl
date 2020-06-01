@@ -17,20 +17,6 @@ etl_transform.default <- function(obj, ...) {
 #' @rdname etl_create
 #' @export
 
-etl_transform.etl_mtcars <- function(obj, ...) {
-  message("Transforming raw data...")
-  src <- file.path(attr(obj, "raw_dir"), "mtcars.csv")
-  data <- readr::read_csv(src)
-  data <- data %>%
-    rename(makeModel = X)
-  lcl <- file.path(attr(obj, "load_dir"), "mtcars.csv")
-  readr::write_csv(data, file = lcl, row.names = FALSE)
-  invisible(obj)
-}
-
-#' @rdname etl_create
-#' @export
-
 etl_transform.etl_cities <- function(obj, ...) {
   src <- list.files(attr(obj, "raw_dir"), pattern = "\\.html", full.names = TRUE)
   pages <- lapply(src, xml2::read_html)

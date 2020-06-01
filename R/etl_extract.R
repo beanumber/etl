@@ -45,7 +45,9 @@ get_data <- function(x) {
 etl_extract.etl_mtcars <- function(obj, ...) {
   message("Extracting raw data...")
   raw_filename <- file.path(attr(obj, "raw_dir"), "mtcars.csv")
-  readr::write_csv(datasets::mtcars, path = raw_filename)
+  datasets::mtcars %>%
+    tibble::rownames_to_column("model") %>%
+    readr::write_csv(path = raw_filename)
   invisible(obj)
 }
 
