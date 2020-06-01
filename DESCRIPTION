@@ -21,6 +21,7 @@ Imports:
     DBI,
     datasets,
     downloader,
+    fs,
     janitor,
     lubridate,
     methods,

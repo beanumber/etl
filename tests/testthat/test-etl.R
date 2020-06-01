@@ -66,19 +66,22 @@ test_that("valid_year_month works", {
 
 test_that("extract_date_from_filename works", {
   test <- expand.grid(year = 1999:2001, month = c(1:6, 9)) %>%
-    mutate(filename = paste0("myfile_", year, "_", month, ".ext"))
+    mutate(filename = paste0("myfile_", year, "_", month, ".csv"))
   expect_is(
-    extract_date_from_filename(test$filename, pattern = "myfile_%Y_%m.ext"),
+    extract_date_from_filename(test$filename, pattern = "myfile_%Y_%m.csv"),
     "Date"
   )
   expect_null(extract_date_from_filename(list.files("/cdrom"), pattern = "*"))
-  skip_if_not(require(airlines) && dir.exists("~/Data/airlines") && list.files(attr(airlines, "raw_dir")) >= 12)
-  airlines <- etl("airlines", dir = "~/Data/airlines") %>%
-    etl_extract(year = 1987)
-  summary(airlines)
-  res <- match_files_by_year_months(list.files(attr(airlines, "raw_dir")),
-                                    pattern = "On_Time_On_Time_Performance_%Y_%m.zip", year = 1987)
+
+  files <- fs::path(tempdir(), test$filename)
+  lapply(files, FUN = readr::write_csv, x = data.frame(var = "etl"))
+
+  res <- match_files_by_year_months(
+    files,
+    pattern = "myfile_%Y_%m.csv", year = 1999:2000
+  )
   expect_is(res, "fs_path")
+  expect_length(res, 14)
 })
 
 test_that("etl works", {
