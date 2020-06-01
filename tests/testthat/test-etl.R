@@ -59,8 +59,9 @@ test_that("mysql works", {
 
 
 test_that("valid_year_month works", {
-  expect_equal(
-    nrow(valid_year_month(years = 1999:2001, months = c(1:3, 7))), 12)
+  dates <- valid_year_month(years = 1999:2001, months = c(1:3, 7))
+  expect_is(dates, "tbl_df")
+  expect_equal(nrow(dates), 12)
 })
 
 test_that("extract_date_from_filename works", {
@@ -68,8 +69,16 @@ test_that("extract_date_from_filename works", {
     mutate(filename = paste0("myfile_", year, "_", month, ".ext"))
   expect_is(
     extract_date_from_filename(test$filename, pattern = "myfile_%Y_%m.ext"),
-    "Date")
+    "Date"
+  )
   expect_null(extract_date_from_filename(list.files("/cdrom"), pattern = "*"))
+  skip_if_not(require(airlines) && dir.exists("~/Data/airlines") && list.files(attr(airlines, "raw_dir")) >= 12)
+  airlines <- etl("airlines", dir = "~/Data/airlines") %>%
+    etl_extract(year = 1987)
+  summary(airlines)
+  res <- match_files_by_year_months(list.files(attr(airlines, "raw_dir")),
+                                    pattern = "On_Time_On_Time_Performance_%Y_%m.zip", year = 1987)
+  expect_is(res, "fs_path")
 })
 
 test_that("etl works", {

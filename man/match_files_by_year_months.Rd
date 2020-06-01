@@ -39,11 +39,11 @@ Extracts a date from filenames
 \examples{
 \dontrun{
 if (require(airlines)) {
-  airlines <- etl("airlines", dir = "~/dumps/airlines") \%>\%
+  airlines <- etl("airlines", dir = "~/Data/airlines") \%>\%
     etl_extract(year = 1987)
   summary(airlines)
   match_files_by_year_months(list.files(attr(airlines, "raw_dir")),
-    pattern = "On_Time_On_Time_Performance_\%Y_\%m.zip"), year = 1987)
+    pattern = "On_Time_On_Time_Performance_\%Y_\%m.zip", year = 1987)
 }
 }
 }

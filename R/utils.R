@@ -66,15 +66,17 @@ valid_year_month <- function(years, months,
   begin <- as.Date(begin)
   end <- as.Date(end)
 
-  valid_months <- data.frame(expand.grid(years, months)) %>%
+  valid_months <- tibble::tibble(expand.grid(years, months)) %>%
     rename(year = Var1, month = Var2) %>%
-    mutate(month_begin = lubridate::ymd(paste(year, month,
-                                              "01", sep = "/"))) %>%
-    mutate(month_end = lubridate::ymd(
-      ifelse(month == 12, paste(year + 1, "01/01", sep = "/"),
-                          paste(year, month + 1, "01", sep = "/"))) - 1) %>%
-    filter(year > 0 & month >= 1 & month <= 12) %>%
-    filter(month_begin >= begin & month_begin <= end) %>%
+    mutate(
+      month_begin = lubridate::ymd(paste(year, month, "01", sep = "/")),
+      month_end = lubridate::ymd(
+        ifelse(month == 12, paste(year + 1, "01/01", sep = "/"),
+               paste(year, month + 1, "01", sep = "/"))) - 1) %>%
+    filter(
+      year > 0 & month >= 1 & month <= 12,
+      month_begin >= begin & month_begin <= end
+    ) %>%
     arrange(month_begin)
   return(valid_months)
 }
@@ -90,11 +92,11 @@ valid_year_month <- function(years, months,
 #' @examples
 #' \dontrun{
 #' if (require(airlines)) {
-#'   airlines <- etl("airlines", dir = "~/dumps/airlines") %>%
+#'   airlines <- etl("airlines", dir = "~/Data/airlines") %>%
 #'     etl_extract(year = 1987)
 #'   summary(airlines)
 #'   match_files_by_year_months(list.files(attr(airlines, "raw_dir")),
-#'     pattern = "On_Time_On_Time_Performance_%Y_%m.zip"), year = 1987)
+#'     pattern = "On_Time_On_Time_Performance_%Y_%m.zip", year = 1987)
 #' }
 #' }
 
@@ -105,16 +107,18 @@ match_files_by_year_months <- function(files, pattern,
   if (length(files) < 1) {
     return(NULL)
   }
-  file_df <- data.frame(filename = files,
-                        file_date = extract_date_from_filename(files,
-                                                               pattern)) %>%
-    mutate(file_year = lubridate::year(file_date),
-           file_month = lubridate::month(file_date))
+  file_df <- tibble::tibble(
+    filename = files,
+    file_date = extract_date_from_filename(files, pattern)) %>%
+    mutate(
+      file_year = lubridate::year(file_date),
+      file_month = lubridate::month(file_date)
+    )
   valid <- valid_year_month(years, months)
   good <- file_df %>%
     left_join(valid, by = c("file_year" = "year", "file_month" = "month")) %>%
     filter(!is.na(month_begin))
-  return(as.character(good$filename))
+  return(fs::as_fs_path(good$filename))
 }
 
 #' @description Extracts a date from filenames
