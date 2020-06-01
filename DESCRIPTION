@@ -1,7 +1,7 @@
 Package: etl
 Type: Package
 Title: Extract-Transform-Load Framework for Medium Data
-Version: 0.3.8.9001
+Version: 0.3.8.9002
 Authors@R: c(
     person("Ben", "Baumer", email = "ben.baumer@gmail.com",
       role = c("aut", "cre")),
@@ -38,7 +38,6 @@ Depends:
 Suggests:
     dbplyr,
     knitr,
-    macleish,
     RSQLite,
     RPostgreSQL,
     RMySQL,
@@ -49,4 +48,4 @@ URL: http://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/etl/issues
 RoxygenNote: 7.1.0
 Encoding: UTF-8
-VignetteBuilder: knitr, rmarkdown, etl, macleish, ggplot2, dplyr, dbplyr
+VignetteBuilder: knitr, rmarkdown, etl, ggplot2, dplyr, dbplyr

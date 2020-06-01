@@ -66,14 +66,12 @@ Each of the three main `etl` methods must take an `etl_foo` object as it's first
 
 All three of the main `etl` methods should take the same set or arguments. Most commonly these define the span of time for the files that you want to extract, transform, or load. For example, in the `airlines` package, these functions take optional `year` and `month` arguments. 
 
-Since `airlines` is not on CRAN we we illustrate with `macleish`, which unfortunately takes only `...`. Also, `macleish` uses `etl_load.default()`, so there is no `macleish:::etl_load.etl_macleish()` method. 
+We illustrate with `cities`, which unfortunately takes only `...`. Also, `etl_cities` uses `etl_load.default()`, so there is no `etl:::etl_load.etl_cities()` method. 
 
 ```{r, error=TRUE}
-if (require(macleish)) {
-  macleish:::etl_extract.etl_macleish %>% args()
-  macleish:::etl_transform.etl_macleish %>% args()
-  macleish:::etl_load.etl_macleish %>% args()
-}
+etl_extract.etl_cities %>% args()
+etl_transform.etl_cities %>% args()
+etl_load.etl_cities %>% args()
 ```
 
 ### Other `etl` methods
@@ -98,10 +96,8 @@ If no such file exists, all of the tables and views in the database will be dele
 Every `etl_foo` object has a directory where it can store files and a `DBIConnection` where it can write to a database. By default, these come from `tempdir()` and `RSQLite::SQLite()`, but the user can alternatively specify other locations. 
 
 ```{r}
-if (require(macleish)) {
-  macleish <- etl("macleish")
-  str(macleish)
-}
+cities <- etl("cities")
+str(cities)
 ```
 
 Note that an `etl_foo` object is also a `src_dbi` object and a `src_sql` object. Please see the [`dbplyr` vignette](https://CRAN.R-project.org/package=dbplyr) for more information about these database connections. 
