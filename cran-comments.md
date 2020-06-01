@@ -8,13 +8,16 @@
 
 ## R CMD check results
 
+* This is a resubmission. The package was pulled from CRAN
+  because of a change in `usethis`, but that issue is resolved.
+
 * Internet downloads are disabled for CRAN checks
 
 * On Travis:
 
 0 errors | 0 warnings | 0 notes
 
-* On R-hub
+* On R-hub:
 
 * Possibly mis-spelled words in DESCRIPTION:
   ETL (11:66)
@@ -22,22 +25,13 @@
 
   These words are not mis-spelled.
 
-* Windows throws a NOTE, but this doesn't happen on any other platforms, 
-  so I am inclined to ignore it:
-    * checking examples ... NOTE
-    Examples with CPU (user + system) or elapsed time > 5s
-                   user system elapsed
-    smart_download    0   0.06   11.65
+* R-hub throws an error on Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+Error: package or namespace load failed for 'dplyr' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ namespace 'vctrs' 0.2.4 is being loaded, but >= 0.3.0 is required
+Error: package 'dplyr' could not be loaded
 
-* R-hub throws an ERROR on Fedora and Ubuntu, but the error is caused by `sf` 
-  failing to install due to GDAL libraries being behind schedule:
-    * checking package dependencies ... ERROR
-    Package suggested but not available: ‘macleish’
+  This seems like an issue with R-hub on Windows and `dplyr` so it's outside of my control.
 
-* R-hub throws an ERROR on Fedora, but the error is caused by external 
-  dependencies not being met that I can't control:
-    * checking package dependencies ... ERROR
-    Packages suggested but not available: 'RPostgreSQL', 'RMySQL'
 
 ## Reverse dependencies
 
