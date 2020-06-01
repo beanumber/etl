@@ -1,6 +1,6 @@
 ## Test environments
 
-* local Ubuntu 18.04.3, R 3.6.1
+* local Ubuntu 18.04.3, R 3.6.3
 * Ubuntu 16.04.6 (on travis-ci), oldrel, release, devel
 * Ubuntu Linux 16.04 LTS, R-release, GCC
 * Fedora Linux, R-devel, clang, gfortran

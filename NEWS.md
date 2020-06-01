@@ -2,6 +2,7 @@
 
 * Fixed issue with new version of `usethis`; #59
 * Cleaned up NAMESPACE
+* Removed `macleish` dependency
 
 ### MINOR IMPROVEMENTS
 

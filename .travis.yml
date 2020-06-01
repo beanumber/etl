@@ -22,18 +22,3 @@ notifications:
 # - RSQLite
 # - RMySQL
 # - RPostgreSQL
-
-# for macleish
-apt_packages:
-  - libudunits2-dev
-  - libproj-dev
-  - libgeos-dev
-  - libgdal-dev
-
-r_packages:
-  - Rcpp
-
-# Install the bleeding edge version of a package from github (eg to pick
-# up a not-yet-released bugfix)
-r_github_packages:
-  - beanumber/airlines
