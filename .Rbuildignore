@@ -9,3 +9,5 @@
 ^data-raw$
 ^etl\.Rproj$
 ^CRAN-RELEASE$
+^doc$
+^Meta$
