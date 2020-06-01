@@ -29,7 +29,6 @@ verify_con <- function(x, dir = tempdir()) {
 #' @param months a numeric vector of months
 #' @param begin the earliest valid date, defaults to the UNIX epoch
 #' @param end the most recent valid date, defaults to today
-#' @importFrom lubridate ymd
 #' @details Often, a data source will \code{begin} and \code{end} at
 #' known points in time. At the same time, many data sources are divided
 #' into monthly archives. Given a set of \code{years} and \code{months},
@@ -85,7 +84,6 @@ valid_year_month <- function(years, months,
 #' @param years a numeric vector of years
 #' @param months a numeric vector of months
 #' @return a character vector of \code{files} that match the \code{pattern}, \code{year}, and \code{month} arguments
-#' @importFrom lubridate year month
 #' @export
 #' @examples
 #' \dontrun{
@@ -122,7 +120,6 @@ match_files_by_year_months <- function(files, pattern,
 #' @param pattern a regular expression to be passed to \code{\link[lubridate]{fast_strptime}}
 #' @param ... arguments passed to \code{\link[lubridate]{fast_strptime}}
 #' @return a vector of \code{\link{POSIXct}} dates matching the pattern
-#' @importFrom lubridate fast_strptime days
 #' @export
 #' @rdname match_files_by_year_months
 
@@ -140,7 +137,6 @@ extract_date_from_filename <- function(files, pattern, ...) {
 #' Wipe out all tables in a database
 #' @details Finds all tables within a database and removes them
 #' @inheritParams DBI::dbRemoveTable
-#' @importFrom DBI dbRemoveTable
 #' @export
 
 dbWipe <- function(conn, ...) {
@@ -203,7 +199,6 @@ src_mysql_cnf <- function(dbname = "test", groups = "rs-dbi", ...) {
 db_type <- function(obj, ...) UseMethod("db_type")
 
 #' @rdname db_type
-#' @method db_type src_dbi
 #' @export
 
 db_type.src_dbi <- function(obj, ...) {
@@ -211,8 +206,6 @@ db_type.src_dbi <- function(obj, ...) {
 }
 
 #' @rdname db_type
-#' @importFrom utils head
-#' @method db_type DBIConnection
 #' @export
 
 db_type.DBIConnection <- function(obj, ...) {
@@ -223,7 +216,6 @@ db_type.DBIConnection <- function(obj, ...) {
 }
 
 #' Create an ETL package skeleton
-#' @importFrom usethis create_package use_package
 #' @param ... arguments passed to \code{\link[usethis]{create_package}}
 #' @export
 #' @details Extends \code{\link[usethis]{create_package}} and places a template source file in

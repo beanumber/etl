@@ -8,7 +8,6 @@
 #' @details The SQL script file must be \code{;} delimited.
 #' @return a list of results from \code{dbExecute} for each of the individual
 #' SQL statements in \code{script}.
-#' @importFrom DBI SQL dbExecute
 #' @export
 #'
 #' @examples

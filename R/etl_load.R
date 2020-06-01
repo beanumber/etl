@@ -20,7 +20,6 @@
 etl_load <- function(obj, ...) UseMethod("etl_load")
 
 #' @rdname etl_create
-#' @method etl_load default
 #' @export
 
 etl_load.default <- function(obj, ...) {
@@ -36,7 +35,6 @@ etl_load.default <- function(obj, ...) {
 #' database corresponding to each of the files in \code{src}. If \code{NULL},
 #' will default to the same name as \code{src}, without paths or file extensions.
 #' @param ... arguments passed to \code{\link[DBI]{dbWriteTable}}
-#' @importFrom DBI dbWriteTable
 #' @export
 #' @examples
 #' \dontrun{
@@ -134,8 +132,6 @@ etl_init.default <- function(obj, script = NULL, schema_name = "init",
 #' be inferred from the \code{src_*} class of \code{con}. For example, if \code{con}
 #' has class \code{\link[dplyr]{src_sqlite}} then \code{ext} will be \code{sqlite}.
 #' @param ... Currently ignored
-#' @importFrom stats na.omit
-#' @importFrom stringr str_extract
 #' @export
 #' @examples
 #'

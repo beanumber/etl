@@ -1,4 +1,7 @@
-# etl 0.3.9 (?)
+# etl 0.3.9 (2020-06-01)
+
+* Fixed issue with new version of `usethis`; #59
+* Cleaned up NAMESPACE
 
 ### MINOR IMPROVEMENTS
 

@@ -72,7 +72,6 @@
 etl <- function(x, db = NULL, dir = tempdir(), ...) UseMethod("etl")
 
 #' @rdname etl
-#' @method etl default
 #' @export
 
 etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
@@ -107,7 +106,6 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
 }
 
 #' @rdname etl
-#' @method summary etl
 #' @inheritParams base::summary
 #' @export
 #' @examples
@@ -150,7 +148,6 @@ is.etl <- function(object) inherits(object, "etl")
 #' @rdname etl
 #' @export
 #' @inheritParams base::print
-#' @importFrom readr parse_number
 #' @examples
 #' cars <- etl("mtcars") %>%
 #'   etl_create()

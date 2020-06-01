@@ -4,7 +4,6 @@
 etl_cleanup <- function(obj, ...) UseMethod("etl_cleanup")
 
 #' @rdname etl_create
-#' @method etl_cleanup default
 #' @param delete_raw should files be deleted from the \code{raw_dir}?
 #' @param delete_load should files be deleted from the \code{load_dir}?
 #' @param pattern regular expression matching file names to be deleted. By default,

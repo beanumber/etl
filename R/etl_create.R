@@ -73,7 +73,6 @@
 etl_create <- function(obj, ...) UseMethod("etl_create")
 
 #' @rdname etl_create
-#' @method etl_create default
 #' @export
 
 etl_create.default <- function(obj, ...) {
@@ -90,7 +89,6 @@ etl_create.default <- function(obj, ...) {
 etl_update <- function(obj, ...) UseMethod("etl_update")
 
 #' @rdname etl_create
-#' @method etl_update default
 #' @export
 
 etl_update.default <- function(obj, ...) {

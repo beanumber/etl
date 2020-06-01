@@ -6,9 +6,6 @@ globalVariables(c("Package", "Item"))
 etl_extract <- function(obj, ...) UseMethod("etl_extract")
 
 #' @rdname etl_create
-#' @method etl_extract default
-#' @importFrom readr write_csv
-#' @importFrom utils data
 #' @export
 
 etl_extract.default <- function(obj, ...) {
@@ -36,8 +33,6 @@ etl_extract.default <- function(obj, ...) {
   invisible(obj)
 }
 
-#' @importFrom rlang parse_expr
-
 get_data <- function(x) {
   # https://stackoverflow.com/questions/30951204/load-dataset-from-r-package-using-data-assign-it-directly-to-a-variable
   eval(rlang::parse_expr(x))
@@ -45,19 +40,16 @@ get_data <- function(x) {
 
 
 #' @rdname etl_create
-#' @method etl_extract etl_mtcars
-#' @importFrom utils write.csv
 #' @export
 
 etl_extract.etl_mtcars <- function(obj, ...) {
   message("Extracting raw data...")
   raw_filename <- file.path(attr(obj, "raw_dir"), "mtcars.csv")
-  utils::write.csv(datasets::mtcars, file = raw_filename)
+  readr::write_csv(datasets::mtcars, path = raw_filename)
   invisible(obj)
 }
 
 #' @rdname etl_create
-#' @method etl_extract etl_cities
 #' @export
 
 etl_extract.etl_cities <- function(obj, ...) {
@@ -78,7 +70,6 @@ etl_extract.etl_cities <- function(obj, ...) {
 #' @details Downloads only those files in \code{src} that are not already present in
 #' the directory specified by the \code{raw_dir} attribute of \code{obj}.
 #' @author idiom courtesy of Hadley Wickham
-#' @importFrom downloader download
 #' @export
 #'
 #' @examples

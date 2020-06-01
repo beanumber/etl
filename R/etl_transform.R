@@ -4,7 +4,6 @@
 etl_transform <- function(obj, ...) UseMethod("etl_transform")
 
 #' @rdname etl_create
-#' @method etl_transform default
 #' @export
 
 etl_transform.default <- function(obj, ...) {
@@ -16,27 +15,20 @@ etl_transform.default <- function(obj, ...) {
 }
 
 #' @rdname etl_create
-#' @method etl_transform etl_mtcars
-#' @importFrom utils read.csv write.csv
 #' @export
 
 etl_transform.etl_mtcars <- function(obj, ...) {
   message("Transforming raw data...")
   src <- file.path(attr(obj, "raw_dir"), "mtcars.csv")
-  data <- utils::read.csv(src)
+  data <- readr::read_csv(src)
   data <- data %>%
     rename(makeModel = X)
   lcl <- file.path(attr(obj, "load_dir"), "mtcars.csv")
-  utils::write.csv(data, file = lcl, row.names = FALSE)
+  readr::write_csv(data, file = lcl, row.names = FALSE)
   invisible(obj)
 }
 
 #' @rdname etl_create
-#' @method etl_transform etl_cities
-#' @importFrom rvest html_table
-#' @importFrom tibble set_tidy_names
-#' @importFrom xml2 read_html
-#' @importFrom readr parse_number
 #' @export
 
 etl_transform.etl_cities <- function(obj, ...) {
@@ -79,7 +71,7 @@ etl_transform.etl_cities <- function(obj, ...) {
 
   lcl <- file.path(attr(obj, "load_dir"), c("world_cities.csv", "us_cities.csv"))
 
-  mapply(utils::write.csv, list(world_cities, us_cities), lcl, row.names = FALSE)
+  mapply(readr::write_csv, list(world_cities, us_cities), lcl)
   invisible(obj)
 }
 
