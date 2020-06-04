@@ -1,3 +1,7 @@
+# etl 0.4.0
+
+* Removed `stringr` dependency
+
 # etl 0.3.9 (2020-06-01)
 
 * Fixed issue with new version of `usethis`; #59
