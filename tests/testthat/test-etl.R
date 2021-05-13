@@ -2,7 +2,7 @@ context("etl")
 
 test_that("sqlite works", {
   cars_sqlite <- etl("mtcars")
-  expect_s3_class(cars_sqlite, c("etl_mtcars", "etl", "src_sqlite", "src_dbi"))
+  expect_s3_class(cars_sqlite, c("etl_mtcars", "etl", "src_SQLiteConnection", "src_dbi", "src_sql"))
   expect_true(file.exists(find_schema(cars_sqlite)))
   expect_message(find_schema(cars_sqlite, "my_crazy_schema", "etl"))
   expect_output(summary(cars_sqlite), "files")
@@ -15,7 +15,7 @@ test_that("sqlite works", {
 
 test_that("default works", {
   dplyr_sqlite <- etl("dplyr")
-  expect_s3_class(dplyr_sqlite, c("etl_dplyr", "etl", "src_sqlite", "src_dbi"))
+  expect_s3_class(dplyr_sqlite, c("etl_dplyr", "etl", "src_SQLiteConnection", "src_dbi", "src_sql"))
   expect_output(summary(dplyr_sqlite), "files")
   expect_message(dplyr_sqlite %>% etl_update(), "Loading")
   expect_message(
@@ -50,7 +50,7 @@ test_that("mysql works", {
     db <- src_mysql_cnf()
     expect_s3_class(db, "src_dbi")
     cars_mysql <- etl("mtcars", db = db)
-    expect_s3_class(cars_mysql, c("etl_mtcars", "etl", "src_dbi", "src_dbi"))
+    expect_s3_class(cars_mysql, c("etl_mtcars", "etl", "src_dbi"))
     expect_true(file.exists(find_schema(cars_mysql)))
     expect_message(find_schema(cars_mysql, "my_crazy_schema", "etl"))
     expect_output(summary(cars_mysql), "/tmp")
