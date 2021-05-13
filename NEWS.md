@@ -1,6 +1,7 @@
 # etl 0.4.0
 
 * Removed `stringr` dependency
+* Remove `LazyData: TRUE` since there is no data
 
 # etl 0.3.9 (2020-06-01)
 
