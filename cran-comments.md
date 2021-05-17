@@ -8,7 +8,7 @@
 
 ## R CMD check results
 
-* Internet downloads are disabled for CRAN checks
+* Internet downloads are disabled for CRAN checks and examples
 
 * On Travis:
 
@@ -20,12 +20,6 @@
 Package suggested but not available: ‘RPostgreSQL’
 
   I don't think I can do anything about this. 
-
-* Possibly mis-spelled words in DESCRIPTION:
-  ETL (11:66)
-  pipeable (11:32)
-
-  These words are not mis-spelled.
 
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: 'Benjamin S. Baumer <ben.baumer@gmail.com>'
