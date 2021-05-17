@@ -75,6 +75,7 @@ etl_extract.etl_cities <- function(obj, ...) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' cars <- etl("mtcars")
 #' urls <- c("https://raw.githubusercontent.com/beanumber/etl/master/etl.Rproj",
 #' "https://www.reddit.com/robots.txt")
@@ -83,6 +84,7 @@ etl_extract.etl_cities <- function(obj, ...) {
 #' smart_download(cars, src = urls)
 #' # use clobber to overwrite
 #' smart_download(cars, src = urls, clobber = TRUE)
+#' }
 smart_download <- function(obj, src, new_filenames = basename(src), clobber = FALSE, ...) {
   if (length(src) != length(new_filenames)) {
     stop("src and new_filenames must be of the same length")

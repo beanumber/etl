@@ -130,7 +130,7 @@ etl_init.default <- function(obj, script = NULL, schema_name = "init",
 #' @param pkg The package defining the schema. Should be set in \code{\link{etl}}.
 #' @param ext The file extension used for the SQL schema file. If NULL (the default) it
 #' be inferred from the \code{src_*} class of \code{con}. For example, if \code{con}
-#' has class \code{\link[dplyr]{src_SQLiteConnection}} then \code{ext} will be \code{sqlite}.
+#' has class \code{\link[RSQLite]{SQLite}} then \code{ext} will be \code{sqlite}.
 #' @param ... Currently ignored
 #' @export
 #' @examples

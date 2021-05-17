@@ -9,7 +9,7 @@ Authors@R: c(
     person("Carson", "Sievert", email = "cpsievert1@gmail.com", role = "ctb"),
     person("Natalia", "Iannucci", role = "ctb")
     )
-Maintainer: Ben Baumer <ben.baumer@gmail.com>
+Maintainer: Benjamin S. Baumer <ben.baumer@gmail.com>
 Description: A predictable and pipeable framework for performing ETL 
     (extract-transform-load) operations on publicly-accessible medium-sized data 
     set. This package sets up the method structure and implements generic 
@@ -44,7 +44,7 @@ Suggests:
     ggplot2,
     testthat,
     rmarkdown
-URL: http://github.com/beanumber/etl
+URL: https://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/etl/issues
 RoxygenNote: 7.1.1
 Encoding: UTF-8

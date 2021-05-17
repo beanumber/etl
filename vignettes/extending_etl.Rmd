@@ -104,8 +104,8 @@ Note that an `etl_foo` object is also a `src_dbi` object and a `src_sql` object.
 
 ## References
 
-- Wickham, Hadley, [*R Packages*](http://r-pkgs.had.co.nz/)
-- Wickham, Hadley, [*Advanced R*](http://adv-r.had.co.nz/)
+- Wickham, Hadley, [*R Packages*](https://r-pkgs.org/)
+- Wickham, Hadley, [*Advanced R*](https://adv-r.hadley.nz/)
 
 ```{r}
 citation("etl")

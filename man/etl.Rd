@@ -24,8 +24,8 @@ This determines the class of the resulting \code{\link{etl}} object, which
 determines method dispatch of \code{etl_*()} functions. There is no default,
 but you can use \code{mtcars} as an test example.}
 
-\item{db}{a database connection that inherits from \code{\link[dplyr]{src_dbi}}. It is
-NULL by default, which results in a \code{\link[dplyr]{src_sqlite}} connection
+\item{db}{a database connection that inherits from \code{\link[dplyr]{src_dbi}}.
+It is NULL by default, which results in a \code{\link[RSQLite]{SQLite}} connection
 being created in \code{dir}.}
 
 \item{dir}{a directory to store the raw and processed data files}

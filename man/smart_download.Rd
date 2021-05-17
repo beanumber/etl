@@ -26,6 +26,7 @@ Downloads only those files in \code{src} that are not already present in
 the directory specified by the \code{raw_dir} attribute of \code{obj}.
 }
 \examples{
+\dontrun{
 cars <- etl("mtcars")
 urls <- c("https://raw.githubusercontent.com/beanumber/etl/master/etl.Rproj",
 "https://www.reddit.com/robots.txt")
@@ -34,6 +35,7 @@ smart_download(cars, src = urls)
 smart_download(cars, src = urls)
 # use clobber to overwrite
 smart_download(cars, src = urls, clobber = TRUE)
+}
 }
 \author{
 idiom courtesy of Hadley Wickham

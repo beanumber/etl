@@ -45,7 +45,7 @@ clobber any existing data you have in an existing database.}
 
 \item{ext}{The file extension used for the SQL schema file. If NULL (the default) it
 be inferred from the \code{src_*} class of \code{con}. For example, if \code{con}
-has class \code{\link[dplyr]{src_sqlite}} then \code{ext} will be \code{sqlite}.}
+has class \code{\link[RSQLite]{SQLite}} then \code{ext} will be \code{sqlite}.}
 
 \item{...}{Currently ignored}
 }

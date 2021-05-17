@@ -42,6 +42,7 @@ test_that("dplyr works", {
   res2 <- tbl_cars %>%
     collect()
   expect_equal(nrow(res2), 2 * nrow(mtcars))
+#  dbDisconnect(cars$con)
 })
 
 
@@ -54,6 +55,7 @@ test_that("mysql works", {
     expect_true(file.exists(find_schema(cars_mysql)))
     expect_message(find_schema(cars_mysql, "my_crazy_schema", "etl"))
     expect_output(summary(cars_mysql), "/tmp")
+    dbDisconnect(db)
   }
 })
 
@@ -98,14 +100,14 @@ test_that("smart_download works", {
   cars <- etl("mtcars")
   # first download some files
 #  if (!.Platform$OS.type == "windows") {
-    expect_message(etl_cleanup(cars, pattern = ".", delete_raw = TRUE, delete_load = TRUE), "Deleting")
-    urls <- c("https://raw.githubusercontent.com/beanumber/etl/master/etl.Rproj",
-              "https://www.reddit.com/robots.txt")
-    expect_length(smart_download(cars, src = urls), 2)
-    # then try to download them again
-    expect_length(smart_download(cars, src = urls), 0)
-    expect_message(etl_cleanup(cars, pattern = ".", delete_raw = TRUE, delete_load = TRUE), "Deleting")
-#  }
+  expect_message(etl_cleanup(cars, pattern = ".", delete_raw = TRUE, delete_load = TRUE), "Deleting")
+  urls <- c("https://raw.githubusercontent.com/beanumber/etl/master/etl.Rproj",
+            "https://www.reddit.com/robots.txt")
+  expect_length(smart_download(cars, src = urls), 2)
+  # then try to download them again
+  expect_length(smart_download(cars, src = urls), 0)
+  expect_message(etl_cleanup(cars, pattern = ".", delete_raw = TRUE, delete_load = TRUE), "Deleting")
+  #  }
 })
 
 
@@ -123,7 +125,7 @@ test_that("cities works", {
 
 test_that("create ETL works", {
   path <- file.path(tempdir(), "scorecard")
-  expect_output(create_etl_package(path, open = FALSE), "Package:")
+  expect_output(create_etl_package(path, open = FALSE), "Package")
 })
 
 test_that("dbRunScript works", {
@@ -134,6 +136,7 @@ test_that("dbRunScript works", {
      expect_equal(0, sum(unlist(dbRunScript(con, "SELECT 1+1 as Two; VACUUM; ANALYZE;"))))
      init_sqlite <- system.file("sql", "init.sqlite", package = "etl")
      expect_equal(0, sum(unlist(dbRunScript(con, script = init_sqlite))))
+     dbDisconnect(con)
   }
   if (require(RMySQL) && mysqlHasDefault()) {
     db <- src_mysql_cnf()
