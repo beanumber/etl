@@ -1,15 +1,12 @@
 ## Test environments
 
-* local Ubuntu 18.04.3, R 3.6.3
+* local Ubuntu 20.04.2 LTS, R 4.0.5
 * Ubuntu 16.04.6 (on travis-ci), oldrel, release, devel
-* Ubuntu Linux 16.04 LTS, R-release, GCC
+* Ubuntu Linux 20.04.1 LTS, R-release, GCC
 * Fedora Linux, R-devel, clang, gfortran
 * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
 
 ## R CMD check results
-
-* This is a resubmission. The package was pulled from CRAN
-  because of a change in `usethis`, but that issue is resolved.
 
 * Internet downloads are disabled for CRAN checks
 
@@ -19,19 +16,26 @@
 
 * On R-hub:
 
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘RPostgreSQL’
+
+  I don't think I can do anything about this. 
+
 * Possibly mis-spelled words in DESCRIPTION:
   ETL (11:66)
   pipeable (11:32)
 
   These words are not mis-spelled.
 
-* R-hub throws an error on Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-Error: package or namespace load failed for 'dplyr' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- namespace 'vctrs' 0.2.4 is being loaded, but >= 0.3.0 is required
-Error: package 'dplyr' could not be loaded
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Benjamin S. Baumer <ben.baumer@gmail.com>'
+New maintainer:
 
-  This seems like an issue with R-hub on Windows and `dplyr` so it's outside of my control.
-
+  Benjamin S. Baumer <ben.baumer@gmail.com>
+Old maintainer(s):
+  Ben Baumer <ben.baumer@gmail.com>
+  
+  Still me -- I'm trying to be more consistent with my name. 
 
 ## Reverse dependencies
 
