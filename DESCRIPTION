@@ -1,7 +1,7 @@
 Package: etl
 Type: Package
 Title: Extract-Transform-Load Framework for Medium Data
-Version: 0.4.0
+Version: 0.4.0.9000
 Authors@R: c(
     person("Benjamin S.", "Baumer", email = "ben.baumer@gmail.com",
       role = c("aut", "cre"), 
@@ -46,6 +46,6 @@ Suggests:
     rmarkdown
 URL: https://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/etl/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 VignetteBuilder: knitr, rmarkdown, ggplot2, dplyr, dbplyr
