@@ -1,19 +1,11 @@
-citHeader("To cite etl in publications use:")
-
-citEntry(entry = "Article",
+bibentry(
+  bibtype = "Article",
   title        = "A Grammar for Reproducible and Painless Extract-Transform-Load Operations on Medium Data",
-  author       = personList(as.person("Benjamin S. Baumer")),
+  author       = person("Benjamin S.", "Baumer"),
   journal      = "Journal of Computational and Graphical Statistics",
   year         = "2019",
   volume       = "28",
   number       = "2",
   pages        = "256--264",
-  doi          = "10.1080/10618600.2018.1512867",
-  url          = "https://arxiv.org/abs/1708.07073",
-
-  textVersion  =
-  paste("Benjamin S. Baumer (2019).",
-        "A Grammar for Reproducible and Painless Extract-Transform-Load Operations on Medium Data.",
-        "Journal of Computational and Graphical Statistics, 28(2), 256-264.",
-        "URL https://doi.org/10.1080/10618600.2018.1512867.")
+  doi          = "10.1080/10618600.2018.1512867"
 )
