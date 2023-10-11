@@ -1,12 +1,14 @@
 
 # etl <img src="inst/png/etl_hex.png" align="right" height=140/>
 
-[![Travis-CI Build
-Status](https://travis-ci.org/beanumber/etl.svg?branch=master)](https://travis-ci.org/beanumber/etl)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/beanumber/etl/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/beanumber/etl/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/etl)](https://CRAN.R-project.org/package=etl)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/etl)](https://www.r-pkg.org:443/pkg/etl)
+<!-- badges: end -->
 
 `etl` is an R package to facilitate [Extract - Transform - Load
 (ETL)](https://en.wikipedia.org/wiki/Extract,_transform,_load)
@@ -33,7 +35,7 @@ cars <- etl("mtcars")
 
     ## No database was specified so I created one for you at:
 
-    ## /tmp/RtmpiPZuwV/file43271e1c30de.sqlite3
+    ## /tmp/Rtmp2mNon0/file12509749004c4.sqlite3
 
 ``` r
 class(cars)
@@ -52,7 +54,7 @@ inherits from `dplyr::src_dbi`.
 
 > Note: If you want to use a database other than a local RSQLite, you
 > must create the `mtcars` database and have permission to write to it
-> first\!
+> first!
 
 ``` r
 # For PostgreSQL
@@ -91,8 +93,6 @@ cars %>%
   etl_transform()
 ```
 
-    ## Transforming raw data...
-
 ## Load
 
 Populate the SQL database with the transformed data.
@@ -117,8 +117,6 @@ cars %>%
 
     ## Extracting raw data...
 
-    ## Transforming raw data...
-
     ## Loading 1 file(s) into the database...
 
 You can also update an existing database without re-initializing, but
@@ -141,12 +139,12 @@ cars %>%
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
-    ## Warning: Missing values are always removed in SQL.
-    ## Use `mean(x, na.rm = TRUE)` to silence this warning
-    ## This warning is displayed only once per session.
+    ## Warning: Missing values are always removed in SQL aggregation functions.
+    ## Use `na.rm = TRUE` to silence this warning
+    ## This warning is displayed once every 8 hours.
 
-    ## # Source:   lazy query [?? x 3]
-    ## # Database: sqlite 3.29.0 [/tmp/RtmpiPZuwV/file43271e1c30de.sqlite3]
+    ## # Source:   SQL [3 x 3]
+    ## # Database: sqlite 3.41.2 [/tmp/Rtmp2mNon0/file12509749004c4.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
     ## 1     4    11     26.7
@@ -170,53 +168,55 @@ vignette for more information.
 
 ## Use other ETL packages
 
-  - [macleish](https://github.com/beanumber/etl) [![Travis-CI Build
-    Status](https://travis-ci.org/beanumber/macleish.svg?branch=master)](https://travis-ci.org/beanumber/macleish)
-    [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/macleish)](https://cran.r-project.org/package=macleish)
-    : Weather and spatial data from the MacLeish Field Station in
-    Whately, MA.
-  - [airlines](https://github.com/beanumber/airlines) [![Travis-CI Build
-    Status](https://travis-ci.org/beanumber/airlines.svg?branch=master)](https://travis-ci.org/beanumber/airlines)
-    : On-time flight arrival data from the Bureau of Transportation
-    Statistics
-  - [citibike](https://github.com/beanumber/citibike) [![Travis-CI Build
-    Status](https://travis-ci.org/beanumber/citibike.svg?branch=master)](https://travis-ci.org/beanumber/citibike)
-    : Municipal bike-sharing system in New York City
-  - [nyc311](https://github.com/beanumber/nyc311) [![Travis-CI Build
-    Status](https://travis-ci.org/beanumber/nyc311.svg?branch=master)](https://travis-ci.org/beanumber/nyc311)
-    : Phone calls to New York City’s feedback hotline
-  - [fec](https://github.com/beanumber/fec) [![Travis-CI Build
-    Status](https://travis-ci.org/beanumber/fec.svg?branch=master)](https://travis-ci.org/beanumber/fec)
-    : Campaign contribution data from the Federal Election Commission
-  - [imdb](https://github.com/beanumber/imdb) [![Travis-CI Build
-    Status](https://travis-ci.org/beanumber/imdb.svg?branch=master)](https://travis-ci.org/beanumber/imdb)
-    : Mirror of the Internet Movie Database
+- [macleish](https://github.com/beanumber/etl) [![Travis-CI Build
+  Status](https://travis-ci.org/beanumber/macleish.svg?branch=master)](https://travis-ci.org/beanumber/macleish)
+  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/macleish)](https://cran.r-project.org/package=macleish)
+  : Weather and spatial data from the MacLeish Field Station in Whately,
+  MA.
+- [airlines](https://github.com/beanumber/airlines) [![Travis-CI Build
+  Status](https://travis-ci.org/beanumber/airlines.svg?branch=master)](https://travis-ci.org/beanumber/airlines)
+  : On-time flight arrival data from the Bureau of Transportation
+  Statistics
+- [citibike](https://github.com/beanumber/citibike) [![Travis-CI Build
+  Status](https://travis-ci.org/beanumber/citibike.svg?branch=master)](https://travis-ci.org/beanumber/citibike)
+  : Municipal bike-sharing system in New York City
+- [nyc311](https://github.com/beanumber/nyc311) [![Travis-CI Build
+  Status](https://travis-ci.org/beanumber/nyc311.svg?branch=master)](https://travis-ci.org/beanumber/nyc311)
+  : Phone calls to New York City’s feedback hotline
+- [fec](https://github.com/beanumber/fec) [![Travis-CI Build
+  Status](https://travis-ci.org/beanumber/fec.svg?branch=master)](https://travis-ci.org/beanumber/fec)
+  : Campaign contribution data from the Federal Election Commission
+- [imdb](https://github.com/beanumber/imdb) [![Travis-CI Build
+  Status](https://travis-ci.org/beanumber/imdb.svg?branch=master)](https://travis-ci.org/beanumber/imdb)
+  : Mirror of the Internet Movie Database
 
 ## Cite
 
-Please see [the full manuscript](https://arxiv.org/abs/1708.07073) for
+Please see [the full
+manuscript](https://doi.org/10.1080/10618600.2018.1512867) for
 additional details.
 
 ``` r
 citation("etl")
 ```
 
-    ## 
     ## To cite etl in publications use:
     ## 
-    ##   Benjamin S. Baumer (2017). A Grammar for Reproducible and Painless
-    ##   Extract-Transform-Load Operations on Medium Data. arXiv, 8(23), 1-24.
-    ##   URL https://arxiv.org/abs/1708.07073.
+    ##   Benjamin S. Baumer (2019). A Grammar for Reproducible and Painless
+    ##   Extract-Transform-Load Operations on Medium Data. Journal of
+    ##   Computational and Graphical Statistics, 28(2), 256-264. URL
+    ##   https://doi.org/10.1080/10618600.2018.1512867.
     ## 
     ## A BibTeX entry for LaTeX users is
     ## 
     ##   @Article{,
     ##     title = {A Grammar for Reproducible and Painless Extract-Transform-Load Operations on Medium Data},
     ##     author = {Benjamin S. Baumer},
-    ##     journal = {arXiv},
-    ##     year = {2017},
-    ##     volume = {8},
-    ##     number = {23},
-    ##     pages = {1--24},
+    ##     journal = {Journal of Computational and Graphical Statistics},
+    ##     year = {2019},
+    ##     volume = {28},
+    ##     number = {2},
+    ##     pages = {256--264},
+    ##     doi = {10.1080/10618600.2018.1512867},
     ##     url = {https://arxiv.org/abs/1708.07073},
     ##   }
