@@ -35,7 +35,7 @@ cars <- etl("mtcars")
 
     ## No database was specified so I created one for you at:
 
-    ## /tmp/Rtmp2mNon0/file12509749004c4.sqlite3
+    ## /tmp/Rtmpxgb3In/file1955f5264fb8c.sqlite3
 
 ``` r
 class(cars)
@@ -144,7 +144,7 @@ cars %>%
     ## This warning is displayed once every 8 hours.
 
     ## # Source:   SQL [3 x 3]
-    ## # Database: sqlite 3.41.2 [/tmp/Rtmp2mNon0/file12509749004c4.sqlite3]
+    ## # Database: sqlite 3.41.2 [/tmp/Rtmpxgb3In/file1955f5264fb8c.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
     ## 1     4    11     26.7
@@ -168,27 +168,20 @@ vignette for more information.
 
 ## Use other ETL packages
 
-- [macleish](https://github.com/beanumber/etl) [![Travis-CI Build
-  Status](https://travis-ci.org/beanumber/macleish.svg?branch=master)](https://travis-ci.org/beanumber/macleish)
+- [macleish](https://github.com/beanumber/etl)
   [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/macleish)](https://cran.r-project.org/package=macleish)
   : Weather and spatial data from the MacLeish Field Station in Whately,
   MA.
-- [airlines](https://github.com/beanumber/airlines) [![Travis-CI Build
-  Status](https://travis-ci.org/beanumber/airlines.svg?branch=master)](https://travis-ci.org/beanumber/airlines)
-  : On-time flight arrival data from the Bureau of Transportation
-  Statistics
-- [citibike](https://github.com/beanumber/citibike) [![Travis-CI Build
-  Status](https://travis-ci.org/beanumber/citibike.svg?branch=master)](https://travis-ci.org/beanumber/citibike)
-  : Municipal bike-sharing system in New York City
-- [nyc311](https://github.com/beanumber/nyc311) [![Travis-CI Build
-  Status](https://travis-ci.org/beanumber/nyc311.svg?branch=master)](https://travis-ci.org/beanumber/nyc311)
-  : Phone calls to New York City’s feedback hotline
-- [fec](https://github.com/beanumber/fec) [![Travis-CI Build
-  Status](https://travis-ci.org/beanumber/fec.svg?branch=master)](https://travis-ci.org/beanumber/fec)
-  : Campaign contribution data from the Federal Election Commission
-- [imdb](https://github.com/beanumber/imdb) [![Travis-CI Build
-  Status](https://travis-ci.org/beanumber/imdb.svg?branch=master)](https://travis-ci.org/beanumber/imdb)
-  : Mirror of the Internet Movie Database
+- [airlines](https://github.com/beanumber/airlines): On-time flight
+  arrival data from the Bureau of Transportation Statistics
+- [citibike](https://github.com/beanumber/citibike): Municipal
+  bike-sharing system in New York City
+- [nyc311](https://github.com/beanumber/nyc311): Phone calls to New York
+  City’s feedback hotline
+- [fec](https://github.com/beanumber/fec): Campaign contribution data
+  from the Federal Election Commission
+- [imdb](https://github.com/beanumber/imdb): Mirror of the Internet
+  Movie Database
 
 ## Cite
 
@@ -200,12 +193,13 @@ additional details.
 citation("etl")
 ```
 
-    ## To cite etl in publications use:
+    ## To cite package 'etl' in publications use:
     ## 
-    ##   Benjamin S. Baumer (2019). A Grammar for Reproducible and Painless
-    ##   Extract-Transform-Load Operations on Medium Data. Journal of
-    ##   Computational and Graphical Statistics, 28(2), 256-264. URL
-    ##   https://doi.org/10.1080/10618600.2018.1512867.
+    ##   Baumer B (2019). "A Grammar for Reproducible and Painless
+    ##   Extract-Transform-Load Operations on Medium Data." _Journal of
+    ##   Computational and Graphical Statistics_, *28*(2), 256-264.
+    ##   doi:10.1080/10618600.2018.1512867
+    ##   <https://doi.org/10.1080/10618600.2018.1512867>.
     ## 
     ## A BibTeX entry for LaTeX users is
     ## 
@@ -218,5 +212,4 @@ citation("etl")
     ##     number = {2},
     ##     pages = {256--264},
     ##     doi = {10.1080/10618600.2018.1512867},
-    ##     url = {https://arxiv.org/abs/1708.07073},
     ##   }
