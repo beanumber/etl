@@ -45,8 +45,8 @@
 #' \dontrun{
 #' # connect to a PostgreSQL server
 #' if (require(RPostgreSQL)) {
-#'  db <- src_postgres("mtcars", user = "postgres", host = "localhost")
-#'  cars <- etl("mtcars", db)
+#'   db <- src_postgres("mtcars", user = "postgres", host = "localhost")
+#'   cars <- etl("mtcars", db)
 #' }
 #' }
 #'
@@ -67,8 +67,6 @@
 #'   etl_update()
 #' src_tbls(cars2)
 #'
-
-
 etl <- function(x, db = NULL, dir = tempdir(), ...) UseMethod("etl")
 
 #' @rdname etl
@@ -87,9 +85,14 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
     dir.create(dir, recursive = TRUE)
   }
   db <- verify_con(db, dir)
-  obj <- structure(db, data = NULL, "pkg" = pkg, dir = normalizePath(dir),
-                   files = NULL, push = NULL,
-                   class = c(paste0("etl_", x), "etl", class(db)))
+  obj <- structure(
+    db,
+    data = NULL,
+    "pkg" = pkg,
+    dir = normalizePath(dir),
+    files = NULL, push = NULL,
+    class = c(paste0("etl_", x), "etl", class(db))
+  )
 
   # create subdirectories within dir
   raw_dir <- file.path(attr(obj, "dir"), "raw")
@@ -113,11 +116,12 @@ etl.default <- function(x, db = NULL, dir = tempdir(), ...) {
 #' # generic summary function provides information about the object
 #' cars <- etl("mtcars")
 #' summary(cars)
-
 summary.etl <- function(object, ...) {
   cat("files:\n")
-  dplyr::bind_rows(summary_dir(attr(object, "raw_dir")),
-                   summary_dir(attr(object, "load_dir"))) %>%
+  dplyr::bind_rows(
+    summary_dir(attr(object, "raw_dir")),
+    summary_dir(attr(object, "load_dir"))
+  ) %>%
     print()
   NextMethod()
 }
@@ -125,9 +129,11 @@ summary.etl <- function(object, ...) {
 summary_dir <- function(dir) {
   files <- file.info(list.files(dir, full.names = TRUE))
   # filesize in GB
-  data.frame(n = nrow(files),
-             size = paste(round(sum(files$size) / 10^9, digits = 3), "GB"),
-             path = dir, stringsAsFactors = FALSE)
+  data.frame(
+    n = nrow(files),
+    size = paste(round(sum(files$size) / 10^9, digits = 3), "GB"),
+    path = dir, stringsAsFactors = FALSE
+  )
 }
 
 #' @rdname etl
@@ -142,7 +148,6 @@ summary_dir <- function(dir) {
 #'
 #' # returns FALSE
 #' is.etl("hello world")
-
 is.etl <- function(object) inherits(object, "etl")
 
 #' @rdname etl
@@ -152,13 +157,15 @@ is.etl <- function(object) inherits(object, "etl")
 #' cars <- etl("mtcars") %>%
 #'   etl_create()
 #' cars
-
 print.etl <- function(x, ...) {
   file_info <- dplyr::bind_rows(
     summary_dir(attr(x, "raw_dir")),
-    summary_dir(attr(x, "load_dir"))) %>%
+    summary_dir(attr(x, "load_dir"))
+  ) %>%
     summarize(N = sum(n), size = sum(readr::parse_number(size)))
   cat("dir:  ", file_info$N, " files occupying ",
-      file_info$size, " GB\n", sep = "")
+    file_info$size, " GB\n",
+    sep = ""
+  )
   NextMethod()
 }
