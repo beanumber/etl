@@ -75,7 +75,7 @@ cars %>%
 
 To populate the whole database from scratch, use `etl_create`. 
 
-```{r}
+```{r, eval=FALSE}
 cars %>%
   etl_create()
 ```
