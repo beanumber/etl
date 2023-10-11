@@ -19,6 +19,7 @@ Description: A predictable and pipeable framework for performing ETL
 License: CC0
 Imports:
     DBI,
+    dbplyr,
     datasets,
     downloader,
     fs,
@@ -36,7 +37,6 @@ Depends:
     R (>= 2.10),
     dplyr
 Suggests:
-    dbplyr,
     knitr,
     RSQLite,
     RPostgreSQL,

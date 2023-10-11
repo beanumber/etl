@@ -47,7 +47,7 @@ etl_extract.etl_mtcars <- function(obj, ...) {
   raw_filename <- file.path(attr(obj, "raw_dir"), "mtcars.csv")
   datasets::mtcars %>%
     tibble::rownames_to_column("model") %>%
-    readr::write_csv(path = raw_filename)
+    readr::write_csv(file = raw_filename)
   invisible(obj)
 }
 

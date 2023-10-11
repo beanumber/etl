@@ -76,8 +76,8 @@ summary(cars)
 \dontrun{
 # connect to a PostgreSQL server
 if (require(RPostgreSQL)) {
- db <- src_postgres("mtcars", user = "postgres", host = "localhost")
- cars <- etl("mtcars", db)
+  db <- src_postgres("mtcars", user = "postgres", host = "localhost")
+  cars <- etl("mtcars", db)
 }
 }
 
