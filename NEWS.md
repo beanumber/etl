@@ -1,9 +1,9 @@
-# etl 0.4.1
+# etl 0.4.1 (2023-10-12)
 
 * Added call to `dbplyr::src_dbi()` in `verify_con()` to workaround new `dplyr` behavior; #60
 * Complete transition to GitHub Actions
 
-# etl 0.4.0
+# etl 0.4.0 (2020-06-02)
 
 * Removed `stringr` dependency
 * Remove `LazyData: TRUE` since there is no data
