@@ -1,35 +1,14 @@
 ## Test environments
 
-* local Ubuntu 20.04.2 LTS, R 4.0.5
-* Ubuntu 16.04.6 (on travis-ci), oldrel, release, devel
-* Ubuntu Linux 20.04.1 LTS, R-release, GCC
-* Fedora Linux, R-devel, clang, gfortran
-* Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+* local Ubuntu 22.04.3 LTS, R 4.3.1
+* ubuntu-latest (on GitHub) (oldrel-1, release, devel)
+* macOS-latest (release)
+* Windows-latest
 
 ## R CMD check results
 
 * Internet downloads are disabled for CRAN checks and examples
 
-* On Travis:
-
-0 errors | 0 warnings | 0 notes
-
-* On R-hub:
-
-* checking package dependencies ... ERROR
-Package suggested but not available: ‘RPostgreSQL’
-
-  I don't think I can do anything about this. 
-
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: 'Benjamin S. Baumer <ben.baumer@gmail.com>'
-New maintainer:
-
-  Benjamin S. Baumer <ben.baumer@gmail.com>
-Old maintainer(s):
-  Ben Baumer <ben.baumer@gmail.com>
-  
-  Still me -- I'm trying to be more consistent with my name. 
 
 ## Reverse dependencies
 

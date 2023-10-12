@@ -1,3 +1,8 @@
+# etl 0.4.1
+
+* Added call to `dbplyr::src_dbi()` in `verify_con()` to workaround new `dplyr` behavior; #60
+* Complete transition to GitHub Actions
+
 # etl 0.4.0
 
 * Removed `stringr` dependency
