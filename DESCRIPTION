@@ -39,7 +39,7 @@ Depends:
 Suggests:
     knitr,
     RSQLite,
-    RPostgreSQL,
+    RPostgres,
     RMariaDB,
     ggplot2,
     testthat,

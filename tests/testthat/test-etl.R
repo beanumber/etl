@@ -11,6 +11,7 @@ test_that("sqlite works", {
   expect_message(
     cars_sqlite |> etl_cleanup(delete_raw = TRUE, delete_load = TRUE),
     "Deleting files")
+  DBI::dbDisconnect(cars_sqlite$con)
 })
 
 test_that("default works", {
@@ -21,6 +22,7 @@ test_that("default works", {
   expect_message(
     dplyr_sqlite |> etl_cleanup(delete_raw = TRUE, delete_load = TRUE),
     "Deleting files")
+  DBI::dbDisconnect(dplyr_sqlite$con)
 })
 
 
@@ -93,6 +95,7 @@ test_that("etl works", {
   cars <- etl("mtcars")
   expect_true(is.etl(cars))
   expect_output(print(cars), "sqlite")
+  DBI::dbDisconnect(cars$con)
 })
 
 test_that("smart_download works", {
@@ -108,6 +111,7 @@ test_that("smart_download works", {
   expect_length(smart_download(cars, src = urls), 0)
   expect_message(etl_cleanup(cars, pattern = ".", delete_raw = TRUE, delete_load = TRUE), "Deleting")
   #  }
+  DBI::dbDisconnect(cars$con)
 })
 
 
@@ -119,6 +123,7 @@ test_that("cities works", {
   expect_message(
     cities_sqlite |> etl_cleanup(delete_raw = TRUE, delete_load = TRUE),
     "Deleting files")
+  DBI::dbDisconnect(cities_sqlite$con)
 })
 
 
