@@ -27,25 +27,25 @@ etl_init(
 find_schema(obj, schema_name = "init", pkg = attr(obj, "pkg"), ext = NULL, ...)
 }
 \arguments{
-\item{obj}{An \code{\link{etl}} object}
+\item{obj}{An \link{etl} object}
 
 \item{script}{either a vector of SQL commands to be executed, or
 a file path as a character vector containing an SQL initialization script.
 If \code{NULL} (the default), then the appropriate built-in
-schema will be fetched by \code{\link{find_schema}}, if it exists. Note
+schema will be fetched by [find_schema(), if it exists. Note
 that the flavor of SQL in this file must match the type of the source. That is,
-if your object is of type \code{\link[dplyr]{src_mysql}}, then make sure that
+if your object is of type [dplyr::src_mysql(), then make sure that
 the schema you specify here is written in MySQL (and not PostgreSQL). Please
 note that SQL syntax is not, in general, completely portable. Use with caution, as this may
 clobber any existing data you have in an existing database.}
 
 \item{schema_name}{The name of the schema. Default is \code{init}.}
 
-\item{pkg}{The package defining the schema. Should be set in \code{\link{etl}}.}
+\item{pkg}{The package defining the schema. Should be set in \link{etl}.}
 
 \item{ext}{The file extension used for the SQL schema file. If NULL (the default) it
-be inferred from the \code{src_*} class of \code{con}. For example, if \code{con}
-has class \code{\link[RSQLite]{SQLite}} then \code{ext} will be \code{sqlite}.}
+be inferred from the \verb{src_*} class of \code{con}. For example, if \code{con}
+has class \code{\link[RSQLite:SQLite]{RSQLite::SQLite()}} then \code{ext} will be \code{sqlite}.}
 
 \item{...}{Currently ignored}
 }

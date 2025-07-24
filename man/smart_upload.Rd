@@ -7,7 +7,7 @@
 smart_upload(obj, src = NULL, tablenames = NULL, ...)
 }
 \arguments{
-\item{obj}{An \code{\link{etl}} object}
+\item{obj}{An \link{etl} object}
 
 \item{src}{a list of CSV files to upload. If \code{NULL}, will return all
 CSVs in the load directory}
@@ -16,7 +16,7 @@ CSVs in the load directory}
 database corresponding to each of the files in \code{src}. If \code{NULL},
 will default to the same name as \code{src}, without paths or file extensions.}
 
-\item{...}{arguments passed to \code{\link[DBI]{dbWriteTable}}}
+\item{...}{arguments passed to \code{\link[DBI:dbWriteTable]{DBI::dbWriteTable()}}}
 }
 \description{
 Upload a list of files to the DB

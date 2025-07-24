@@ -7,24 +7,24 @@
 dbRunScript(conn, script, echo = FALSE, ...)
 }
 \arguments{
-\item{conn}{a \code{\link[DBI]{DBIConnection-class}} object}
+\item{conn}{a \link[DBI:DBIConnection-class]{DBI::DBIConnection} object}
 
 \item{script}{Either a filename pointing to an SQL script or
 a character vector of length 1 containing SQL.}
 
 \item{echo}{print the SQL commands to the output?}
 
-\item{...}{arguments passed to \code{\link[DBI]{dbExecute}}}
+\item{...}{arguments passed to \code{\link[DBI:dbExecute]{DBI::dbExecute()}}}
 }
 \value{
-a list of results from \code{dbExecute} for each of the individual
+a list of results from \code{\link[DBI:dbExecute]{DBI::dbExecute()}} for each of the individual
 SQL statements in \code{script}.
 }
 \description{
 Execute an SQL script
 }
 \details{
-The SQL script file must be \code{;} delimited.
+The SQL script file must be \verb{;} delimited.
 }
 \examples{
 sql <- "SHOW TABLES; SELECT 1+1 as Two;"

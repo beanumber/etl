@@ -7,17 +7,17 @@
 create_etl_package(...)
 }
 \arguments{
-\item{...}{arguments passed to \code{\link[usethis]{create_package}}}
+\item{...}{arguments passed to \code{\link[usethis:create_package]{usethis::create_package()}}}
 }
 \description{
 Create an ETL package skeleton
 }
 \details{
-Extends \code{\link[usethis]{create_package}} and places a template source file in
-the R subdirectory of the new package. The file has a working stub of \code{etl_extract}.
+Extends \code{\link[usethis:create_package]{usethis::create_package()}} and places a template source file in
+the R subdirectory of the new package. The file has a working stub of \code{\link[=etl_extract]{etl_extract()}}.
 The new package can be built immediately and run.
 
-New S3 methods for \code{\link{etl_transform}} and \code{\link{etl_load}} can be added if
+New S3 methods for \code{\link[=etl_transform]{etl_transform()}} and \code{\link[=etl_load]{etl_load()}} can be added if
 necessary, but the default methods may suffice.
 }
 \examples{
@@ -28,5 +28,5 @@ create_etl_package(path)
 # Now switch projects, and "Install and Restart"
 }
 \seealso{
-\code{\link{etl_extract}}, \code{\link{etl_transform}}, \code{\link{etl_load}}
+\code{\link[=etl_extract]{etl_extract()}}, \code{\link[=etl_transform]{etl_transform()}}, \code{\link[=etl_load]{etl_load()}}
 }

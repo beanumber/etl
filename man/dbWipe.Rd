@@ -7,10 +7,9 @@
 dbWipe(conn, ...)
 }
 \arguments{
-\item{conn}{A \linkS4class{DBIConnection} object, as returned by
-\code{\link[DBI:dbConnect]{dbConnect()}}.}
+\item{conn}{a \link[DBI:DBIConnection-class]{DBI::DBIConnection} object}
 
-\item{...}{Other parameters passed on to methods.}
+\item{...}{arguments passed to \code{\link[DBI:dbRemoveTable]{DBI::dbRemoveTable()}}}
 }
 \description{
 Wipe out all tables in a database

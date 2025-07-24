@@ -1,13 +1,13 @@
 #' Execute an SQL script
 #'
-#' @param conn a \code{\link[DBI]{DBIConnection-class}} object
+#' @param conn a [DBI::DBIConnection-class] object
 #' @param script Either a filename pointing to an SQL script or
 #' a character vector of length 1 containing SQL.
 #' @param echo print the SQL commands to the output?
-#' @param ... arguments passed to \code{\link[DBI]{dbExecute}}
-#' @details The SQL script file must be \code{;} delimited.
-#' @return a list of results from \code{dbExecute} for each of the individual
-#' SQL statements in \code{script}.
+#' @param ... arguments passed to [DBI::dbExecute()]
+#' @details The SQL script file must be `;` delimited.
+#' @return a list of results from [DBI::dbExecute()] for each of the individual
+#' SQL statements in `script`.
 #' @export
 #'
 #' @examples

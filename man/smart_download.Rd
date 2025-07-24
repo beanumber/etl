@@ -7,7 +7,7 @@
 smart_download(obj, src, new_filenames = basename(src), clobber = FALSE, ...)
 }
 \arguments{
-\item{obj}{an \code{\link{etl}} object}
+\item{obj}{an \link{etl} object}
 
 \item{src}{a character vector of URLs that you want to download}
 
@@ -16,7 +16,7 @@ smart_download(obj, src, new_filenames = basename(src), clobber = FALSE, ...)
 
 \item{clobber}{do you want to clobber any existing files?}
 
-\item{...}{arguments passed to \code{\link[downloader]{download}}}
+\item{...}{arguments passed to \code{\link[downloader:download]{downloader::download()}}}
 }
 \description{
 Download only those files that don't already exist

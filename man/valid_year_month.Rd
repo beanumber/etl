@@ -16,7 +16,7 @@ valid_year_month(years, months, begin = "1870-01-01", end = Sys.Date())
 \item{end}{the most recent valid date, defaults to today}
 }
 \value{
-a \code{\link{data.frame}} with four variables: \code{year},
+a \link{data.frame} with four variables: \code{year},
 \code{month}, \code{month_begin} (the first day of the month), and
 \code{month_end} (the last day of the month).
 }
@@ -28,7 +28,7 @@ Often, a data source will \code{begin} and \code{end} at
 known points in time. At the same time, many data sources are divided
 into monthly archives. Given a set of \code{years} and \code{months},
 any combination of which should be considered valid, this function will
-return a \code{\link{data.frame}} in which each row is one of those
+return a \link{data.frame} in which each row is one of those
 valid year-month pairs. Further, if the optional \code{begin} and
 \code{end} arguments are specified, the rows will be filter to lie
 within that time interval. Furthermore, the first and last day of

@@ -1,39 +1,39 @@
-#' Initialize an \code{etl} object
+#' Initialize an `etl` object
 #'
-#' @description Initialize an \code{etl} object
+#' @description Initialize an `etl` object
 #'
-#' @param x the name of the \code{etl} package that you wish to populate with data.
-#' This determines the class of the resulting \code{\link{etl}} object, which
-#' determines method dispatch of \code{etl_*()} functions. There is no default,
-#' but you can use \code{mtcars} as an test example.
-#' @param db a database connection that inherits from \code{\link[dplyr]{src_dbi}}.
-#' It is NULL by default, which results in a \code{\link[RSQLite]{SQLite}} connection
-#' being created in \code{dir}.
+#' @param x the name of the `etl` package that you wish to populate with data.
+#' This determines the class of the resulting `etl` object, which
+#' determines method dispatch of `etl_*()` functions. There is no default,
+#' but you can use [datasets::mtcars] as an test example.
+#' @param db a database connection that inherits from [dplyr::src_dbi()].
+#' It is NULL by default, which results in a [RSQLite::SQLite()] connection
+#' being created in `dir`.
 #' @param dir a directory to store the raw and processed data files
 #' @param ... arguments passed to methods (currently ignored)
-#' @details A constructor function that instantiates an \code{\link{etl}} object.
-#' An \code{\link{etl}} object extends a \code{\link[dplyr]{src_dbi}} object.
+#' @details A constructor function that instantiates an `etl` object.
+#' An `etl` object extends a [dplyr::src_dbi()] object.
 #' It also has attributes for:
 #' \describe{
-#'  \item{pkg}{the name of the \code{\link{etl}} package corresponding to the data source}
+#'  \item{pkg}{the name of the `etl` package corresponding to the data source}
 #'  \item{dir}{the directory where the raw and processed data are stored}
 #'  \item{raw_dir}{the directory where the raw data files are stored}
 #'  \item{load_dir}{the directory where the processed data files are stored}
 #'  }
-#' Just like any \code{\link[dplyr]{src_dbi}} object, an \code{\link{etl}} object
-#' is a data source backed by an SQL database. However, an \code{\link{etl}} object
+#' Just like any [dplyr::src_dbi()] object, an `etl` object
+#' is a data source backed by an SQL database. However, an `etl` object
 #' has additional functionality based on the presumption that the SQL database
 #' will be populated from data files stored on the local hard disk. The ETL functions
-#' documented in \code{\link{etl_create}} provide the necessary functionality
-#' for \strong{extract}ing data from the Internet to \code{raw_dir},
-#' \strong{transform}ing those data
-#' and placing the cleaned up data (usually in CSV format) into \code{load_dir},
-#' and finally \strong{load}ing the clean data into the SQL database.
-#' @return For \code{\link{etl}}, an object of class \code{etl_x} and
-#' \code{\link{etl}} that inherits
-#' from \code{\link[dplyr]{src_dbi}}
+#' documented in [etl_create()] provide the necessary functionality
+#' for **extract**ing data from the Internet to `raw_dir`,
+#' **transform**ing those data
+#' and placing the cleaned up data (usually in CSV format) into `load_dir`,
+#' and finally **load**ing the clean data into the SQL database.
+#' @return For `etl`, an object of class `etl_x` and
+#' `etl` that inherits
+#' from [dplyr::src_dbi()]
 #' @export
-#' @seealso \code{\link{etl_create}}
+#' @seealso etl_create()
 #' @examples
 #'
 #' # Instantiate the etl object
@@ -139,8 +139,8 @@ summary_dir <- function(dir) {
 #' @rdname etl
 #' @export
 #' @inheritParams summary.etl
-#' @return For \code{\link{is.etl}}, \code{TRUE} or \code{FALSE},
-#' depending on whether \code{x} has class \code{\link{etl}}
+#' @return For [is.etl()], `TRUE` or `FALSE`,
+#' depending on whether `x` has class `etl`
 #' @examples
 #' cars <- etl("mtcars")
 #' # returns TRUE

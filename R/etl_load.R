@@ -28,13 +28,13 @@ etl_load.default <- function(obj, ...) {
 }
 
 #' Upload a list of files to the DB
-#' @param obj An \code{\link{etl}} object
-#' @param src a list of CSV files to upload. If \code{NULL}, will return all
+#' @param obj An [etl] object
+#' @param src a list of CSV files to upload. If `NULL`, will return all
 #' CSVs in the load directory
-#' @param tablenames a list the same length as \code{src} of tablenames in the
-#' database corresponding to each of the files in \code{src}. If \code{NULL},
-#' will default to the same name as \code{src}, without paths or file extensions.
-#' @param ... arguments passed to \code{\link[DBI]{dbWriteTable}}
+#' @param tablenames a list the same length as `src` of tablenames in the
+#' database corresponding to each of the files in `src`. If `NULL`,
+#' will default to the same name as `src`, without paths or file extensions.
+#' @param ... arguments passed to [DBI::dbWriteTable()]
 #' @export
 #' @examples
 #' \dontrun{
@@ -71,10 +71,10 @@ smart_upload <- function(obj, src = NULL, tablenames = NULL, ...) {
 #'
 #' @param script either a vector of SQL commands to be executed, or
 #' a file path as a character vector containing an SQL initialization script.
-#' If \code{NULL} (the default), then the appropriate built-in
-#' schema will be fetched by \code{\link{find_schema}}, if it exists. Note
+#' If `NULL` (the default), then the appropriate built-in
+#' schema will be fetched by [find_schema(), if it exists. Note
 #' that the flavor of SQL in this file must match the type of the source. That is,
-#' if your object is of type \code{\link[dplyr]{src_mysql}}, then make sure that
+#' if your object is of type [dplyr::src_mysql(), then make sure that
 #' the schema you specify here is written in MySQL (and not PostgreSQL). Please
 #' note that SQL syntax is not, in general, completely portable. Use with caution, as this may
 #' clobber any existing data you have in an existing database.
@@ -125,12 +125,12 @@ etl_init.default <- function(obj, script = NULL, schema_name = "init",
 #' you may wish to include a pre-defined table schema. This function
 #' will retrieve it.
 #'
-#' @param obj An \code{\link{etl}} object
-#' @param schema_name The name of the schema. Default is \code{init}.
-#' @param pkg The package defining the schema. Should be set in \code{\link{etl}}.
+#' @param obj An [etl] object
+#' @param schema_name The name of the schema. Default is `init`.
+#' @param pkg The package defining the schema. Should be set in [etl].
 #' @param ext The file extension used for the SQL schema file. If NULL (the default) it
-#' be inferred from the \code{src_*} class of \code{con}. For example, if \code{con}
-#' has class \code{\link[RSQLite]{SQLite}} then \code{ext} will be \code{sqlite}.
+#' be inferred from the `src_*` class of `con`. For example, if `con`
+#' has class [RSQLite::SQLite()] then `ext` will be `sqlite`.
 #' @param ... Currently ignored
 #' @export
 #' @examples

@@ -8,12 +8,12 @@ src_mysql_cnf(dbname = "test", groups = "rs-dbi", ...)
 }
 \arguments{
 \item{dbname}{name of the local database you wish to connect to. Default is
-\code{test}, as in \code{\link[RMariaDB]{mariadbHasDefault}}.}
+\code{test}, as in \code{\link[RMariaDB:mariadbHasDefault]{RMariaDB::mariadbHasDefault()}}.}
 
-\item{groups}{section of \code{~/.my.cnf} file. Default is \code{rs-dbi} as in
-\code{\link[RMariaDB]{mariadbHasDefault}}}
+\item{groups}{section of \verb{~/.my.cnf} file. Default is \code{rs-dbi} as in
+\code{\link[RMariaDB:mariadbHasDefault]{RMariaDB::mariadbHasDefault()}}}
 
-\item{...}{arguments passed to \code{\link[dplyr]{src_mysql}}}
+\item{...}{arguments passed to \code{\link[dplyr:src_dbi]{dplyr::src_mysql()}}}
 }
 \description{
 Connect to local MySQL Server using ~/.my.cnf
@@ -29,5 +29,5 @@ if (require(RMariaDB) && mariadbHasDefault()) {
 }
 }
 \seealso{
-\code{\link[dplyr]{src_mysql}}, \code{\link[RMariaDB]{mariadbHasDefault}}
+\code{\link[dplyr:src_dbi]{dplyr::src_mysql()}}, \code{\link[RMariaDB:mariadbHasDefault]{RMariaDB::mariadbHasDefault()}}
 }

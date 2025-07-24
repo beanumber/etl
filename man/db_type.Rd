@@ -13,7 +13,7 @@ db_type(obj, ...)
 \method{db_type}{DBIConnection}(obj, ...)
 }
 \arguments{
-\item{obj}{and \code{\link{etl}} or \code{\link[DBI]{DBIConnection-class}} object}
+\item{obj}{and \link{etl} or \link[DBI:DBIConnection-class]{DBI::DBIConnection} object}
 
 \item{...}{currently ignored}
 }
