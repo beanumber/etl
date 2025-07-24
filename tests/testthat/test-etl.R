@@ -42,12 +42,12 @@ test_that("dplyr works", {
   res2 <- tbl_cars |>
     collect()
   expect_equal(nrow(res2), 2 * nrow(mtcars))
-#  dbDisconnect(cars$con)
+  DBI::dbDisconnect(cars$con)
 })
 
 
-test_that("mysql works", {
-  if (require(RMySQL) && mysqlHasDefault()) {
+test_that("MariaDB works", {
+  if (require(RMariaDB) && mariadbHasDefault()) {
     db <- src_mysql_cnf()
     expect_s3_class(db, "src_dbi")
     cars_mysql <- etl("mtcars", db = db)
@@ -138,7 +138,7 @@ test_that("dbRunScript works", {
      expect_equal(0, sum(unlist(dbRunScript(con, script = init_sqlite))))
      dbDisconnect(con)
   }
-  if (require(RMySQL) && mysqlHasDefault()) {
+  if (require(RMariaDB) && mariadbHasDefault()) {
     db <- src_mysql_cnf()
     expect_equal(-2, sum(unlist(dbRunScript(db$con, script = sql))))
     init_mysql <- system.file("sql", "init.mysql", package = "etl")

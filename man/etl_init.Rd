@@ -59,14 +59,14 @@ will retrieve it.
 }
 \examples{
 cars <- etl("mtcars")
-cars \%>\%
+cars |>
   etl_init()
-cars \%>\%
+cars |>
   etl_init(script = sql("CREATE TABLE IF NOT EXISTS mtcars_alt (id INTEGER);"))
-cars \%>\%
+cars |>
   etl_init(schema_name = "init")
 init_script <- find_schema(cars, schema_name = "init")
-cars \%>\%
+cars |>
   etl_init(script = init_script, echo = TRUE)
 src_tbls(cars)
 

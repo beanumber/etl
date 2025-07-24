@@ -20,8 +20,8 @@
 #'   dbRunScript(con, "SELECT 1+1 as Two; VACUUM; ANALYZE;")
 #' }
 #' \dontrun{
-#' if (require(RMySQL)) {
-#'  con <- dbConnect(RMySQL::MySQL(), default.file = path.expand("~/.my.cnf"),
+#' if (require(RMariaDB)) {
+#'  con <- dbConnect(RMariaDB::MySQL(), default.file = path.expand("~/.my.cnf"),
 #'    group = "client", user = NULL, password = NULL, dbname = "mysql", host = "127.0.0.1")
 #'  dbRunScript(con, script = sql)
 #'  dbRunScript(con, script = sql2)

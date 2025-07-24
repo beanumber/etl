@@ -23,7 +23,7 @@ Upload a list of files to the DB
 }
 \examples{
 \dontrun{
-if (require(RMySQL)) {
+if (require(RMariaDB)) {
   # must have pre-existing database "fec"
   # if not, try
   system("mysql -e 'CREATE DATABASE IF NOT EXISTS fec;'")

@@ -21,7 +21,7 @@ db_type(obj, ...)
 Return the database type for an ETL or DBI connection
 }
 \examples{
-if (require(RMySQL) && mysqlHasDefault()) {
+if (require(RMariaDB) && mariadbHasDefault()) {
   # connect to test database using rs-dbi
   db <- src_mysql_cnf()
   class(db)

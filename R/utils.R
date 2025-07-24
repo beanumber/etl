@@ -155,14 +155,14 @@ dbWipe <- function(conn, ...) {
 
 #' Connect to local MySQL Server using ~/.my.cnf
 #' @param dbname name of the local database you wish to connect to. Default is
-#' \code{test}, as in \code{\link[RMySQL]{mysqlHasDefault}}.
+#' \code{test}, as in \code{\link[RMariaDB]{mariadbHasDefault}}.
 #' @param groups section of \code{~/.my.cnf} file. Default is \code{rs-dbi} as in
-#' \code{\link[RMySQL]{mysqlHasDefault}}
+#' \code{\link[RMariaDB]{mariadbHasDefault}}
 #' @param ... arguments passed to \code{\link[dplyr]{src_mysql}}
 #' @export
-#' @seealso \code{\link[dplyr]{src_mysql}}, \code{\link[RMySQL]{mysqlHasDefault}}
+#' @seealso \code{\link[dplyr]{src_mysql}}, \code{\link[RMariaDB]{mariadbHasDefault}}
 #' @examples
-#' if (require(RMySQL) && mysqlHasDefault()) {
+#' if (require(RMariaDB) && mariadbHasDefault()) {
 #'   # connect to test database using rs-dbi
 #'   db <- src_mysql_cnf()
 #'   class(db)
@@ -193,7 +193,7 @@ src_mysql_cnf <- function(dbname = "test", groups = "rs-dbi", ...) {
 #' @param ... currently ignored
 #' @export
 #' @examples
-#' if (require(RMySQL) && mysqlHasDefault()) {
+#' if (require(RMariaDB) && mariadbHasDefault()) {
 #'   # connect to test database using rs-dbi
 #'   db <- src_mysql_cnf()
 #'   class(db)
@@ -217,7 +217,7 @@ db_type.src_dbi <- function(obj, ...) {
 
 db_type.DBIConnection <- function(obj, ...) {
   class(obj) |>
-    gsub(pattern = "Connection", replacement = "", x = .) |>
+    gsub(pattern = "Connection", replacement = "", x = _) |>
     tolower() |>
     utils::head(1)
 }
@@ -249,7 +249,7 @@ create_etl_package <- function(...) {
   if (file.copy(src, dest)) {
     message("* Creating R/etl.R template source file...")
     readLines(dest) |>
-      gsub("foo", pkg, x = .) |>
+      gsub("foo", pkg, x = _) |>
       writeLines(con = dest)
   }
 #  usethis::use_package("etl", "Depends")

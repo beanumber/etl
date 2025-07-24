@@ -34,13 +34,13 @@ Imports:
     utils,
     xml2
 Depends:
-    R (>= 4.10),
+    R (>= 4.1),
     dplyr
 Suggests:
     knitr,
     RSQLite,
     RPostgreSQL,
-    RMySQL,
+    RMariaDB,
     ggplot2,
     testthat,
     rmarkdown

@@ -38,7 +38,7 @@ etl_load.default <- function(obj, ...) {
 #' @export
 #' @examples
 #' \dontrun{
-#' if (require(RMySQL)) {
+#' if (require(RMariaDB)) {
 #'   # must have pre-existing database "fec"
 #'   # if not, try
 #'   system("mysql -e 'CREATE DATABASE IF NOT EXISTS fec;'")
@@ -51,7 +51,7 @@ smart_upload <- function(obj, src = NULL, tablenames = NULL, ...) {
   }
   if (is.null(tablenames)) {
     tablenames <- basename(src) |>
-      gsub("\\.csv", "", x = .)
+      gsub("\\.csv", "", x = _)
   }
   if (length(src) != length(tablenames)) {
     warning("src and tablenames must be of the same length")

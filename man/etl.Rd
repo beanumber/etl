@@ -82,19 +82,19 @@ if (require(RPostgreSQL)) {
 }
 
 # Do it step-by-step
-cars \%>\%
-  etl_extract() \%>\%
-  etl_transform() \%>\%
+cars |>
+  etl_extract() |>
+  etl_transform() |>
   etl_load()
 src_tbls(cars)
-cars \%>\%
-  tbl("mtcars") \%>\%
-  group_by(cyl) \%>\%
+cars |>
+  tbl("mtcars") |>
+  group_by(cyl) |>
   summarize(N = n(), mean_mpg = mean(mpg))
 
 # Do it all in one step
 cars2 <- etl("mtcars")
-cars2 \%>\%
+cars2 |>
   etl_update()
 src_tbls(cars2)
 
@@ -108,7 +108,7 @@ is.etl(cars)
 
 # returns FALSE
 is.etl("hello world")
-cars <- etl("mtcars") \%>\%
+cars <- etl("mtcars") |>
   etl_create()
 cars
 }

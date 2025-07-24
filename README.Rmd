@@ -42,7 +42,7 @@ library(RPostgreSQL)
 db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
 
 # Alternatively, for MySQL
-library(RMySQL)
+library(RMariaDB)
 db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
 cars <- etl("mtcars", db)
 ```

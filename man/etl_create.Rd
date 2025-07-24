@@ -111,27 +111,27 @@ if (require(RPostgreSQL)) {
   db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
   cars <- etl("mtcars", db)
 }
-if (require(RMySQL) && mysqlHasDefault()) {
+if (require(RMariaDB) && mariadbHasDefault()) {
   db <- src_mysql(dbname = "mtcars", user = "r-user",
                   host = "localhost", password = "mypass")
   cars <- etl("mtcars", db)
 }
 }
 cars <- etl("mtcars")
-cars \%>\%
- etl_extract() \%>\%
- etl_transform() \%>\%
- etl_load() \%>\%
+cars |>
+ etl_extract() |>
+ etl_transform() |>
+ etl_load() |>
  etl_cleanup()
 cars
 
-cars \%>\%
- tbl(from = "mtcars") \%>\%
- group_by(cyl) \%>\%
+cars |>
+ tbl(from = "mtcars") |>
+ group_by(cyl) |>
  summarise(N = n(), mean_mpg = mean(mpg))
 
  # do it all in one step, and peek at the SQL creation script
- cars \%>\%
+ cars |>
    etl_create(echo = TRUE)
  # specify a directory for the data
  \dontrun{
@@ -140,9 +140,9 @@ cars \%>\%
  }
 cars <- etl("mtcars")
 # Do it step-by-step
-cars \%>\%
-  etl_extract() \%>\%
-  etl_transform() \%>\%
+cars |>
+  etl_extract() |>
+  etl_transform() |>
   etl_load()
 
 # Note the somewhat imprecise data types for the columns. These are the default.
@@ -150,8 +150,8 @@ tbl(cars, "mtcars")
 
 # But you can also specify your own schema if you want
 schema <- system.file("sql", "init.sqlite", package = "etl")
-cars \%>\%
-  etl_init(schema) \%>\%
+cars |>
+  etl_init(schema) |>
   etl_load()
 }
 \seealso{
