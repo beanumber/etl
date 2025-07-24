@@ -23,25 +23,25 @@ etl_transform.etl_cities <- function(obj, ...) {
   tables <- lapply(pages, rvest::html_table, fill = TRUE)
 
   get_longest_table <- function(x) {
-    nrows <- lapply(x, nrow) %>%
+    nrows <- lapply(x, nrow) |>
       unlist()
     x[[which.max(nrows)]]
   }
 
-  world_cities <- get_longest_table(tables[[1]]) %>%
-    janitor::clean_names() %>%
-    filter(city != "City") %>%
+  world_cities <- get_longest_table(tables[[1]]) |>
+    janitor::clean_names() |>
+    filter(city != "City") |>
     mutate(
       city_pop = readr::parse_number(population),
       metro_pop = readr::parse_number(population_2),
       urban_pop = readr::parse_number(population_3),
       # strip commas to avoid breaking SQLite import
       Nation = gsub(",", "_", nation)
-    ) %>%
+    ) |>
     select(city, nation, contains("_pop"))
 
-  us_cities <- get_longest_table(tables[[2]]) %>%
-    janitor::clean_names() %>%
+  us_cities <- get_longest_table(tables[[2]]) |>
+    janitor::clean_names() |>
     mutate(
       city = gsub("\\[[a-z0-9]+\\]", "", city),
       pop_2018 = readr::parse_number(`x2018estimate`),
@@ -50,8 +50,8 @@ etl_transform.etl_cities <- function(obj, ...) {
       pop_density_2010 = readr::parse_number(`x2016_population_density_2`),
       # strip commas to avoid breaking SQLite import
       location = gsub(",", "_", location)
-    ) %>%
-    rename(state = `state_c`) %>%
+    ) |>
+    rename(state = `state_c`) |>
     select(city, state, pop_2018, pop_2010,
            pop_density_2016, pop_density_2010, location)
 

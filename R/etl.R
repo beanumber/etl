@@ -51,19 +51,19 @@
 #' }
 #'
 #' # Do it step-by-step
-#' cars %>%
-#'   etl_extract() %>%
-#'   etl_transform() %>%
+#' cars |>
+#'   etl_extract() |>
+#'   etl_transform() |>
 #'   etl_load()
 #' src_tbls(cars)
-#' cars %>%
-#'   tbl("mtcars") %>%
-#'   group_by(cyl) %>%
+#' cars |>
+#'   tbl("mtcars") |>
+#'   group_by(cyl) |>
 #'   summarize(N = n(), mean_mpg = mean(mpg))
 #'
 #' # Do it all in one step
 #' cars2 <- etl("mtcars")
-#' cars2 %>%
+#' cars2 |>
 #'   etl_update()
 #' src_tbls(cars2)
 #'
@@ -121,7 +121,7 @@ summary.etl <- function(object, ...) {
   dplyr::bind_rows(
     summary_dir(attr(object, "raw_dir")),
     summary_dir(attr(object, "load_dir"))
-  ) %>%
+  ) |>
     print()
   NextMethod()
 }
@@ -154,14 +154,14 @@ is.etl <- function(object) inherits(object, "etl")
 #' @export
 #' @inheritParams base::print
 #' @examples
-#' cars <- etl("mtcars") %>%
+#' cars <- etl("mtcars") |>
 #'   etl_create()
 #' cars
 print.etl <- function(x, ...) {
   file_info <- dplyr::bind_rows(
     summary_dir(attr(x, "raw_dir")),
     summary_dir(attr(x, "load_dir"))
-  ) %>%
+  ) |>
     summarize(N = sum(n), size = sum(readr::parse_number(size)))
   cat("dir:  ", file_info$N, " files occupying ",
     file_info$size, " GB\n",

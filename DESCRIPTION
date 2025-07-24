@@ -34,7 +34,7 @@ Imports:
     utils,
     xml2
 Depends:
-    R (>= 2.10),
+    R (>= 4.10),
     dplyr
 Suggests:
     knitr,
@@ -46,6 +46,6 @@ Suggests:
     rmarkdown
 URL: https://github.com/beanumber/etl
 BugReports: https://github.com/beanumber/etl/issues
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Encoding: UTF-8
 VignetteBuilder: knitr, rmarkdown, ggplot2, dplyr, dbplyr

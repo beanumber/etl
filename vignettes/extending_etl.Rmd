@@ -53,7 +53,7 @@ foo <- etl("foo")
 To see the default methods in action, pick a package with some data and import it. 
 
 ```{r}
-ggplots <- etl("ggplot2") %>%
+ggplots <- etl("ggplot2") |>
   etl_update()
 src_tbls(ggplots)
 ```
@@ -69,9 +69,9 @@ All three of the main `etl` methods should take the same set or arguments. Most 
 We illustrate with `cities`, which unfortunately takes only `...`. Also, `etl_cities` uses `etl_load.default()`, so there is no `etl:::etl_load.etl_cities()` method. 
 
 ```{r, error=TRUE}
-etl_extract.etl_cities %>% args()
-etl_transform.etl_cities %>% args()
-etl_load.etl_cities %>% args()
+etl_extract.etl_cities |> args()
+etl_transform.etl_cities |> args()
+etl_load.etl_cities |> args()
 ```
 
 ### Other `etl` methods

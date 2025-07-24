@@ -54,7 +54,7 @@ At the heart of `etl` are three functions: `etl_extract()`, `etl_transform()`, a
 The first step is to acquire data from an online source. 
 
 ```{r}
-cars %>%
+cars |>
   etl_extract()
 ```
 
@@ -65,7 +65,7 @@ This creates a local store of raw data.
 These data may need to be transformed from their raw form to files suitable for importing into SQL (usually CSVs).
 
 ```{r}
-cars %>%
+cars |>
   etl_transform()
 ```
 
@@ -74,7 +74,7 @@ cars %>%
 Populate the SQL database with the transformed data. 
 
 ```{r}
-cars %>%
+cars |>
   etl_load()
 ```
 
@@ -83,14 +83,14 @@ cars %>%
 To populate the whole database from scratch, use `etl_create`. 
 
 ```{r}
-cars %>%
+cars |>
   etl_create()
 ```
 
 You can also update an existing database without re-initializing, but watch out for primary key collisions.
 
 ```{r, eval=FALSE}
-cars %>%
+cars |>
   etl_update()
 ```
 
@@ -98,9 +98,9 @@ cars %>%
 
 Now that your database is populated, you can work with it as a `src` data table just like any other `dplyr` source. 
 ```{r}
-cars %>%
-  tbl("mtcars") %>%
-  group_by(cyl) %>%
+cars |>
+  tbl("mtcars") |>
+  group_by(cyl) |>
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 

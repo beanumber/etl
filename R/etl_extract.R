@@ -10,8 +10,8 @@ etl_extract <- function(obj, ...) UseMethod("etl_extract")
 
 etl_extract.default <- function(obj, ...) {
   pkg <- attr(obj, "pkg")
-  data_sets <- utils::data(package = pkg)$results %>%
-    tibble::as_tibble() %>%
+  data_sets <- utils::data(package = pkg)$results |>
+    tibble::as_tibble() |>
     dplyr::mutate(data_path = paste0(Package, "::", Item),
                   file_path = file.path(attr(obj, "raw_dir"),
                                         paste0(Item, ".csv")))
@@ -19,7 +19,7 @@ etl_extract.default <- function(obj, ...) {
   # load the data.frames into a list
   data_list <- lapply(data_sets$data_path, get_data)
   # check to see which ones are data.frames
-  is_df <- lapply(data_list, is.data.frame) %>%
+  is_df <- lapply(data_list, is.data.frame) |>
     unlist()
 
   # check to see if list-columns exist
@@ -45,8 +45,8 @@ get_data <- function(x) {
 etl_extract.etl_mtcars <- function(obj, ...) {
   message("Extracting raw data...")
   raw_filename <- file.path(attr(obj, "raw_dir"), "mtcars.csv")
-  datasets::mtcars %>%
-    tibble::rownames_to_column("model") %>%
+  datasets::mtcars |>
+    tibble::rownames_to_column("model") |>
     readr::write_csv(file = raw_filename)
   invisible(obj)
 }

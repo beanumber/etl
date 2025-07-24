@@ -49,20 +49,20 @@
 #' }
 #' }
 #' cars <- etl("mtcars")
-#' cars %>%
-#'  etl_extract() %>%
-#'  etl_transform() %>%
-#'  etl_load() %>%
+#' cars |>
+#'  etl_extract() |>
+#'  etl_transform() |>
+#'  etl_load() |>
 #'  etl_cleanup()
 #' cars
 #'
-#' cars %>%
-#'  tbl(from = "mtcars") %>%
-#'  group_by(cyl) %>%
+#' cars |>
+#'  tbl(from = "mtcars") |>
+#'  group_by(cyl) |>
 #'  summarise(N = n(), mean_mpg = mean(mpg))
 #'
 #'  # do it all in one step, and peek at the SQL creation script
-#'  cars %>%
+#'  cars |>
 #'    etl_create(echo = TRUE)
 #'  # specify a directory for the data
 #'  \dontrun{
@@ -76,9 +76,9 @@ etl_create <- function(obj, ...) UseMethod("etl_create")
 #' @export
 
 etl_create.default <- function(obj, ...) {
-  obj <- obj %>%
-    etl_init(...) %>%
-    etl_update(...) %>%
+  obj <- obj |>
+    etl_init(...) |>
+    etl_update(...) |>
     etl_cleanup(...)
   invisible(obj)
 }
@@ -92,9 +92,9 @@ etl_update <- function(obj, ...) UseMethod("etl_update")
 #' @export
 
 etl_update.default <- function(obj, ...) {
-  obj <- obj %>%
-    etl_extract(...) %>%
-    etl_transform(...) %>%
+  obj <- obj |>
+    etl_extract(...) |>
+    etl_transform(...) |>
     etl_load(...)
   invisible(obj)
 }

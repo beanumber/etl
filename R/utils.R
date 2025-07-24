@@ -67,17 +67,17 @@ valid_year_month <- function(years, months,
   begin <- as.Date(begin)
   end <- as.Date(end)
 
-  valid_months <- tibble::tibble(expand.grid(years, months)) %>%
-    rename(year = Var1, month = Var2) %>%
+  valid_months <- tibble::tibble(expand.grid(years, months)) |>
+    rename(year = Var1, month = Var2) |>
     mutate(
       month_begin = lubridate::ymd(paste(year, month, "01", sep = "/")),
       month_end = lubridate::ymd(
         ifelse(month == 12, paste(year + 1, "01/01", sep = "/"),
-               paste(year, month + 1, "01", sep = "/"))) - 1) %>%
+               paste(year, month + 1, "01", sep = "/"))) - 1) |>
     filter(
       year > 0 & month >= 1 & month <= 12,
       month_begin >= begin & month_begin <= end
-    ) %>%
+    ) |>
     arrange(month_begin)
   return(valid_months)
 }
@@ -93,7 +93,7 @@ valid_year_month <- function(years, months,
 #' @examples
 #' \dontrun{
 #' if (require(airlines)) {
-#'   airlines <- etl("airlines", dir = "~/Data/airlines") %>%
+#'   airlines <- etl("airlines", dir = "~/Data/airlines") |>
 #'     etl_extract(year = 1987)
 #'   summary(airlines)
 #'   match_files_by_year_months(list.files(attr(airlines, "raw_dir")),
@@ -110,14 +110,14 @@ match_files_by_year_months <- function(files, pattern,
   }
   file_df <- tibble::tibble(
     filename = files,
-    file_date = extract_date_from_filename(files, pattern)) %>%
+    file_date = extract_date_from_filename(files, pattern)) |>
     mutate(
       file_year = lubridate::year(file_date),
       file_month = lubridate::month(file_date)
     )
   valid <- valid_year_month(years, months)
-  good <- file_df %>%
-    left_join(valid, by = c("file_year" = "year", "file_month" = "month")) %>%
+  good <- file_df |>
+    left_join(valid, by = c("file_year" = "year", "file_month" = "month")) |>
     filter(!is.na(month_begin))
   return(fs::as_fs_path(good$filename))
 }
@@ -134,9 +134,9 @@ extract_date_from_filename <- function(files, pattern, ...) {
   if (length(files) < 1) {
     return(NULL)
   }
-  files %>%
-    basename() %>%
-    lubridate::fast_strptime(format = pattern, ...) %>%
+  files |>
+    basename() |>
+    lubridate::fast_strptime(format = pattern, ...) |>
     # why does it always return the previous day?
     as.Date() + lubridate::days(1)
 }
@@ -216,9 +216,9 @@ db_type.src_dbi <- function(obj, ...) {
 #' @export
 
 db_type.DBIConnection <- function(obj, ...) {
-  class(obj) %>%
-    gsub(pattern = "Connection", replacement = "", x = .) %>%
-    tolower() %>%
+  class(obj) |>
+    gsub(pattern = "Connection", replacement = "", x = .) |>
+    tolower() |>
     utils::head(1)
 }
 
@@ -248,8 +248,8 @@ create_etl_package <- function(...) {
   dest <- file.path(path, "R", "etl.R")
   if (file.copy(src, dest)) {
     message("* Creating R/etl.R template source file...")
-    readLines(dest) %>%
-      gsub("foo", pkg, x = .) %>%
+    readLines(dest) |>
+      gsub("foo", pkg, x = .) |>
       writeLines(con = dest)
   }
 #  usethis::use_package("etl", "Depends")

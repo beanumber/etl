@@ -3,9 +3,9 @@
 #' @examples
 #' cars <- etl("mtcars")
 #' # Do it step-by-step
-#' cars %>%
-#'   etl_extract() %>%
-#'   etl_transform() %>%
+#' cars |>
+#'   etl_extract() |>
+#'   etl_transform() |>
 #'   etl_load()
 #'
 #' # Note the somewhat imprecise data types for the columns. These are the default.
@@ -13,8 +13,8 @@
 #'
 #' # But you can also specify your own schema if you want
 #' schema <- system.file("sql", "init.sqlite", package = "etl")
-#' cars %>%
-#'   etl_init(schema) %>%
+#' cars |>
+#'   etl_init(schema) |>
 #'   etl_load()
 
 etl_load <- function(obj, ...) UseMethod("etl_load")
@@ -50,7 +50,7 @@ smart_upload <- function(obj, src = NULL, tablenames = NULL, ...) {
     src <- list.files(attr(obj, "load_dir"), pattern = "\\.csv", full.names = TRUE)
   }
   if (is.null(tablenames)) {
-    tablenames <- basename(src) %>%
+    tablenames <- basename(src) |>
       gsub("\\.csv", "", x = .)
   }
   if (length(src) != length(tablenames)) {
@@ -81,14 +81,14 @@ smart_upload <- function(obj, src = NULL, tablenames = NULL, ...) {
 #' @export
 #' @examples
 #' cars <- etl("mtcars")
-#' cars %>%
+#' cars |>
 #'   etl_init()
-#' cars %>%
+#' cars |>
 #'   etl_init(script = sql("CREATE TABLE IF NOT EXISTS mtcars_alt (id INTEGER);"))
-#' cars %>%
+#' cars |>
 #'   etl_init(schema_name = "init")
 #' init_script <- find_schema(cars, schema_name = "init")
-#' cars %>%
+#' cars |>
 #'   etl_init(script = init_script, echo = TRUE)
 #' src_tbls(cars)
 

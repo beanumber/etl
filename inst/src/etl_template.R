@@ -5,7 +5,7 @@
 #' @examples
 #' \dontrun{
 #' if (require(dplyr)) {
-#'   obj <- etl("foo") %>%
+#'   obj <- etl("foo") |>
 #'     etl_create()
 #' }
 #' }
