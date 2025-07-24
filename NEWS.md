@@ -1,7 +1,8 @@
-# etl 0.4.2 (2025-07-31)
+# etl 0.4.2 (2025-07-24)
 
 * Switched to base pipe
 * Replaced RMySQL with RMariaDB
+* Converted documentation to Markdown
 
 # etl 0.4.1 (2023-10-12)
 
