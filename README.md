@@ -35,7 +35,7 @@ cars <- etl("mtcars")
 
     ## No database was specified so I created one for you at:
 
-    ## /tmp/Rtmpxgb3In/file1955f5264fb8c.sqlite3
+    ## /tmp/RtmpqG1dts/file2467546f874f4.sqlite3
 
 ``` r
 class(cars)
@@ -62,7 +62,7 @@ library(RPostgreSQL)
 db <- src_postgres(dbname = "mtcars", user = "postgres", host = "localhost")
 
 # Alternatively, for MySQL
-library(RMySQL)
+library(RMariaDB)
 db <- src_mysql(dbname = "mtcars", user = "r-user", password = "mypass", host = "localhost")
 cars <- etl("mtcars", db)
 ```
@@ -75,7 +75,7 @@ At the heart of `etl` are three functions: `etl_extract()`,
 The first step is to acquire data from an online source.
 
 ``` r
-cars %>%
+cars |>
   etl_extract()
 ```
 
@@ -89,7 +89,7 @@ These data may need to be transformed from their raw form to files
 suitable for importing into SQL (usually CSVs).
 
 ``` r
-cars %>%
+cars |>
   etl_transform()
 ```
 
@@ -98,7 +98,7 @@ cars %>%
 Populate the SQL database with the transformed data.
 
 ``` r
-cars %>%
+cars |>
   etl_load()
 ```
 
@@ -109,7 +109,7 @@ cars %>%
 To populate the whole database from scratch, use `etl_create`.
 
 ``` r
-cars %>%
+cars |>
   etl_create()
 ```
 
@@ -123,7 +123,7 @@ You can also update an existing database without re-initializing, but
 watch out for primary key collisions.
 
 ``` r
-cars %>%
+cars |>
   etl_update()
 ```
 
@@ -133,9 +133,9 @@ Now that your database is populated, you can work with it as a `src`
 data table just like any other `dplyr` source.
 
 ``` r
-cars %>%
-  tbl("mtcars") %>%
-  group_by(cyl) %>%
+cars |>
+  tbl("mtcars") |>
+  group_by(cyl) |>
   summarise(N = n(), mean_mpg = mean(mpg))
 ```
 
@@ -143,8 +143,8 @@ cars %>%
     ## Use `na.rm = TRUE` to silence this warning
     ## This warning is displayed once every 8 hours.
 
-    ## # Source:   SQL [3 x 3]
-    ## # Database: sqlite 3.41.2 [/tmp/Rtmpxgb3In/file1955f5264fb8c.sqlite3]
+    ## # Source:   SQL [?? x 3]
+    ## # Database: sqlite 3.50.1 [/tmp/RtmpqG1dts/file2467546f874f4.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
     ## 1     4    11     26.7
