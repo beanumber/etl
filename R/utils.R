@@ -1,5 +1,5 @@
 if(getRversion() >= "2.15.1") {
-  utils::globalVariables(c(".", "year", "month"))
+  utils::globalVariables(c(".", "year", "month", "location"))
 }
 
 #' @import dplyr
