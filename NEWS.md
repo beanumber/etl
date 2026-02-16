@@ -1,3 +1,7 @@
+# etl 0.4.3 (2026-02-16)
+
+* Moved documentation from `dplyr::src_dbi()` to `dbplyr::src_dbi()`
+
 # etl 0.4.2 (2025-07-24)
 
 * Switched to base pipe
