@@ -13,7 +13,7 @@ src_mysql_cnf(dbname = "test", groups = "rs-dbi", ...)
 \item{groups}{section of \verb{~/.my.cnf} file. Default is \code{rs-dbi} as in
 \code{\link[RMariaDB:mariadbHasDefault]{RMariaDB::mariadbHasDefault()}}}
 
-\item{...}{arguments passed to \code{\link[dplyr:src_dbi]{dplyr::src_mysql()}}}
+\item{...}{arguments passed to \code{\link[dplyr:defunct]{dplyr::src_mysql()}}}
 }
 \description{
 Connect to local MySQL Server using ~/.my.cnf
@@ -29,5 +29,5 @@ if (require(RMariaDB) && mariadbHasDefault()) {
 }
 }
 \seealso{
-\code{\link[dplyr:src_dbi]{dplyr::src_mysql()}}, \code{\link[RMariaDB:mariadbHasDefault]{RMariaDB::mariadbHasDefault()}}
+\code{\link[dplyr:defunct]{dplyr::src_mysql()}}, \code{\link[RMariaDB:mariadbHasDefault]{RMariaDB::mariadbHasDefault()}}
 }

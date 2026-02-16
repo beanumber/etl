@@ -35,7 +35,7 @@ cars <- etl("mtcars")
 
     ## No database was specified so I created one for you at:
 
-    ## /tmp/RtmpqG1dts/file2467546f874f4.sqlite3
+    ## /tmp/Rtmp5daz1g/file6930d4eb837eb.sqlite3
 
 ``` r
 class(cars)
@@ -47,10 +47,10 @@ class(cars)
 ## Connect to a local or remote database
 
 `etl` works with a local or remote database to store your data. Every
-`etl` object extends a `dplyr::src_dbi` object. If, as in the example
+`etl` object extends a `dbplyr::src_dbi` object. If, as in the example
 above, you do not specify a SQL source, a local `RSQLite` database will
 be created for you. However, you can also specify any source that
-inherits from `dplyr::src_dbi`.
+inherits from `dbplyr::src_dbi`.
 
 > Note: If you want to use a database other than a local RSQLite, you
 > must create the `mtcars` database and have permission to write to it
@@ -144,7 +144,7 @@ cars |>
     ## This warning is displayed once every 8 hours.
 
     ## # Source:   SQL [?? x 3]
-    ## # Database: sqlite 3.50.1 [/tmp/RtmpqG1dts/file2467546f874f4.sqlite3]
+    ## # Database: sqlite 3.51.2 [/tmp/Rtmp5daz1g/file6930d4eb837eb.sqlite3]
     ##     cyl     N mean_mpg
     ##   <int> <int>    <dbl>
     ## 1     4    11     26.7

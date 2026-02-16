@@ -24,7 +24,7 @@ This determines the class of the resulting \code{etl} object, which
 determines method dispatch of \verb{etl_*()} functions. There is no default,
 but you can use \link[datasets:mtcars]{datasets::mtcars} as an test example.}
 
-\item{db}{a database connection that inherits from \code{\link[dplyr:src_dbi]{dplyr::src_dbi()}}.
+\item{db}{a database connection that inherits from \code{\link[dbplyr:src_dbi]{dbplyr::src_dbi()}}.
 It is NULL by default, which results in a \code{\link[RSQLite:SQLite]{RSQLite::SQLite()}} connection
 being created in \code{dir}.}
 
@@ -37,7 +37,7 @@ being created in \code{dir}.}
 \value{
 For \code{etl}, an object of class \code{etl_x} and
 \code{etl} that inherits
-from \code{\link[dplyr:src_dbi]{dplyr::src_dbi()}}
+from \code{\link[dbplyr:src_dbi]{dbplyr::src_dbi()}}
 
 For \code{\link[=is.etl]{is.etl()}}, \code{TRUE} or \code{FALSE},
 depending on whether \code{x} has class \code{etl}
@@ -47,7 +47,7 @@ Initialize an \code{etl} object
 }
 \details{
 A constructor function that instantiates an \code{etl} object.
-An \code{etl} object extends a \code{\link[dplyr:src_dbi]{dplyr::src_dbi()}} object.
+An \code{etl} object extends a \code{\link[dbplyr:src_dbi]{dbplyr::src_dbi()}} object.
 It also has attributes for:
 \describe{
 \item{pkg}{the name of the \code{etl} package corresponding to the data source}
@@ -55,7 +55,7 @@ It also has attributes for:
 \item{raw_dir}{the directory where the raw data files are stored}
 \item{load_dir}{the directory where the processed data files are stored}
 }
-Just like any \code{\link[dplyr:src_dbi]{dplyr::src_dbi()}} object, an \code{etl} object
+Just like any \code{\link[dbplyr:src_dbi]{dbplyr::src_dbi()}} object, an \code{etl} object
 is a data source backed by an SQL database. However, an \code{etl} object
 has additional functionality based on the presumption that the SQL database
 will be populated from data files stored on the local hard disk. The ETL functions

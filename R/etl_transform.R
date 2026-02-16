@@ -1,3 +1,5 @@
+globalVariables(c("location"))
+
 #' @rdname etl_create
 #' @export
 
