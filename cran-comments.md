@@ -7,7 +7,8 @@
 
 ## R CMD check results
 
-- Moved `dplyr::src_dbi()` to `dbplyr::src_dbi()`
+- Moved documentation `dplyr::src_dbi()` to `dbplyr::src_dbi()`
+- All problems [on CRAN](https://cran.r-project.org/web/checks/check_results_etl.html) have been fixed. 
 
 ## Reverse dependencies
 
